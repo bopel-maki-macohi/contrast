@@ -8,7 +8,7 @@ import flixel.FlxG;
 
 class PreloaderAssets extends Preloader
 {
-	private var nonWhiteColors = [
+	private var colors = [
 		Color.BLACK,
 		Color.BLUE,
 		Color.GRAY,
@@ -29,7 +29,7 @@ class PreloaderAssets extends Preloader
 		@:privateAccess
 		this.libraries = [for (library => lib in Assets.libraries) library];
 
-		super(nonWhiteColors.length + libraries.length);
+		super(colors.length + libraries.length);
 	}
 
 	override function preload()
@@ -44,7 +44,7 @@ class PreloaderAssets extends Preloader
 			done++;
 		}
 
-		for (i => color in nonWhiteColors)
+		for (i => color in colors)
 		{
 			final key = '${color}_vessel';
 			var vesselGraphic = FlxGraphic.fromAssetKey('visual:white/vessel.png', false, '', false);
