@@ -1,6 +1,6 @@
 import flixel.util.FlxColor;
 
-enum abstract Color(FlxColor) from FlxColor to FlxColor
+enum abstract Color(Int) from Int from FlxColor to Int to FlxColor
 {
 	var WHITE = 0xFFFFFFFF;
 	var GRAY = 0xFF7F7F7F;
