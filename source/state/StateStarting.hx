@@ -133,6 +133,7 @@ class StateStarting extends State
 		add(lineText);
 		lineText.font = 'font:ARIAL.TTF';
 		lineText.color = Color.SEA;
+		lineText.antialiasing = true;
 
 		lineText.setPosition(lineText.size, lineText.size);
 

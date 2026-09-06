@@ -1,3 +1,4 @@
+./assets/data/shaders/grayscale.frag
 ./assets/data/starting-base.txt
 ./assets/data/starting-buildfiles.txt
 ./assets/fonts/ARIAL.TTF
@@ -24,6 +25,8 @@
 ./source/preloader/Preloader.hx
 ./source/preloader/PreloaderAssets.hx
 ./source/Save.hx
+./source/shader/Shader.hx
+./source/shader/ShaderGlow.hx
 ./source/Sprite.hx
 ./source/state/State.hx
 ./source/state/StateFirstChoice.hx
