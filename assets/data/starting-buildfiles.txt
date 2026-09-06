@@ -24,7 +24,6 @@
 ./source/preloader/Preloader.hx
 ./source/preloader/PreloaderAssets.hx
 ./source/Save.hx
-./source/shader/PerspectiveShader.hx
 ./source/Sprite.hx
 ./source/state/State.hx
 ./source/state/StateFirstChoice.hx
