@@ -3,23 +3,22 @@ package preloader;
 import lime.utils.Assets;
 import flixel.util.FlxBitmapDataUtil;
 import flixel.graphics.FlxGraphic;
-import sprite.SpriteColorable;
 import flixel.FlxG;
 
 class PreloaderAssets extends Preloader
 {
 	private var colors = [
-		Color.BLACK,
-		Color.BLUE,
-		Color.GRAY,
-		Color.GREEN,
-		Color.LIME,
-		Color.ORANGE,
-		Color.PURPLE,
-		Color.RED,
-		Color.SEA,
-		Color.WHITE,
-		Color.YELLOW,
+		'black' => Color.BLACK,
+		'blue' => Color.BLUE,
+		'gray' => Color.GRAY,
+		'green' => Color.GREEN,
+		'lime' => Color.LIME,
+		'orange' => Color.ORANGE,
+		'purple' => Color.PURPLE,
+		'red' => Color.RED,
+		'sea' => Color.SEA,
+		'white' => Color.WHITE,
+		'yellow' => Color.YELLOW,
 	];
 
 	private var libraries = [];
@@ -29,7 +28,7 @@ class PreloaderAssets extends Preloader
 		@:privateAccess
 		this.libraries = [for (library => lib in Assets.libraries) library];
 
-		super(colors.length + libraries.length);
+		super([for (color in colors) color].length + libraries.length);
 	}
 
 	override function preload()
@@ -44,14 +43,14 @@ class PreloaderAssets extends Preloader
 			done++;
 		}
 
-		for (i => color in colors)
+		for (colorCODE => colorVALUE in colors)
 		{
-			final key = '${color}_vessel';
+			final key = '${colorCODE}_vessel';
 			var vesselGraphic = FlxGraphic.fromAssetKey('visual:white/vessel.png', false, '', false);
-			FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, color);
+			FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, colorVALUE);
 			FlxG.bitmap.add(vesselGraphic.bitmap, true, key);
 			FlxG.bitmap.get(key).persist = true;
-			trace('Created Color Vessel #$i');
+			trace('Created Color Vessel : $colorCODE');
 
 			done++;
 		}
