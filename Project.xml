@@ -33,7 +33,7 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	<assets path="assets" rename=""/>
+	<assets path="assets/visuals" rename="" library="visual" embed="true"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

@@ -1,5 +1,6 @@
 package preloader;
 
+import lime.utils.Assets;
 import flixel.util.FlxBitmapDataUtil;
 import flixel.graphics.FlxGraphic;
 import sprite.SpriteColorable;
@@ -21,22 +22,36 @@ class PreloaderAssets extends Preloader
 		Color.YELLOW,
 	];
 
+	private var libraries = [];
+
 	override public function new()
 	{
-		super(nonWhiteColors.length);
+		@:privateAccess
+		this.libraries = [for (library => lib in Assets.libraries) library];
+
+		super(nonWhiteColors.length + libraries.length);
 	}
 
 	override function preload()
 	{
 		super.preload();
 
-		for (color in nonWhiteColors)
+		for (library in libraries)
 		{
-            final key = '${color}_vessel';
-			var vesselGraphic = FlxGraphic.fromAssetKey('white/vessel.png',false,'',false);
-            FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, color);
-            FlxG.bitmap.add(vesselGraphic.bitmap, true, key);
-            FlxG.bitmap.get(key).persist = true;
+			Assets.loadLibrary(library);
+			trace('Loaded library: $library');
+
+			done++;
+		}
+
+		for (i => color in nonWhiteColors)
+		{
+			final key = '${color}_vessel';
+			var vesselGraphic = FlxGraphic.fromAssetKey('visual:white/vessel.png', false, '', false);
+			FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, color);
+			FlxG.bitmap.add(vesselGraphic.bitmap, true, key);
+			FlxG.bitmap.get(key).persist = true;
+			trace('Created Color Vessel #$i');
 
 			done++;
 		}
