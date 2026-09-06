@@ -33,7 +33,10 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	<assets path="assets/visuals" rename="" library="visual" embed="true"/>
+	<prebuild haxe="source.Prebuild"/>
+
+	<assets path="assets/data" rename="" library="data" embed="true"/>
+	<assets path="assets/image" rename="" library="image" embed="true"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 

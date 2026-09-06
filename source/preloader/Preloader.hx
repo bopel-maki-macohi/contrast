@@ -2,7 +2,7 @@ package preloader;
 
 import flixel.util.FlxSignal;
 
-class Preloader extends Object
+class Preloader extends Obj
 {
 	public var assets(default, null):Int = 0;
 	public var progress(default, null):Float = 0.0;
