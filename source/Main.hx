@@ -1,13 +1,17 @@
-package;
-
+import openfl.events.Event;
 import flixel.FlxGame;
-import openfl.display.Sprite;
 
-class Main extends Sprite
+class Main extends FlxGame
 {
 	public function new()
 	{
-		super();
-		addChild(new FlxGame(0, 0, PlayState));
+		super(0, 0, StartingState);
+	}
+
+	override function create(_:Event)
+	{
+		Save.create();
+
+		super.create(_);
 	}
 }
