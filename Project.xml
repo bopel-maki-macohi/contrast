@@ -33,7 +33,7 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	<assets path="assets" exclude=".gitkeep" />
+	<assets path="assets" rename=""/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
