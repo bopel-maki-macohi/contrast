@@ -1,4 +1,5 @@
 ./assets/data/starting-buildfiles.txt
+./assets/fonts/ARIAL.TTF
 ./assets/image/colored/c-wheel.png
 ./assets/image/white/vessel.png
 ./source/Color.hx

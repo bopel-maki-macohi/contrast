@@ -96,10 +96,13 @@ class StateStarting extends State
 
 		lineText = new FlxText(0, 0, 0, '', 16);
 		add(lineText);
+		lineText.font = 'font:ARIAL.TTF';
+		lineText.color = Color.SEA;
 
 		lineText.setPosition(lineText.size, lineText.size);
 
 		var timerOffset = 0.05;
+		final maxLines = 38;
 
 		for (i => line in lines)
 		{
@@ -107,7 +110,7 @@ class StateStarting extends State
 			{
 				renderLines.push(line);
 
-				if (renderLines.length > 35)
+				if (renderLines.length > maxLines)
 					renderLines.shift();
 
 				if (i == lines.length - 1)
@@ -117,6 +120,9 @@ class StateStarting extends State
 					FlxTimer.wait(finalTime * 0.9, function()
 					{
 						renderLines.push('COMPLETE!');
+
+						if (renderLines.length > maxLines)
+							renderLines.shift();
 					});
 					FlxTimer.wait(finalTime, function()
 					{
