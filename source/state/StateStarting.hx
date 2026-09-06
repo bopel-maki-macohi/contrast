@@ -1,29 +1,49 @@
 package state;
 
-import lime.app.Application;
+import lime.system.Clipboard;
+import sys.io.File;
+import audio.*;
 import flixel.util.FlxTimer;
 import flixel.text.FlxText;
 import haxe.io.Path;
 import flixel.FlxG;
 import haxe.io.Bytes;
 import haxe.crypto.Base64;
-import lime.utils.Assets;
 import data.*;
 
 using StringTools;
 
 class StateStarting extends State
 {
-	private var buildfiles = new DataLoaderStringArray('data:starting-buildfiles.txt');
+	private static var maxRenderLines(default, null):Int = 38;
 
-	private var lines:Array<String> = [];
-	private var renderLines:Array<String> = [];
+	private var base(default, null):DataLoaderStringArray = new DataLoaderStringArray('data:starting-base.txt');
+	private var buildfiles(default, null):DataLoaderStringArray = new DataLoaderStringArray('data:starting-buildfiles.txt');
 
-	private var lineText:FlxText;
+	private var lines(default, null):Array<String> = [];
+	private var renderLines(default, null):Array<String> = [];
+	private var endingLines(default, null):Array<String> = [];
+
+	private var lineText(default, null):FlxText;
+
+	private var soundscape(default, null):Audio;
 
 	override function create()
 	{
 		super.create();
+
+		function getRandomSoundscape()
+		{
+			return 'sound:terminal/soundscape${FlxG.random.int(1, 4)}.ogg';
+		}
+
+		soundscape = new Audio(getRandomSoundscape());
+		soundscape.play();
+
+		soundscape.onComplete.add(function()
+		{
+			soundscape.loadAndPlay(getRandomSoundscape());
+		});
 
 		function obfuscate(thing:String, state:String)
 		{
@@ -35,64 +55,79 @@ class StateStarting extends State
 			return '$obfuse : [[${state.toUpperCase()}]]';
 		}
 
-		lines.push('Loading "CNRST" OS');
-		lines.push('');
-		lines.push(obfuscate('Drivers', 'COMPLETE'));
-		lines.push(obfuscate('Readers', 'COMPLETE'));
-		lines.push('');
-		lines.push('Initalizing Drivers');
-		lines.push('');
-		lines.push(obfuscate('Driver "A"', 'STABLE'));
-		lines.push(obfuscate('Driver "B"', 'STABLE'));
-		lines.push(obfuscate('Driver "C"', 'STABLE'));
-		lines.push(obfuscate('Driver "D"', 'STABLE'));
-		lines.push(obfuscate('Driver "E"', 'STABLE'));
-		lines.push(obfuscate('Driver "F"', 'UNSTABLE'));
-		lines.push(obfuscate('Driver "G"', 'STABLE'));
-
-		lines.push('');
-		lines.push('Running default program');
-		lines.push('');
-		lines.push(obfuscate('Cool as fuck scene?', 'CREATED'));
-		lines.push(obfuscate('Vessel Selector State Initalization', 'COMPLETE'));
-		lines.push(obfuscate('Inversion System', 'ACTIVATED'));
-		lines.push(obfuscate('Vessel Freewill', 'TERMINATED'));
-
-		lines.push('');
-		lines.push('Building CONTRAST...');
-		lines.push('');
-		for (line in [for (line in buildfiles.data) line])
+		for (line in base.data)
 		{
-			line = line.substr('./'.length);
-			var path = new Path(line);
-
-			switch (path.ext)
+			if (line.startsWith('%'))
 			{
-				case 'hx':
-					lines.push(' * ' + obfuscate(path.toString(), 'COMPILED'));
+				switch (line.substr('%'.length))
+				{
+					case 'os':
+						lines.push('* ${obfuscate('Readers', 'INITALIZED')}');
+						lines.push('* ${obfuscate('Drivers', 'PREPARING')}');
 
-				default:
-					lines.push(' * ' + obfuscate(path.toString(), 'EMBEDDED'));
+					case 'drivers':
+						lines.push('* ${obfuscate('Drive "A"', 'STABLE')}');
+						lines.push('* ${obfuscate('Drive "B"', 'STABLE')}');
+						lines.push('* ${obfuscate('Drive "C"', 'STABLE')}');
+						lines.push('* ${obfuscate('Drive "D"', 'STABLE')}');
+						lines.push('* ${obfuscate('Drive "E"', 'STABLE')}');
+						lines.push('* ${obfuscate('Drive "F"', 'UNSTABLE')}');
+
+					case 'defaultPrgm':
+						lines.push(obfuscate('Cool as fuck scene?', 'CREATED'));
+						lines.push(obfuscate('Vessel Selector State Initalization', 'COMPLETE'));
+						lines.push(obfuscate('Inversion System', 'ACTIVATED'));
+						lines.push(obfuscate('Vessel Freewill', 'TERMINATED'));
+
+					case 'building':
+						for (line in [for (line in buildfiles.data) line])
+						{
+							line = line.substr('./'.length);
+							var path = new Path(line);
+
+							switch (path.ext)
+							{
+								case 'hx':
+									lines.push(' * ' + obfuscate(path.toString(), 'COMPILED'));
+
+								case 'md':
+									lines.push(' * ' + obfuscate(path.toString(), 'EXCLUDED'));
+
+								default:
+									lines.push(' * ' + obfuscate(path.toString(), 'EMBEDDED'));
+							}
+						}
+
+					case 'libraries':
+						for (library in Main.assetsPreloader.libraries)
+							lines.push('* ${obfuscate(library, 'LOADED')}');
+
+					case 'graphics':
+						@:privateAccess
+						for (id => sprite in FlxG.bitmap._cache)
+							lines.push('* ${obfuscate(id, 'LOADED')}');
+				}
+
+				continue;
+			}
+
+			lines.push(line);
+		}
+
+		for (x in 0...FlxG.random.int(3, 4))
+		{
+			for (y in 1...100)
+			{
+				final randomThing = 'randomThing$x : ${x * x} : $x^2';
+
+				addEndingLine(obfuscate(randomThing, '${y / 100}%'));
 			}
 		}
 
-		lines.push('');
-		lines.push('Loading Libraries...');
-		lines.push('');
-		for (library in Main.assetsPreloader.libraries)
-			lines.push(' * ' + obfuscate(library, 'LOADED'));
-
-		lines.push('');
-		lines.push('Caching Graphics...');
-		lines.push('');
-		@:privateAccess
-		for (id => sprite in FlxG.bitmap._cache)
-			lines.push(' * ' + obfuscate(id, 'CACHED'));
-
-		lines.push('');
-		lines.push('');
-		lines.push('');
-		lines.push('Performing final building steps...');
+		endingLines.sort((a, b) ->
+		{
+			return FlxG.random.int(-1, 1);
+		});
 
 		lineText = new FlxText(0, 0, 0, '', 16);
 		add(lineText);
@@ -102,33 +137,37 @@ class StateStarting extends State
 		lineText.setPosition(lineText.size, lineText.size);
 
 		var timerOffset = 0.05;
-		final maxLines = 38;
 
 		for (i => line in lines)
 		{
 			FlxTimer.wait(timerOffset, function()
 			{
-				renderLines.push(line);
+				nextLine(line);
 
-				if (renderLines.length > maxLines)
-					renderLines.shift();
+				if (i != lines.length - 1)
+					return;
 
-				if (i == lines.length - 1)
+				soundscape.stop();
+
+				final finalTime = timerOffset * FlxG.random.float(0.35, 0.45);
+
+				FlxTimer.wait(finalTime * 0.75, function()
 				{
-					final finalTime = timerOffset * FlxG.random.float(0.35, 0.45);
+					nextLine('COMPLETE!');
+					nextLine('');
 
-					FlxTimer.wait(finalTime * 0.9, function()
-					{
-						renderLines.push('COMPLETE!');
+					var t = 0.0;
 
-						if (renderLines.length > maxLines)
-							renderLines.shift();
-					});
-					FlxTimer.wait(finalTime, function()
+					soundscape.loadAndPlay('sound:terminal/soundscape1.ogg');
+
+					for (endingLine in endingLines)
 					{
-						FlxG.switchState(() -> new StateFirstChoice());
-					});
-				}
+						t += FlxG.random.float(0, 0.05);
+						FlxTimer.wait(t, () -> nextLine(endingLine));
+					}
+				});
+
+				FlxTimer.wait(finalTime, () -> FlxG.switchState(() -> new StateFirstChoice()));
 			});
 			timerOffset += FlxG.random.float(0.01, 0.25) * ((line.length < 1) ? 0.25 : 1.0);
 		}
@@ -139,41 +178,29 @@ class StateStarting extends State
 		super.update(elapsed);
 
 		if (lineText != null && renderLines != null)
-		{
 			lineText.text = renderLines.join('\n');
+	}
 
-			if (FlxG.random.bool(25))
-				lineText.text = lineText.text.replace('TERMINATED', 'T3RM1N4T3D');
-			else if (FlxG.random.bool(25 / 2))
-				lineText.text = lineText.text.replace('TERMINATED', '_3RM1N4_3D');
-			else if (FlxG.random.bool(25 / 4))
-				lineText.text = lineText.text.replace('TERMINATED', 'ACTIVE');
-			else if (FlxG.random.bool(25 / 8))
-				lineText.text = lineText.text.replace('TERMINATED', 'FAILED PROCESS');
-			else if (FlxG.random.bool(25 / 16))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x1 : ERROR_INVALID_FUNCTION');
-			else if (FlxG.random.bool(25 / 32))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x5 : ERROR_ACCESS_DENIED');
-			else if (FlxG.random.bool(25 / 64))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x16 : ERROR_BAD_COMMAND');
-			else if (FlxG.random.bool(25 / 128))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x32 : ERROR_NOT_SUPPORTED');
-			else if (FlxG.random.bool(25 / 256))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x36 : ERROR_NETWORK_BUSY');
-			else if (FlxG.random.bool(25 / 512))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x59 : ERROR_NO_PROC_SLOTS');
-			else if (FlxG.random.bool(25 / 1024))
-				lineText.text = lineText.text.replace('TERMINATED', 'ERROR 0x78 : ERROR_CALL_NOT_IMPLEMENTED');
-			else if (FlxG.random.bool(25 / 2048))
-				lineText.text = lineText.text.replace('TERMINATED', 'FAILED : TOO RESISTANT');
-			else if (FlxG.random.bool(25 / 4096))
-				lineText.text = lineText.text.replace('TERMINATED', 'FAILED : PROCESS ENDED');
-			else if (FlxG.random.bool(25 / (4096 * 4096)))
-			{
-				lineText.text = lineText.text.replace('TERMINATED', 'HOLY SHIT DUDE THIS IS SO RARE');
+	private function nextLine(line:String)
+	{
+		addRenderLine(line);
+	}
 
-				Application.current.window.alert('You just got an ultra rare message!\n\n(${25 / (4096 * 4096)}%) change!', 'WOWOWOWOW');
-			}
-		}
+	private function addLine(line:String)
+	{
+		lines.insert(lines.length, line);
+	}
+
+	private function addEndingLine(line:String)
+	{
+		endingLines.insert(endingLines.length, line);
+	}
+
+	private function addRenderLine(line:String)
+	{
+		renderLines.insert(renderLines.length, line);
+
+		if (renderLines.length > maxRenderLines)
+			renderLines.shift();
 	}
 }

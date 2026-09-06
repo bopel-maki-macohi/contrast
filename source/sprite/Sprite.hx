@@ -12,6 +12,11 @@ class Sprite extends FlxSprite
 		return cast(super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key), Sprite);
 	}
 
+	override function toString():String
+	{
+		return 'Sprite(x: $x, y: $y, width: $width, height: $height, visible: $visible)';
+	}
+
 	public function scaleTo(scale:Float):Sprite
 	{
 		this.scale.set(scale, scale);

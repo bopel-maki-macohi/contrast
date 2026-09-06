@@ -17,9 +17,9 @@ class Main extends FlxGame
 
 	override function create(_:Event)
 	{
-		haxe.Log.trace = function(v, ?infos)
+		haxe.Log.trace = function(v:Dynamic, ?infos)
 		{
-			var str = '[ ${infos.fileName}:${infos.lineNumber} ] $v';
+			var str = '[ ${infos.fileName}:${infos.lineNumber} ] ${Std.string(v)}';
 
 			#if js
 			if (js.Syntax.typeof(untyped console) != "undefined" && (untyped console).log != null)

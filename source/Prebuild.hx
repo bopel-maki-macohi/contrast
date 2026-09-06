@@ -16,8 +16,9 @@ class Prebuild
 			'./Project.xml',
 			'./export',
 			'./dump',
-			'./haxelib',
-			'./assets/.DS_Store'
+			'./.haxelib',
+			'./assets/.DS_Store',
+			'./hmm.json',
 		]);
 
 		File.saveContent('assets/data/starting-buildfiles.txt', list.join('\n'));

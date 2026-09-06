@@ -1,0 +1,25 @@
+Loading "CNRST" OS
+
+%os
+
+Initalizing Drivers
+
+%drivers
+
+Running default program
+
+%defaultPrgm
+
+Building CONTRAST...
+
+%building
+
+Loading Libraries...
+
+%libraries
+
+Caching Graphics...
+
+%graphics
+
+Performing final building steps...

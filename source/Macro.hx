@@ -1,3 +1,6 @@
+import haxe.macro.Expr.Position;
+import haxe.macro.Type.ClassType;
+import haxe.macro.Expr.Field;
 import haxe.macro.Context;
 
 class Macro
@@ -26,4 +29,23 @@ class Macro
 	{
 		return macro $v{[for (define => value in Context.getDefines()) '$define=$value']};
 	}
+
+	// public static macro function removeFields(fields:Array<String>):Array<Field>
+	// {
+	// 	var pos:Position = Context.currentPos();
+	// 	var cls:ClassType = Context.getLocalClass().get();
+	// 	var superCls:ClassType = cls.superClass.t.get();
+		
+	// 	var classFields:Array<Field> = Context.getBuildFields();
+
+	// 	for (field in classFields)
+	// 	{
+	// 		if (!fields.contains(field.name))
+	// 			continue;
+
+	// 		classFields.remove(field);
+	// 	}
+
+	// 	return classFields;
+	// }
 }

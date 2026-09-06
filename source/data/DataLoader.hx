@@ -27,4 +27,10 @@ class DataLoader<T> extends Data<T>
 			return;
 		}
 	}
+
+	override function reset()
+	{
+		super.reset();
+		path = null;
+	}
 }

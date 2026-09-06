@@ -15,4 +15,9 @@ class Data<T> extends Obj
 	{
 		return 'Data($data)';
 	}
+
+	public function reset()
+	{
+		data = null;
+	}
 }
