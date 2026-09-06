@@ -30,22 +30,22 @@ class Macro
 		return macro $v{[for (define => value in Context.getDefines()) '$define=$value']};
 	}
 
-	// public static macro function removeFields(fields:Array<String>):Array<Field>
-	// {
-	// 	var pos:Position = Context.currentPos();
-	// 	var cls:ClassType = Context.getLocalClass().get();
-	// 	var superCls:ClassType = cls.superClass.t.get();
+	public static macro function removeFields(fields:Array<String>):Array<Field>
+	{
+		var pos:Position = Context.currentPos();
+		var cls:ClassType = Context.getLocalClass().get();
+		var superCls:ClassType = cls.superClass.t.get();
 		
-	// 	var classFields:Array<Field> = Context.getBuildFields();
+		var classFields:Array<Field> = Context.getBuildFields();
 
-	// 	for (field in classFields)
-	// 	{
-	// 		if (!fields.contains(field.name))
-	// 			continue;
+		for (field in classFields)
+		{
+			if (!fields.contains(field.name))
+				continue;
 
-	// 		classFields.remove(field);
-	// 	}
+			classFields.remove(field);
+		}
 
-	// 	return classFields;
-	// }
+		return classFields;
+	}
 }

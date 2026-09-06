@@ -2,6 +2,7 @@
 ./assets/data/starting-buildfiles.txt
 ./assets/fonts/ARIAL.TTF
 ./assets/image/colored/c-wheel.png
+./assets/image/white/arrow.png
 ./assets/image/white/vessel.png
 ./assets/sounds/terminal/soundscape1.ogg
 ./assets/sounds/terminal/soundscape2.ogg
@@ -23,8 +24,7 @@
 ./source/preloader/Preloader.hx
 ./source/preloader/PreloaderAssets.hx
 ./source/Save.hx
-./source/sprite/Sprite.hx
-./source/sprite/SpriteColorable.hx
+./source/Sprite.hx
 ./source/state/State.hx
 ./source/state/StateFirstChoice.hx
 ./source/state/StateStarting.hx

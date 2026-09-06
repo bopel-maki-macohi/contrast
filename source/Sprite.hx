@@ -1,5 +1,3 @@
-package sprite;
-
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxG;
 import flixel.FlxSprite;
