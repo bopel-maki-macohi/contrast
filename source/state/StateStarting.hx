@@ -107,7 +107,7 @@ class StateStarting extends State
 			{
 				renderLines.push(line);
 
-				if (renderLines.length > 36)
+				if (renderLines.length > 35)
 					renderLines.shift();
 
 				if (i == lines.length - 1)
@@ -116,7 +116,7 @@ class StateStarting extends State
 
 					FlxTimer.wait(finalTime * 0.9, function()
 					{
-						lineText.text += 'COMPLETE!';
+						renderLines.push('COMPLETE!');
 					});
 					FlxTimer.wait(finalTime, function()
 					{
