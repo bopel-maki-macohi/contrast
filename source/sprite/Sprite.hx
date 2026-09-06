@@ -12,13 +12,6 @@ class Sprite extends FlxSprite
 		return cast(super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key), Sprite);
 	}
 
-	override public function new(scale = 4.0, x = 0.0, y = 0.0, ?simplegraphic:FlxGraphicAsset)
-	{
-		super(x, y, simplegraphic);
-
-		scaleTo(scale);
-	}
-
 	public function scaleTo(scale:Float):Sprite
 	{
 		this.scale.set(scale, scale);

@@ -12,8 +12,8 @@ class StateStarting extends State
 	{
 		super.create();
 
-		add(blue = new SpriteColorable().loadBitmapCacheGraphic('${Color.BLUE}_vessel'));
-		add(yellow = new SpriteColorable().loadBitmapCacheGraphic('${Color.YELLOW}_vessel'));
+		add(blue = new SpriteColorable().loadBitmapCacheGraphic('${Color.BLUE}_vessel').scaleTo(4));
+		add(yellow = new SpriteColorable().loadBitmapCacheGraphic('${Color.YELLOW}_vessel').scaleTo(4));
 
 		blue.screenCenter();
 		yellow.screenCenter();
