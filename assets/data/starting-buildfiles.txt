@@ -1,5 +1,4 @@
 ./assets/data/starting-buildfiles.txt
-./assets/data/starting-intro.txt
 ./assets/image/colored/c-wheel.png
 ./assets/image/white/vessel.png
 ./source/Color.hx
@@ -7,6 +6,7 @@
 ./source/data/DataLoader.hx
 ./source/data/DataLoaderString.hx
 ./source/data/DataLoaderStringArray.hx
+./source/Macro.hx
 ./source/Main.hx
 ./source/Obj.hx
 ./source/Prebuild.hx

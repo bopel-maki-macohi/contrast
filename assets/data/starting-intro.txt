@@ -1,3 +1,0 @@
-Contrast Program
-
-Version: 0.1 (Alpha)
