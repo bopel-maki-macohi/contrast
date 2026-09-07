@@ -41,7 +41,7 @@
 
 	<assets path="assets/data" rename="" library="data" embed="true" />
 	<assets path="assets/image" rename="" library="image" embed="true" />
-	<!-- <assets path="assets/fonts" rename="" library="font" embed="true" /> -->
+	<assets path="assets/fonts" rename="" library="font" embed="true" />
 	<assets path="assets/sounds" rename="" library="sound" embed="true" />
 	<assets path="assets/special/debug" rename="" library="debug" embed="true" />
 
