@@ -51,12 +51,9 @@ class StateFirstChoice extends State
 		arrow.screenCenter();
 		arrow.shift(0, -2, true);
 
-		switch (selection)
-		{
-			case 0:
-				arrow.shift(-2, 0, true);
-			case 1:
-				arrow.shift(-2, 0, true);
-		}
+		if (selection == 0)
+			arrow.shift(-2, 0, true);
+		else
+			arrow.shift(2, 0, true);
 	}
 }
