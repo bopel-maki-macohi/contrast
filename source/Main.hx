@@ -8,7 +8,7 @@ class Main extends FlxGame
 {
 	override public function new()
 	{
-		super(StatePreloader);
+		super(0, 0, StatePreloader, 60, 60, #if SKIP_SPLASH true #else false #end, false);
 	}
 
 	override function create(_:Event)
@@ -18,8 +18,7 @@ class Main extends FlxGame
 			var str = '[ ${infos.fileName}:${infos.lineNumber} ] ${Std.string(v)}';
 
 			#if js
-			if (js.Syntax.typeof(untyped console) != "undefined" && (untyped console).log != null)
-				(untyped console).log(str);
+			if (js.Syntax.typeof(untyped console) != "undefined" && (untyped console).log != null) (untyped console).log(str);
 			#elseif lua
 			untyped __define_feature__("use._hx_print", _hx_print(str));
 			#elseif sys

@@ -5,5 +5,3 @@ TODO:
 - Yellow Path Beginning
 
 - Screenshot plugin (why the hell not)
-
-- Custom Splash Screen (corrupted haxeflixel :eyes:)
