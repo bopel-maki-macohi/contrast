@@ -36,6 +36,7 @@ class StateFirstChoice extends State
 		add(seaBG = new SeaBackdrop(Color.SEA));
 
 		newsText = new Text(0, 0, FlxG.width, news.data);
+		newsText.alignment = CENTER;
 
 		add(newsBackdrop = new FlxBackdrop(newsText.graphic));
 		newsBackdrop.blend = OVERLAY;
