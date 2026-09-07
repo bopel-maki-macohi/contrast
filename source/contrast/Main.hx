@@ -39,6 +39,8 @@ class Main extends FlxGame
 		#if TASK_MULTIPLIER
 		preloader.Preloader.taskMultiplier = FlxG.random.int(1, 100);
 		#end
+		
+		Window.setIcon();
 
 		super.create(_);
 	}

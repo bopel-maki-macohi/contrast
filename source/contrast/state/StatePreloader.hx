@@ -50,7 +50,7 @@ class StatePreloader extends State
 		super.create();
 
 		Window.title = 'DEVICE';
-		
+
 		for (preloader in preloaders) totalTasks += preloader.assets;
 
 		var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');

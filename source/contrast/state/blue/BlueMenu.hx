@@ -32,6 +32,7 @@ class BlueMenu extends State
 		super.create();
 
 		Window.title = 'DEVICE_BLUE';
+		Window.setIcon('red_iconVessel'); // fuck you .ico (thats what im blaming)
 
 		DEVICE_SOUL_TRANSFER = new Audio('sound:DEVICE_SOUL_TRANSFER.ogg');
 		DEVICE_SOUL_TRANSFER.play();

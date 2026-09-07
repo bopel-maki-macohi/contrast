@@ -5,11 +5,20 @@ import haxe.io.Path;
 
 class PreloaderAssetsColorable extends PreloaderAssets
 {
-	public var images:Array<String> = ['vessel', 'ui/box', 'macadam/macadam_idle', 'macadam/macadam_masking', 'macadam/macadam_laugh'];
+	public var images:Array<String> = [
+		'vessel',
+		'ui/box',
+		'iconVessel',
+		'macadam/macadam_idle',
+		'macadam/macadam_masking',
+		'macadam/macadam_laugh'
+	];
+
+	public var special:Array<String> = ['iconVessel',];
 
 	override public function new()
 	{
-		super('Assets (Colorable)', Math.floor(images.length * Color.table.length()));
+		super('Assets (Colorable)', Math.floor((images.length) * Color.tableRGB.length()));
 	}
 
 	override function preload()
@@ -19,7 +28,7 @@ class PreloaderAssetsColorable extends PreloaderAssets
 		currentTask = 'Creating and Caching Color Variation Assets';
 		for (asset in images)
 		{
-			for (colorCODE => colorVALUE in Color.table)
+			for (colorCODE => colorVALUE in Color.tableRGB)
 			{
 				final noDir = new Path(asset).file;
 

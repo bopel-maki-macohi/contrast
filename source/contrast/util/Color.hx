@@ -2,9 +2,9 @@ package contrast.util;
 
 import flixel.util.FlxColor;
 
-enum abstract Color(Int) from Int from FlxColor to Int to FlxColor
+enum abstract Color(Int) from FlxColor from Int to FlxColor to Int
 {
-	public static var table(default, null):Map<String, Color> = [
+	public static var tableRGB(default, null):Map<String, Color> = [
 		'black' => BLACK,
 		'blue' => BLUE,
 		'gray' => GRAY,
@@ -18,16 +18,27 @@ enum abstract Color(Int) from Int from FlxColor to Int to FlxColor
 		'yellow' => YELLOW,
 	];
 
-	public var WHITE = 0xFFFFFFFF;
-	public var GRAY = 0xFF7F7F7F;
-	public var BLACK = 0xFF000000;
+	var WHITE = 0xFFFFFFFF;
+	var GRAY = 0xFF7F7F7F;
+	var BLACK = 0xFF000000;
 
-	public var RED = 0xFFFF0000;
-	public var ORANGE = 0xFFFF7F00;
-	public var YELLOW = 0xFFFFFF00;
-	public var LIME = 0xFF7FFF00;
-	public var GREEN = 0xFF00FF00;
-	public var SEA = 0xFF007FFF;
-	public var BLUE = 0xFF0000FF;
-	public var PURPLE = 0xFF7F00FF;
+	var RED = 0xFFFF0000;
+	var ORANGE = 0xFFFF7F00;
+	var YELLOW = 0xFFFFFF00;
+	var LIME = 0xFF7FFF00;
+	var GREEN = 0xFF00FF00;
+	var SEA = 0xFF007FFF;
+	var BLUE = 0xFF0000FF;
+	var PURPLE = 0xFF7F00FF;
+
+	public function toBGR()
+	{
+		var replacement:FlxColor = this;
+		var current:FlxColor = this;
+
+		replacement.blue = current.red;
+		replacement.red = current.blue;
+
+		return replacement;
+	}
 }
