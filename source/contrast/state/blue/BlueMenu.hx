@@ -1,5 +1,6 @@
 package contrast.state.blue;
 
+import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
@@ -21,9 +22,11 @@ class BlueMenu extends State
 	private var prisonSizeTarget(default, null):Float = 2.0;
 	private var prisonScaleLerpValue(default, null):Float = 0.0;
 
-	private var user(default, null):SpriteVessel;
-
 	private var DEVICE_SOUL_TRANSFER(default, null):Audio;
+
+	private var transferMask(default, null):SeaBackdrop;
+
+	private var user(default, null):SpriteVessel;
 
 	private var title(default, null):Text;
 
@@ -40,6 +43,8 @@ class BlueMenu extends State
 		add(user = new SpriteVessel('white'));
 		user.screenCenter();
 		user.state = SPIN;
+		
+		add(transferMask = new SeaBackdrop(Color.BLACK, FlxPoint.weak(0, -20), FlxPoint.weak(0, 20)));
 
 		add(prison = new Sprite().loadBitmapCacheGraphic('blue_box').scaleTo(prisonSize));
 
