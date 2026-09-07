@@ -15,7 +15,11 @@ class Sprite extends FlxSprite
 
 	override function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):Sprite
 	{
-		return cast(super.makeGraphic(width, height, color, unique, key), Sprite);
+		super.makeGraphic(1, 1, color, unique, key);
+
+		scale.set(width, height);
+
+		return this;
 	}
 
 	override function toString():String
