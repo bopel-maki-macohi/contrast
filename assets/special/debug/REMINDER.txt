@@ -1,0 +1,13 @@
+TODO:
+- Debug Menu (lil why not thingy)
+
+- Blue Path Beginning
+- Yellow Path Beginning
+
+- Make a Macro to do the code style stuff
+- codestyle json
+- oneline stuff plzes (hxformat)
+
+- Screenshot plugin (why the hell not)
+
+- Custom Splash Screen (corrupted haxeflixel :eyes:)
