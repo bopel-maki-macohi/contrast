@@ -5,7 +5,7 @@ import haxe.io.Path;
 
 class PreloaderAssetsColorable extends PreloaderAssets
 {
-	public var images:Array<String> = ['vessel', 'macadam'];
+	public var images:Array<String> = ['vessel', 'macadam/idle', 'macadam/masking', 'macadam/laugh'];
 
 	override public function new()
 	{
@@ -16,7 +16,7 @@ class PreloaderAssetsColorable extends PreloaderAssets
 	{
 		super.preload();
 
-		currentTask = 'Creating and Caching Colorable Assets';
+		currentTask = 'Creating and Caching Color Variation Assets';
 		for (asset in images)
 		{
 			for (colorCODE => colorVALUE in Color.table)
