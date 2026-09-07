@@ -68,7 +68,7 @@ class StateFirstChoice extends State
 			{
 				case 0:
 					Save.data.alliance = 0;
-					FlxG.switchState(() -> new BlueStart());
+					FlxG.switchState(() -> new BlueMenu());
 				case 1:
 					// Save.data.alliance = 1;
 					// FlxG.switchState(() -> new YellowStart());

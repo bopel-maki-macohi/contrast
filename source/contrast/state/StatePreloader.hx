@@ -198,7 +198,7 @@ class StatePreloader extends State
 	{
 		if (Save.data.alliance == 0)
 		{
-			FlxG.switchState(() -> new BlueStart());
+			FlxG.switchState(() -> new BlueMenu());
 			return;
 		}
 

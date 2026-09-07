@@ -9,15 +9,25 @@ class Audio extends DataLoader<FlxSound>
 {
 	public var onComplete:FlxSignal;
 
+	public var playing(get, null):Bool;
+
+	private function get_playing():Bool return data.playing;
+
+	public var length(get, null):Float;
+
+	private function get_length():Float return data?.length ?? 0.0;
+
+	public var time(get, set):Float;
+
+	private function get_time():Float return data?.time ?? 0.0;
+
+	private function set_time(time:Float):Float return (data == null) ? 0 : data.time = time;
+
 	public var volume(get, set):Float;
 
 	private function get_volume():Float return data?.volume ?? 0.0;
 
 	private function set_volume(volume:Float):Float return (data == null) ? 0 : data.volume = volume;
-
-	public var playing(get, null):Bool;
-
-	private function get_playing():Bool return data.playing;
 
 	public var looped(get, set):Bool;
 
