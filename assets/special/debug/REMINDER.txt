@@ -1,7 +1,7 @@
 TODO:
 - Debug Menu (lil why not thingy)
 
-- Blue Path Beginning
+- BLUE PATH BEGINNING
 - Yellow Path Beginning
 
 - Screenshot plugin (why the hell not)

@@ -11,6 +11,8 @@ import contrast.object.assets.text.*;
 import contrast.object.group.*;
 import contrast.object.preloader.*;
 import contrast.state.*;
+import contrast.state.blue.*;
+import contrast.state.yellow.*;
 import contrast.util.*;
 import contrast.util.tool.*;
 #end

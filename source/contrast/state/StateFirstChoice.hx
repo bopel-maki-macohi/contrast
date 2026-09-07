@@ -49,6 +49,14 @@ class StateFirstChoice extends State
 
 		if (FlxG.keys.anyJustPressed([A, LEFT])) changeSelection(-1);
 		if (FlxG.keys.anyJustPressed([D, RIGHT])) changeSelection(1);
+		if (FlxG.keys.anyJustPressed([ENTER]))
+		{
+			switch (selection)
+			{
+				case 0: FlxG.switchState(() -> new BlueStart());
+				case 1: // FlxG.switchState(() -> new YellowStart());
+			}
+		}
 	}
 
 	private function changeSelection(amount = 0)
