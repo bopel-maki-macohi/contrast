@@ -10,6 +10,18 @@
 		"ifElse": "next",
 		"doWhile": "next",
 		"tryBody": "next",
-		"tryCatch": "next"
+		"tryCatch": "next",
+		"forBody": "same",
+		"caseBody": "same",
+		"elseBody": "same",
+		"catchBody": "same",
+		"whileBody": "same",
+		"returnBody": "same",
+		"ifBody": "same",
+		"returnBodySingleLine": "same",
+		"doWhileBody": "same",
+		"untypedBody": "same",
+		"functionBody": "same",
+		"anonFunctionBody": "same"
 	}
 }

@@ -1,0 +1,29 @@
+{
+    "defaultSeverity": "INFO",
+    "checks": [
+        {
+            "props": {
+                "severity": "WARNING"
+            },
+            "type": "CommentedOutCode"
+        },
+        {
+            "props": {
+                "modifiers": [
+                    "OVERRIDE",
+                    "OVERLOAD",
+                    "PUBLIC_PRIVATE",
+                    "STATIC",
+                    "INLINE",
+                    "EXTERN",
+                    "ABSTRACT",
+                    "DYNAMIC",
+                    "MACRO",
+                    "FINAL"
+                ],
+                "severity": "WARNING"
+            },
+            "type": "ModifierOrder"
+        }
+    ]
+}
