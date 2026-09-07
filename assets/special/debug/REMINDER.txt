@@ -5,3 +5,5 @@ TODO:
 - Yellow Path Beginning
 
 - Screenshot plugin (why the hell not)
+
+- EASTER EGGS
