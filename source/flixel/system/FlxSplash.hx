@@ -57,7 +57,7 @@ class FlxSplash extends FlxState
 		FlxG.keys.enabled = false;
 		#end
 
-		_times = [0, 17 / 100, 57 / 100, 57 / 100, 57 / 100];
+		_times = [0, 17 / 100, 32 / 100, 34 / 100, 36 / 100];
 		_colors = [Color.GREEN, Color.YELLOW, Color.RED, Color.BLUE, Color.SEA];
 		_functions = [drawGreen, drawYellow, drawRed, drawBlue, drawLightBlue];
 
