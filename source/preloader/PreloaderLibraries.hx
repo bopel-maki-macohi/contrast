@@ -11,7 +11,7 @@ class PreloaderLibraries extends Preloader
 		@:privateAccess
 		this.libraries = [for (library => lib in Assets.libraries) library];
 
-		super('Asset (Libraries)', libraries.length);
+		super('Assets (Libraries)', libraries.length);
 	}
 
 	override function preload()

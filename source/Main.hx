@@ -1,4 +1,3 @@
-import flixel.FlxG;
 import openfl.events.Event;
 import flixel.FlxGame;
 import preloader.*;

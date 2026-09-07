@@ -13,11 +13,15 @@ class Preloader extends Obj
 
 	public var completeSignal(default, null):FlxSignal;
 
+	public var tickSignal(default, null):FlxSignal;
+
 	public var done(default, set):Int = 0;
 
 	private function set_done(done:Int):Int
 	{
 		this.done = done;
+
+		if (tickSignal != null) tickSignal.dispatch();
 
 		if (done == assets)
 		{
@@ -35,6 +39,7 @@ class Preloader extends Obj
 		this.label = label;
 		this.assets = assets;
 
+		tickSignal = new FlxSignal();
 		completeSignal = new FlxSignal();
 	}
 
