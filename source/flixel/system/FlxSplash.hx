@@ -16,6 +16,16 @@ import openfl.text.TextFormatAlign;
 
 class FlxSplash extends FlxState
 {
+	private var _random:Null<Int> = 0;
+
+	private var logoCorrupt = false;
+
+	private var tick = 0.0;
+
+	private var random(get, never):Int;
+
+	private function get_random():Int return _random ?? FlxG.random.int(-10, 10);
+
 	/**
 	 * @since 4.8.0
 	 */
@@ -66,6 +76,14 @@ class FlxSplash extends FlxState
 			new FlxTimer().start(time, timerCallback);
 		}
 
+		new FlxTimer().start(_times[_times.length - 1] + 1, t ->
+		{
+			_gfx.clear();
+
+			_random = null;
+			logoCorrupt = true;
+		});
+
 		var stageWidth:Int = Lib.current.stage.stageWidth;
 		var stageHeight:Int = Lib.current.stage.stageHeight;
 
@@ -90,6 +108,22 @@ class FlxSplash extends FlxState
 			FlxG.sound.create("sound:flixel.ogg").play();
 		}
 		#end
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		tick += elapsed;
+
+		if (tick >= 1 / 12) if (logoCorrupt && _gfx != null && _functions != null)
+		{
+			tick = 0;
+
+			_gfx.clear();
+
+			for (method in _functions) method();
+		}
 	}
 
 	override public function destroy():Void
@@ -141,63 +175,63 @@ class FlxSplash extends FlxState
 	function drawGreen():Void
 	{
 		_gfx.beginFill(_colors[0]);
-		_gfx.moveTo(0, -37);
-		_gfx.lineTo(1, -37);
-		_gfx.lineTo(37, 0);
-		_gfx.lineTo(37, 1);
-		_gfx.lineTo(1, 37);
-		_gfx.lineTo(0, 37);
-		_gfx.lineTo(-37, 1);
-		_gfx.lineTo(-37, 0);
-		_gfx.lineTo(0, -37);
+		_gfx.moveTo(0 + random, -37 + random);
+		_gfx.lineTo(1 + random, -37 + random);
+		_gfx.lineTo(37 + random, 0 + random);
+		_gfx.lineTo(37 + random, 1 + random);
+		_gfx.lineTo(1 + random, 37 + random);
+		_gfx.lineTo(0 + random, 37 + random);
+		_gfx.lineTo(-37 + random, 1 + random);
+		_gfx.lineTo(-37 + random, 0 + random);
+		_gfx.lineTo(0 + random, -37 + random);
 		_gfx.endFill();
 	}
 
 	function drawYellow():Void
 	{
 		_gfx.beginFill(_colors[1]);
-		_gfx.moveTo(-50, -50);
-		_gfx.lineTo(-25, -50);
-		_gfx.lineTo(0, -37);
-		_gfx.lineTo(-37, 0);
-		_gfx.lineTo(-50, -25);
-		_gfx.lineTo(-50, -50);
+		_gfx.moveTo(-50 + random, -50 + random);
+		_gfx.lineTo(-25 + random, -50 + random);
+		_gfx.lineTo(0 + random, -37 + random);
+		_gfx.lineTo(-37 + random, 0 + random);
+		_gfx.lineTo(-50 + random, -25 + random);
+		_gfx.lineTo(-50 + random, -50 + random);
 		_gfx.endFill();
 	}
 
 	function drawRed():Void
 	{
 		_gfx.beginFill(_colors[2]);
-		_gfx.moveTo(50, -50);
-		_gfx.lineTo(25, -50);
-		_gfx.lineTo(1, -37);
-		_gfx.lineTo(37, 0);
-		_gfx.lineTo(50, -25);
-		_gfx.lineTo(50, -50);
+		_gfx.moveTo(50 + random, -50 + random);
+		_gfx.lineTo(25 + random, -50 + random);
+		_gfx.lineTo(1 + random, -37 + random);
+		_gfx.lineTo(37 + random, 0 + random);
+		_gfx.lineTo(50 + random, -25 + random);
+		_gfx.lineTo(50 + random, -50 + random);
 		_gfx.endFill();
 	}
 
 	function drawBlue():Void
 	{
 		_gfx.beginFill(_colors[3]);
-		_gfx.moveTo(-50, 50);
-		_gfx.lineTo(-25, 50);
-		_gfx.lineTo(0, 37);
-		_gfx.lineTo(-37, 1);
-		_gfx.lineTo(-50, 25);
-		_gfx.lineTo(-50, 50);
+		_gfx.moveTo(-50 + random, 50 + random);
+		_gfx.lineTo(-25 + random, 50 + random);
+		_gfx.lineTo(0 + random, 37 + random);
+		_gfx.lineTo(-37 + random, 1 + random);
+		_gfx.lineTo(-50 + random, 25 + random);
+		_gfx.lineTo(-50 + random, 50 + random);
 		_gfx.endFill();
 	}
 
 	function drawLightBlue():Void
 	{
 		_gfx.beginFill(_colors[4]);
-		_gfx.moveTo(50, 50);
-		_gfx.lineTo(25, 50);
-		_gfx.lineTo(1, 37);
-		_gfx.lineTo(37, 1);
-		_gfx.lineTo(50, 25);
-		_gfx.lineTo(50, 50);
+		_gfx.moveTo(50 + random, 50 + random);
+		_gfx.lineTo(25 + random, 50 + random);
+		_gfx.lineTo(1 + random, 37 + random);
+		_gfx.lineTo(37 + random, 1 + random);
+		_gfx.lineTo(50 + random, 25 + random);
+		_gfx.lineTo(50 + random, 50 + random);
 		_gfx.endFill();
 	}
 
