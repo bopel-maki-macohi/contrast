@@ -39,6 +39,6 @@ class Main extends FlxGame
 
 		assetsPreloader.preload();
 
-		FlxG.switchState(() -> new StateStarting());
+		FlxG.switchState(() -> new StateFirstChoice());
 	}
 }
