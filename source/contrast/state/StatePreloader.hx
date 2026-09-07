@@ -51,6 +51,7 @@ class StatePreloader extends State
 		var seaBG:SeaBackdrop;
 		add(seaBG = new SeaBackdrop(Color.GRAY, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
 
+		#if debug
 		add(tasksText = new FlxText(0, 0, FlxG.width, '', 16));
 
 		if (reminder.data != null)
@@ -64,8 +65,14 @@ class StatePreloader extends State
 		progressBar.createFilledBar(Color.RED, Color.LIME);
 		progressBar.screenCenter();
 		progressBar.y = FlxG.height - progressBar.height;
+		#end
 
-		add(pressEnter = new Sprite().loadGraphic('image:ui/key-enter.png'));
+		pressEnter = new Sprite().loadGraphic('image:ui/key-enter.png');
+		
+		#if debug
+		add(pressEnter);
+		#end
+
 		pressEnter.setPosition(FlxG.width - pressEnter.width, FlxG.height - progressBar.height - pressEnter.height);
 		pressEnter.visible = false;
 
@@ -92,9 +99,12 @@ class StatePreloader extends State
 	{
 		super.update(elapsed);
 
+		#if debug
 		tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
+		#end
 
-		if (#if debug FlxG.keys.justPressed.ENTER && #end pressEnter.visible) moveToStartState();
+		if (FlxG.keys.justPressed.ENTER 
+			&& pressEnter.visible) moveToStartState();
 	}
 
 	private function onPreloaderTick()
