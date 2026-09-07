@@ -35,11 +35,11 @@ class StateFirstChoice extends State
 
 		add(seaBG = new SeaBackdrop(Color.SEA));
 
-		newsText = new Text(0, 0, FlxG.width, news.data, 16);
+		newsText = new Text(0, 0, FlxG.width, news.data);
 
 		add(newsBackdrop = new FlxBackdrop(newsText.graphic));
 		newsBackdrop.blend = OVERLAY;
-		newsBackdrop.velocity.set(0, 400);
+		newsBackdrop.velocity.set(0, 800);
 		newsBackdrop.alpha = 0.125;
 
 		add(blue = new Sprite().loadBitmapCacheGraphic('blue_vessel').scaleTo(4));

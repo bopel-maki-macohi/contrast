@@ -69,11 +69,11 @@ class StatePreloader extends State
 		seaBG.colorBG.alpha = 0.125;
 		#end
 
-		add(tasksText = new Text(0, 0, FlxG.width, '', 16));
+		add(tasksText = new Text(0, 0, FlxG.width, ''));
 
 		if (reminder.data != null)
 		{
-			add(reminderText = new Text(0, 0, FlxG.width, reminder.data, 8));
+			add(reminderText = new Text(0, 0, FlxG.width, reminder.data));
 			reminderText.alignment = RIGHT;
 			reminderText.x = FlxG.width - reminderText.width;
 		}
