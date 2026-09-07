@@ -17,7 +17,7 @@ class BlueMenu extends State
 	}
 
 	private var prison(default, null):Sprite;
-	private var prisonSize(default, null):Float = 100.0;
+	private var prisonSize(default, null):Float = 40.0;
 	private var prisonSizeTarget(default, null):Float = 2.0;
 	private var prisonScaleLerpValue(default, null):Float = 0.0;
 
