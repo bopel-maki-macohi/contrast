@@ -8,6 +8,10 @@ class Main extends FlxGame
 {
 	public static var mouseVisible:Bool = false;
 
+	public static final whiteVersion = Macro.getDefineValue('whiteVersion');
+	public static final blueVersion = Macro.getDefineValue('blueVersion');
+	public static final yellowVersion = Macro.getDefineValue('yellowVersion');
+
 	override public function new()
 	{
 		super(0, 0, StatePreloader, 60, 60, #if SKIP_SPLASH true #else false #end, false);

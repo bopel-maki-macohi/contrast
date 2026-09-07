@@ -7,16 +7,25 @@ import flixel.tweens.FlxTween;
 
 class BlueMenu extends State
 {
-	private var introComplete = false;
+	private var introComplete(default, set) = false;
 
-	private var prison:Sprite;
-	private var prisonSize:Float = 100.0;
-	private var prisonSizeTarget:Float = 2.0;
-	private var prisonScaleLerpValue:Float = 0.0;
+	private function set_introComplete(introComplete:Bool):Bool
+	{
+		title.visible = introComplete;
 
-	private var user:SpriteVessel;
+		return this.introComplete = introComplete;
+	}
 
-	private var DEVICE_SOUL_TRANSFER:Audio;
+	private var prison(default, null):Sprite;
+	private var prisonSize(default, null):Float = 100.0;
+	private var prisonSizeTarget(default, null):Float = 2.0;
+	private var prisonScaleLerpValue(default, null):Float = 0.0;
+
+	private var user(default, null):SpriteVessel;
+
+	private var DEVICE_SOUL_TRANSFER(default, null):Audio;
+
+	private var title(default, null):Text;
 
 	override function create()
 	{
@@ -30,6 +39,10 @@ class BlueMenu extends State
 		user.state = SPIN;
 
 		add(prison = new Sprite().loadBitmapCacheGraphic('blue_box').scaleTo(prisonSize));
+
+		add(title = new Text(0, 0, 0, 'CONTRAST v${Main.blueVersion}', 32));
+		title.screenCenter(X);
+		title.y = title.height * 2;
 
 		FlxTween.num(0, 1, 20, {
 			ease: FlxEase.quintIn,
@@ -45,6 +58,10 @@ class BlueMenu extends State
 					t.percent = 99;
 				}
 			},
+			onStart: function(t)
+			{
+				introComplete = false;
+			},
 		}, function(t)
 		{
 			prisonScaleLerpValue = t;
@@ -58,7 +75,5 @@ class BlueMenu extends State
 
 		prison.scaleTo(prisonSize = FlxMath.lerp(prisonSize, prisonSizeTarget, prisonScaleLerpValue));
 		prison.screenCenter();
-
-		if (introComplete) {}
 	}
 }

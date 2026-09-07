@@ -7,7 +7,7 @@ import lime.utils.Assets;
 
 class Audio extends DataLoader<FlxSound>
 {
-	public var onComplete:FlxSignal;
+	public var onComplete(default,null):FlxSignal;
 
 	public var playing(get, null):Bool;
 

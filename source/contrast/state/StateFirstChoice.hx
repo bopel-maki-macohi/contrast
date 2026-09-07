@@ -5,21 +5,21 @@ import flixel.FlxG;
 
 class StateFirstChoice extends State
 {
-	private var seaBG:SeaBackdrop;
+	private var seaBG(default,null):SeaBackdrop;
 
-	private var blue:SpriteVessel;
-	private var yellow:SpriteVessel;
+	private var blue(default,null):SpriteVessel;
+	private var yellow(default,null):SpriteVessel;
 
-	private var arrow:Sprite;
+	private var arrow(default,null):Sprite;
 
-	private var selection:Int = 0;
+	private var selection(default,null):Int = 0;
 
-	private var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');
-	private var DEVICE_PROCESSING:Audio = new Audio('sound:DEVICE_PROCESSING.ogg');
+	private var DEVICE_COMPILING(default,null):Audio = new Audio('sound:DEVICE_COMPILING.ogg');
+	private var DEVICE_PROCESSING(default,null):Audio = new Audio('sound:DEVICE_PROCESSING.ogg');
 
-	private var news:DataLoaderString = new DataLoaderString('data:news/10-30-18c.txt');
-	private var newsText:Text;
-	private var newsBackdrop:FlxBackdrop;
+	private var news(default,null):DataLoaderString = new DataLoaderString('data:news/10-30-18c.txt');
+	private var newsText(default,null):Text;
+	private var newsBackdrop(default,null):FlxBackdrop;
 
 	override public function create()
 	{
