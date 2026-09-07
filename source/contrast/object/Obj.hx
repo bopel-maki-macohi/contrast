@@ -1,4 +1,4 @@
-package contrast;
+package contrast.object;
 
 /**
 	Name rename reason:

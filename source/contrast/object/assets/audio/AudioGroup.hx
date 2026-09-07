@@ -1,4 +1,4 @@
-package contrast.assets.audio;
+package contrast.object.assets.audio;
 
 class AudioGroup extends Group<Audio>
 {

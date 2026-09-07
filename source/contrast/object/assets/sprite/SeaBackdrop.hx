@@ -1,4 +1,4 @@
-package contrast.assets.sprite;
+package contrast.object.assets.sprite;
 
 import flixel.math.FlxPoint;
 import flixel.FlxG;

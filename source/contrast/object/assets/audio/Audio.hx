@@ -1,4 +1,4 @@
-package contrast.assets.audio;
+package contrast.object.assets.audio;
 
 import flixel.util.FlxSignal;
 import flixel.FlxG;

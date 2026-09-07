@@ -1,4 +1,4 @@
-package contrast.assets.data;
+package contrast.object.assets.data;
 
 class Data<T> extends Obj
 {

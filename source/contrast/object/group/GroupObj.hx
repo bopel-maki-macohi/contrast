@@ -1,4 +1,4 @@
-package contrast.group;
+package contrast.object.group;
 
 class GroupObj extends Group<Obj>
 {

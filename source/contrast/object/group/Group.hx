@@ -1,4 +1,4 @@
-package contrast.group;
+package contrast.object.group;
 
 /**
 	`add` AND `remove` DO NOT EXIST BY DEFAULT

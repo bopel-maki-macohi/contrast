@@ -2,12 +2,13 @@ package contrast;
 
 #if !macro
 import contrast.*;
-import contrast.assets.*;
-import contrast.assets.audio.*;
-import contrast.assets.data.*;
-import contrast.assets.sprite.*;
-import contrast.assets.text.*;
-import contrast.group.*;
+import contrast.object.*;
+import contrast.object.assets.*;
+import contrast.object.assets.audio.*;
+import contrast.object.assets.data.*;
+import contrast.object.assets.sprite.*;
+import contrast.object.assets.text.*;
+import contrast.object.group.*;
 import contrast.preloader.*;
 import contrast.state.*;
 import contrast.util.*;

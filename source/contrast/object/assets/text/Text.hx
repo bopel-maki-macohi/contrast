@@ -1,4 +1,4 @@
-package contrast.assets.text;
+package contrast.object.assets.text;
 
 import flixel.text.FlxText;
 
