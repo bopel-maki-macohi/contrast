@@ -1,3 +1,4 @@
+import flixel.FlxG;
 import openfl.events.Event;
 import flixel.FlxGame;
 import preloader.*;
@@ -28,6 +29,10 @@ class Main extends FlxGame
 		}
 
 		Save.create();
+
+		#if TASK_MULTIPLIER
+		preloader.Preloader.taskMultiplier = FlxG.random.int(1, 100);
+		#end
 
 		super.create(_);
 	}

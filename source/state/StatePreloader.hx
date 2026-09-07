@@ -81,8 +81,10 @@ class StatePreloader extends State
 			Thread.create(function()
 			{
 			#end
-				preloader.preload();
-
+				GeneralTool.repeat(function()
+				{
+					preloader.preload();
+				}, Preloader.taskMultiplier);
 			#if sys
 			});
 			#end

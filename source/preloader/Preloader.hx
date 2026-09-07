@@ -4,6 +4,9 @@ import flixel.util.FlxSignal;
 
 class Preloader extends Obj
 {
+	@:allow(Main)
+	public static var taskMultiplier(default, null):Int = 1;
+
 	public var label(default, null):String = 'Empty';
 
 	public var assets(default, null):Int = 0;
@@ -37,7 +40,7 @@ class Preloader extends Obj
 		super();
 
 		this.label = label;
-		this.assets = assets;
+		this.assets = assets * taskMultiplier;
 
 		tickSignal = new FlxSignal();
 		completeSignal = new FlxSignal();
