@@ -54,6 +54,19 @@ class StateStarting extends State
 
 		lineText.setPosition(lineText.size, lineText.size);
 
+		run();
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (lineText != null && renderLines != null)
+			lineText.text = renderLines.join('\n');
+	}
+
+	private function run()
+	{
 		var timerOffset = 0.05;
 
 		for (i => line in lines)
@@ -65,19 +78,13 @@ class StateStarting extends State
 				if (i != lines.length - 1)
 					return;
 
+				soundscape.stop();
+
 				final finalTime = timerOffset * FlxG.random.float(0.35, 0.45);
 				FlxTimer.wait(finalTime, () -> FlxG.switchState(() -> new StateFirstChoice()));
 			});
-			timerOffset += FlxG.random.float(0.01, 0.25) * ((line.length < 1) ? 0.25 : 1.0);
+			timerOffset += FlxG.random.float(0.01, 0.25) * ((line.length < 1) ? 0.25 : 0.75);
 		}
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		if (lineText != null && renderLines != null)
-			lineText.text = renderLines.join('\n');
 	}
 
 	private function nextLine(line:String)

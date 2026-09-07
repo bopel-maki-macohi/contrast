@@ -38,7 +38,6 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	<prebuild haxe="source.Prebuild" />
 
 	<assets path="assets/data" rename="" library="data" embed="true" />
 	<assets path="assets/image" rename="" library="image" embed="true" />
@@ -120,6 +119,8 @@
 	<haxedef name="message.reporting" value="pretty" />
 
 	<!-- _________________________________ Custom _______________________________ -->
+
+	<!-- <prebuild haxe="source.Prebuild" /> -->
 
 	<icon path="assets/image/colored/c-wheel.png" />
 
