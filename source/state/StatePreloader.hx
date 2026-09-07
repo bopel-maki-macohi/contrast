@@ -81,8 +81,9 @@ class StatePreloader extends State
 			Thread.create(function()
 			{
 			#end
-				GeneralTool.repeat(function()
+				GeneralTool.repeat(function(i)
 				{
+					if (Preloader.taskMultiplier > 1) trace('${preloader.label} : Loop $i');
 					preloader.preload();
 				}, Preloader.taskMultiplier);
 			#if sys
@@ -95,7 +96,7 @@ class StatePreloader extends State
 	{
 		super.update(elapsed);
 
-		tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nPreloaders:\n\n${currentTasks.join('\n')}';
+		tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 
 		if (#if debug FlxG.keys.justPressed.ENTER && #end pressEnter.visible) moveToStartState();
 	}

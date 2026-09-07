@@ -9,10 +9,10 @@ class GeneralTool
 		return value * amount;
 	}
 
-	public static function repeat(method:Null<Dynamic>, ?amount:Null<Int>)
+	public static function repeat(method:Int->Void, ?amount:Null<Int>)
 	{
 		if (amount == null || method == null) return;
 
-		for (i in 0...amount) method();
+		for (i in 0...amount) method(i);
 	}
 }

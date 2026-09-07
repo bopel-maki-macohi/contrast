@@ -22,7 +22,10 @@ class PreloaderAssetsVessel extends PreloaderAssets
 			for (colorCODE => colorVALUE in Color.table)
 			{
 				final noDir = new Path(asset).file;
+
+				#if !TASK_MULTIPLIER
 				trace('About to Cache Vessel Asset : "${colorCODE}_$noDir"');
+				#end
 
 				performTask(function()
 				{

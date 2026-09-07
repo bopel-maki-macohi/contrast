@@ -22,7 +22,10 @@ class PreloaderLibraries extends Preloader
 
 		for (library in libraries)
 		{
+			#if !TASK_MULTIPLIER
 			trace('Loading Library : $library');
+			#end
+			
 			performTask(function()
 			{
 				Assets.loadLibrary(library);

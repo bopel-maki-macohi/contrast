@@ -1,6 +1,7 @@
 package preloader;
 
 import haxe.io.Path;
+
 class PreloaderAssetsNonVessel extends PreloaderAssets
 {
 	public var otherAssets:Array<String> = ['c-wheel', 'sea', 'sea-desat', 'ui/key-enter', 'ui/arrow'];
@@ -17,7 +18,10 @@ class PreloaderAssetsNonVessel extends PreloaderAssets
 		currentTask = 'Caching Other Assets';
 		for (asset in otherAssets)
 		{
-			trace('About to Cache Asset : $asset');
+			#if !TASK_MULTIPLIER
+			trace('About to Cache Non Vessel Asset : $asset');
+			#end
+
 			performTask(function()
 			{
 				storeGraphic(getGraphic('image:$asset.png').bitmap, true, new Path(asset).file);
