@@ -31,6 +31,8 @@ class BlueMenu extends State
 	{
 		super.create();
 
+		Window.title = 'DEVICE_BLUE';
+
 		DEVICE_SOUL_TRANSFER = new Audio('sound:DEVICE_SOUL_TRANSFER.ogg');
 		DEVICE_SOUL_TRANSFER.play();
 
