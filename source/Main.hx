@@ -6,13 +6,9 @@ import state.*;
 
 class Main extends FlxGame
 {
-	public static var assetsPreloader(default, null):PreloaderAssets;
-
 	override public function new()
 	{
-		super(0, 0, null);
-
-		assetsPreloader = new PreloaderAssets();
+		super(StatePreloader);
 	}
 
 	override function create(_:Event)
@@ -36,14 +32,5 @@ class Main extends FlxGame
 		Save.create();
 
 		super.create(_);
-
-		assetsPreloader.completeSignal.add(moveToStartState);
-
-		assetsPreloader.preload();
-	}
-	
-	private function moveToStartState()
-	{
-		FlxG.switchState(() -> new StateFirstChoice());
 	}
 }

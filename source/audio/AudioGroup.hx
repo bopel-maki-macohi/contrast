@@ -7,7 +7,7 @@ class AudioGroup extends Group<Audio>
 {
 	public var volume(default, set):Float;
 
-	function set_volume(volume:Float):Float
+	private function set_volume(volume:Float):Float
 	{
 		this.volume = volume;
 

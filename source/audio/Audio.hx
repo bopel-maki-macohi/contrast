@@ -12,12 +12,12 @@ class Audio extends DataLoader<FlxSound>
 
 	public var volume(get, set):Float;
 
-	function get_volume():Float
+	private function get_volume():Float
 	{
 		return data?.volume ?? 0.0;
 	}
 
-	function set_volume(volume:Float):Float
+	private function set_volume(volume:Float):Float
 	{
 		if (data == null)
 			return 0;
@@ -27,19 +27,19 @@ class Audio extends DataLoader<FlxSound>
 
 	public var playing(get, null):Bool;
 
-	function get_playing():Bool
+	private function get_playing():Bool
 	{
 		return data.playing;
 	}
 
 	public var looped(get, set):Bool;
 
-	function get_looped():Bool
+	private function get_looped():Bool
 	{
 		return data.looped;
 	}
 
-	function set_looped(looped:Bool):Bool
+	private function set_looped(looped:Bool):Bool
 	{
 		if (data == null)
 			return false;

@@ -1,5 +1,6 @@
 package preloader;
 
+import haxe.io.Path;
 import openfl.display.BitmapData;
 import lime.utils.Assets;
 import flixel.util.FlxBitmapDataUtil;
@@ -8,8 +9,8 @@ import flixel.FlxG;
 
 class PreloaderAssets extends Preloader
 {
-	public var noncolorables:Array<String> = ['c-wheel', 'sea'];
-	public var colorables:Array<String> = ['arrow', 'vessel', 'sea-desat'];
+	public var otherAssets:Array<String> = ['c-wheel', 'sea', 'sea-desat', 'ui/key-enter', 'ui/arrow'];
+	public var vesselAsset:Array<String> = ['vessel'];
 
 	public var colors(default, null):Map<String, Color> = [
 		'black' => BLACK,
@@ -32,40 +33,52 @@ class PreloaderAssets extends Preloader
 		@:privateAccess
 		this.libraries = [for (library => lib in Assets.libraries) library];
 
-		super(([for (color in colors) color].length * colorables.length) + libraries.length + noncolorables.length);
+		super('Assets', ([for (color in colors) color].length * vesselAsset.length) + libraries.length + otherAssets.length);
 	}
 
 	override function preload()
 	{
 		super.preload();
 
+		currentTask = 'Loading Libraries';
+
 		for (library in libraries)
 		{
-			Assets.loadLibrary(library);
-			trace('Loaded Library: $library');
-
-			done++;
+			trace('Loading Library : $library');
+			performTask(function()
+			{
+				Assets.loadLibrary(library);
+			});
 		}
 
-		for (colorable in colorables)
+		currentTask = 'Caching Vessel Assets';
+		for (asset in vesselAsset)
 		{
 			for (colorCODE => colorVALUE in colors)
 			{
-				final key = '${colorCODE}_${colorable}';
-				var vesselGraphic = getGraphic('image:c/$colorable.png');
-				FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, colorVALUE);
-				storeGraphic(vesselGraphic.bitmap, true, key);
-				trace('Cached Colorable ${colorable.substr(0, 1).toUpperCase()}${colorable.substr(1).toLowerCase()} : $colorCODE');
-				done++;
+				final noDir = new Path(asset).file;
+				trace('About to Cache Vessel Asset : "${colorCODE}_$noDir"');
+
+				performTask(function()
+				{
+					var vesselGraphic = getGraphic('image:$asset.png');
+					FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, colorVALUE);
+					storeGraphic(vesselGraphic.bitmap, true, '${colorCODE}_${noDir}');
+				});
 			}
 		}
 
-		for (noncolorable in noncolorables)
+		currentTask = 'Caching Other Assets';
+		for (asset in otherAssets)
 		{
-			storeGraphic(getGraphic('image:nc/$noncolorable.png').bitmap, true, noncolorable);
-			trace('Cached ${noncolorable.substr(0, 1).toUpperCase()}${noncolorable.substr(1).toLowerCase()}');
-			done++;
+			trace('About to Cache Asset : $asset');
+			performTask(function()
+			{
+				storeGraphic(getGraphic('image:$asset.png').bitmap, true, new Path(asset).file);
+			});
 		}
+
+		currentTask = 'Done!';
 	}
 
 	private function getGraphic(path:String)

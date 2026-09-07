@@ -1,3 +1,5 @@
+package sprite;
+
 import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxG;
@@ -33,6 +35,8 @@ class Sprite extends FlxSprite
 		if (FlxG.bitmap.get(key) == null)
 		{
 			trace('NO BITMAP CACHE GRAPHIC WITH KEY: $key');
+			FlxG.log.warn('NO BITMAP CACHE GRAPHIC WITH KEY: $key');
+			
 			return this;
 		}
 

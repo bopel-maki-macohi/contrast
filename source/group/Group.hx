@@ -9,7 +9,7 @@ class Group<T> extends Obj
 {
 	public var length(get, null):Int;
 
-	function get_length():Int
+	private function get_length():Int
 	{
 		return list?.length ?? 0;
 	}
