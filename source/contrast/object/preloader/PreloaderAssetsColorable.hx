@@ -5,7 +5,7 @@ import haxe.io.Path;
 
 class PreloaderAssetsColorable extends PreloaderAssets
 {
-	public var images:Array<String> = ['vessel', 'ui/box', 'macadam/idle', 'macadam/masking', 'macadam/laugh'];
+	public var images:Array<String> = ['vessel', 'ui/box', 'macadam/macadam_idle', 'macadam/macadam_masking', 'macadam/macadam_laugh'];
 
 	override public function new()
 	{

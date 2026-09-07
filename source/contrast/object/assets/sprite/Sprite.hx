@@ -8,10 +8,7 @@ import flixel.FlxSprite;
 class Sprite extends FlxSprite
 {
 	override function loadGraphic(graphic:FlxGraphicAsset, animated:Bool = false, frameWidth:Int = 0, frameHeight:Int = 0, unique:Bool = false,
-			?key:String):Sprite
-	{
-		return cast(super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key), Sprite);
-	}
+			?key:String):Sprite return cast super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key);
 
 	override function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):Sprite
 	{
@@ -22,10 +19,7 @@ class Sprite extends FlxSprite
 		return this;
 	}
 
-	override function toString():String
-	{
-		return 'Sprite(x: $x, y: $y, width: $width, height: $height, visible: $visible)';
-	}
+	override function toString():String return 'Sprite(x: $x, y: $y, width: $width, height: $height, visible: $visible)';
 
 	public function scaleTo(scale:Float):Sprite
 	{

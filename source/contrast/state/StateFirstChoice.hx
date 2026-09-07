@@ -7,8 +7,8 @@ class StateFirstChoice extends State
 {
 	private var seaBG:SeaBackdrop;
 
-	private var blue:Sprite;
-	private var yellow:Sprite;
+	private var blue:SpriteVessel;
+	private var yellow:SpriteVessel;
 
 	private var arrow:Sprite;
 
@@ -43,8 +43,8 @@ class StateFirstChoice extends State
 		newsBackdrop.velocity.set(0, 800);
 		newsBackdrop.alpha = 0.125;
 
-		add(blue = new Sprite().loadBitmapCacheGraphic('blue_vessel').scaleTo(4));
-		add(yellow = new Sprite().loadBitmapCacheGraphic('yellow_vessel').scaleTo(4));
+		add(blue = new SpriteVessel('blue'));
+		add(yellow = new SpriteVessel('yellow'));
 		add(arrow = new Sprite().loadBitmapCacheGraphic('arrow').scaleTo(4));
 
 		blue.screenCenter();

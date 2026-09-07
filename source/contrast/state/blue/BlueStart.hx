@@ -11,11 +11,17 @@ class BlueStart extends State
 	private var prisonSizeTarget:Float = 2.0;
 	private var prisonScaleLerpValue:Float = 0.0;
 
+	private var user:SpriteVessel;
+
 	override function create()
 	{
 		super.create();
 
 		new Audio('sound:DEVICE_SOUL_TRANSFER.ogg').play();
+
+		add(user = new SpriteVessel('white'));
+		user.screenCenter();
+		user.state = SPIN;
 
 		add(prison = new Sprite().loadBitmapCacheGraphic('blue_box').scaleTo(prisonSize));
 
