@@ -1,6 +1,6 @@
 package state;
 
-import flixel.addons.display.FlxBackdrop;
+import text.TextGlow;
 import flixel.FlxG;
 import sprite.*;
 
@@ -10,6 +10,8 @@ class StateFirstChoice extends State
 
 	private var blue:Sprite;
 	private var yellow:Sprite;
+
+	private var instruction:TextGlow;
 
 	private var arrow:Sprite;
 
@@ -24,6 +26,11 @@ class StateFirstChoice extends State
 		add(blue = new Sprite().loadBitmapCacheGraphic('blue_vessel').scaleTo(4));
 		add(yellow = new Sprite().loadBitmapCacheGraphic('yellow_vessel').scaleTo(4));
 		add(arrow = new Sprite().loadBitmapCacheGraphic('arrow').scaleTo(4));
+
+		add(instruction = new TextGlow(0,0,0,'Select your initial path', 16));
+
+		instruction.screenCenter();
+		instruction.y -= instruction.height * 10;
 
 		blue.screenCenter();
 		yellow.screenCenter();
