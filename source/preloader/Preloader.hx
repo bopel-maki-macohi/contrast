@@ -25,8 +25,7 @@ class Preloader extends Obj
 	{
 		this.done = done;
 
-		if (done == assets && completeSignal != null)
-			completeSignal.dispatch();
+		if (done == assets && completeSignal != null) completeSignal.dispatch();
 
 		return this.done;
 	}
@@ -50,17 +49,16 @@ class Preloader extends Obj
 
 	public function performTask(process:Void->Void)
 	{
-		if (process == null)
-			return;
+		if (process == null) return;
 
 		#if sys
-		Thread.create(function()
-		{
+		// Thread.create(function()
+		// {
 		#end
-			process();
-			done++;
+		process();
+		done++;
 		#if sys
-		});
+		// });
 		#end
 	}
 }

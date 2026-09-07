@@ -29,8 +29,7 @@ class StatePreloader extends State
 	private function get_currentTasks():Array<String>
 	{
 		return [
-			for (preloader in preloaders)
-				if (preloader != null) '${preloader.label} : ${preloader.currentTask} ( ${preloader.done} / ${preloader.assets} )'
+			for (preloader in preloaders) if (preloader != null) '${preloader.label} : ${preloader.currentTask} ( ${preloader.done} / ${preloader.assets} )'
 		];
 	}
 
@@ -70,9 +69,17 @@ class StatePreloader extends State
 
 		for (preloader in preloaders)
 		{
-			preloader.completeSignal.add(onPreloaderComplete);
+			#if sys
+			Thread.create(function()
+			{
+			#end
 
-			preloader.preload();
+				preloader.completeSignal.add(onPreloaderComplete);
+				preloader.preload();
+
+			#if sys
+			});
+			#end
 		}
 	}
 
@@ -82,16 +89,14 @@ class StatePreloader extends State
 
 		tasksText.text = 'Progress : ${done} / ${preloaders.length}\n\nPreloaders:\n\n${currentTasks.join('\n')}';
 
-		if (#if debug FlxG.keys.justPressed.ENTER && #end pressEnter.visible)
-			moveToStartState();
+		if (#if debug FlxG.keys.justPressed.ENTER && #end pressEnter.visible) moveToStartState();
 	}
 
 	private function onPreloaderComplete()
 	{
 		done++;
 
-		if (done == preloaders.length)
-			pressEnter.visible = true;
+		if (done == preloaders.length) pressEnter.visible = true;
 	}
 
 	private function moveToStartState()

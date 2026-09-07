@@ -10,7 +10,7 @@ import flixel.FlxG;
 class PreloaderAssets extends Preloader
 {
 	public var otherAssets:Array<String> = ['c-wheel', 'sea', 'sea-desat', 'ui/key-enter', 'ui/arrow'];
-	public var vesselAsset:Array<String> = ['vessel'];
+	public var vesselAsset:Array<String> = ['vessel', 'ui/key-enter', 'ui/arrow'];
 
 	public var colors(default, null):Map<String, Color> = [
 		'black' => BLACK,

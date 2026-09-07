@@ -57,8 +57,8 @@ class FlxSplash extends FlxState
 		FlxG.keys.enabled = false;
 		#end
 
-		_times = [0, 17 / 1000, 57 / 1000, 57 / 1000, 57 / 1000];
-		_colors = [0x00b922, 0xffc132, 0xf5274e, 0x3641ff, 0x04cdfb];
+		_times = [0, 17 / 100, 57 / 100, 57 / 100, 57 / 100];
+		_colors = [Color.GREEN, Color.YELLOW, Color.RED, Color.BLUE, Color.SEA];
 		_functions = [drawGreen, drawYellow, drawRed, drawBlue, drawLightBlue];
 
 		for (time in _times)
@@ -140,7 +140,7 @@ class FlxSplash extends FlxState
 
 	function drawGreen():Void
 	{
-		_gfx.beginFill(0x00b922);
+		_gfx.beginFill(_colors[0]);
 		_gfx.moveTo(0, -37);
 		_gfx.lineTo(1, -37);
 		_gfx.lineTo(37, 0);
@@ -155,7 +155,7 @@ class FlxSplash extends FlxState
 
 	function drawYellow():Void
 	{
-		_gfx.beginFill(0xffc132);
+		_gfx.beginFill(_colors[1]);
 		_gfx.moveTo(-50, -50);
 		_gfx.lineTo(-25, -50);
 		_gfx.lineTo(0, -37);
@@ -167,7 +167,7 @@ class FlxSplash extends FlxState
 
 	function drawRed():Void
 	{
-		_gfx.beginFill(0xf5274e);
+		_gfx.beginFill(_colors[2]);
 		_gfx.moveTo(50, -50);
 		_gfx.lineTo(25, -50);
 		_gfx.lineTo(1, -37);
@@ -179,7 +179,7 @@ class FlxSplash extends FlxState
 
 	function drawBlue():Void
 	{
-		_gfx.beginFill(0x3641ff);
+		_gfx.beginFill(_colors[3]);
 		_gfx.moveTo(-50, 50);
 		_gfx.lineTo(-25, 50);
 		_gfx.lineTo(0, 37);
@@ -191,7 +191,7 @@ class FlxSplash extends FlxState
 
 	function drawLightBlue():Void
 	{
-		_gfx.beginFill(0x04cdfb);
+		_gfx.beginFill(_colors[4]);
 		_gfx.moveTo(50, 50);
 		_gfx.lineTo(25, 50);
 		_gfx.lineTo(1, 37);
