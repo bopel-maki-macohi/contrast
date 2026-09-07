@@ -1,5 +1,6 @@
 package state;
 
+import flixel.FlxG;
 import sprite.*;
 
 class StateFirstChoice extends State
@@ -8,6 +9,8 @@ class StateFirstChoice extends State
 	private var yellow:Sprite;
 
 	private var arrow:Sprite;
+
+	private var selection:Int = 0;
 
 	override public function create()
 	{
@@ -19,10 +22,41 @@ class StateFirstChoice extends State
 
 		blue.screenCenter();
 		yellow.screenCenter();
-		arrow.screenCenter();
 
 		blue.shift(-2, 0, true);
 		yellow.shift(2, 0, true);
+
+		changeSelection(0);
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (FlxG.keys.anyJustPressed([A, LEFT]))
+			changeSelection(-1);
+		if (FlxG.keys.anyJustPressed([D, RIGHT]))
+			changeSelection(1);
+	}
+
+	private function changeSelection(amount = 0)
+	{
+		selection += amount;
+
+		if (selection < 0)
+			selection = 1;
+		if (selection > 1)
+			selection = 0;
+
+		arrow.screenCenter();
 		arrow.shift(0, -2, true);
+
+		switch (selection)
+		{
+			case 0:
+				arrow.shift(-2, 0, true);
+			case 1:
+				arrow.shift(-2, 0, true);
+		}
 	}
 }
