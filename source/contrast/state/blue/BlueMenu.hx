@@ -47,7 +47,7 @@ class BlueMenu extends State
 		title.screenCenter(X);
 		title.y = title.height * 2;
 
-		FlxTween.num(0, 1, 20, {
+		FlxTween.num(0, 1, 17.5, {
 			ease: FlxEase.quintIn,
 			onComplete: function(t)
 			{
@@ -57,7 +57,7 @@ class BlueMenu extends State
 			{
 				if (FlxG.keys.justPressed.ENTER)
 				{
-					DEVICE_SOUL_TRANSFER.time = DEVICE_SOUL_TRANSFER.length * 0.99;
+					DEVICE_SOUL_TRANSFER.time = (17.5 * 1000) / DEVICE_SOUL_TRANSFER.length;
 					t.percent = 99;
 				}
 			},
