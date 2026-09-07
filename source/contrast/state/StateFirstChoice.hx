@@ -1,5 +1,6 @@
 package contrast.state;
 
+import flixel.addons.display.FlxBackdrop;
 import flixel.FlxG;
 
 class StateFirstChoice extends State
@@ -16,6 +17,10 @@ class StateFirstChoice extends State
 	private var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');
 	private var DEVICE_PROCESSING:Audio = new Audio('sound:DEVICE_PROCESSING.ogg');
 
+	private var news:DataLoaderString = new DataLoaderString('data:news/10-30-18c.txt');
+	private var newsText:Text;
+	private var newsBackdrop:FlxBackdrop;
+
 	override public function create()
 	{
 		super.create();
@@ -29,6 +34,13 @@ class StateFirstChoice extends State
 		DEVICE_PROCESSING.play();
 
 		add(seaBG = new SeaBackdrop(Color.SEA));
+
+		newsText = new Text(0, 0, FlxG.width, news.data, 16);
+
+		add(newsBackdrop = new FlxBackdrop(newsText.graphic));
+		newsBackdrop.blend = OVERLAY;
+		newsBackdrop.velocity.set(0, 400);
+		newsBackdrop.alpha = 0.125;
 
 		add(blue = new Sprite().loadBitmapCacheGraphic('blue_vessel').scaleTo(4));
 		add(yellow = new Sprite().loadBitmapCacheGraphic('yellow_vessel').scaleTo(4));
@@ -53,8 +65,12 @@ class StateFirstChoice extends State
 		{
 			switch (selection)
 			{
-				case 0: FlxG.switchState(() -> new BlueStart());
-				case 1: // FlxG.switchState(() -> new YellowStart());
+				case 0:
+					Save.data.alliance = 0;
+					FlxG.switchState(() -> new BlueStart());
+				case 1:
+					// Save.data.alliance = 1;
+					// FlxG.switchState(() -> new YellowStart());
 			}
 		}
 	}

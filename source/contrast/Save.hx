@@ -1,10 +1,11 @@
 package contrast;
 
+import lime.app.Application;
 import flixel.FlxG;
 
 class Save
 {
-	public static final VERSION:Int = 2;
+	public static final VERSION:Int = 4;
 
 	public static var data:SaveData;
 
@@ -23,16 +24,27 @@ class Save
 	{
 		FlxG.save.bind('contrast', '.M');
 
+		#if !SAVE_CLEAR
 		if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
+		#end
 
 		data ??= {
 			version: null,
 			contrast: null,
+			alliance: null,
+			state: null,
 		};
 
 		if (data.contrast == null) contrast;
 
+		FlxG.save.data.state ??= '';
+
 		save();
+
+		Application.current.onExit.add(function(a)
+		{
+			flush();
+		});
 	}
 
 	public static function save()
@@ -41,10 +53,20 @@ class Save
 
 		FlxG.save.data.contrast = data;
 	}
+
+	public static function flush()
+	{
+		save();
+
+		FlxG.save.flush();
+	}
 }
 
 typedef SaveData =
 {
 	var version:Null<Int>;
 	var contrast:Null<Int>;
+
+	var alliance:Null<Int>;
+	var state:String;
 }

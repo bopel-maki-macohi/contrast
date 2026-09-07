@@ -183,7 +183,7 @@ class StatePreloader extends State
 			// But isn't joy supposed to be Yellow
 			case 64: hideUITransition();
 
-			// Rustty 
+			// Rustty
 			// Side: Blue
 			// Booze
 			case 30: hideUITransition();
@@ -196,6 +196,14 @@ class StatePreloader extends State
 
 	private function moveToStartState()
 	{
+		if (Save.data.alliance == 0)
+		{
+			FlxG.switchState(() -> new BlueStart());
+			return;
+		}
+
+		// if (Save.data.alliance == 1) {FlxG.switchState(() -> new YellowStart()); return;}
+
 		FlxG.switchState(() -> new StateFirstChoice());
 	}
 
