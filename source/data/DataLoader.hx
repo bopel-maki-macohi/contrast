@@ -10,8 +10,7 @@ class DataLoader<T> extends Data<T>
 	{
 		super(null);
 
-		if (path != null)
-			load(path);
+		if (path != null) load(path);
 	}
 
 	override function toString():String

@@ -10,7 +10,6 @@ class DataLoaderStringArray extends DataLoader<Array<String>>
 	{
 		super.load(path);
 
-		if (Assets.exists(path))
-			data = [for (line in Assets.getText(path).split('\n')) line.trim()];
+		if (Assets.exists(path)) data = [for (line in Assets.getText(path).split('\n')) line.trim()];
 	}
 }

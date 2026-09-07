@@ -35,13 +35,12 @@ class Macro
 		var pos:Position = Context.currentPos();
 		var cls:ClassType = Context.getLocalClass().get();
 		var superCls:ClassType = cls.superClass.t.get();
-		
+
 		var classFields:Array<Field> = Context.getBuildFields();
 
 		for (field in classFields)
 		{
-			if (!fields.contains(field.name))
-				continue;
+			if (!fields.contains(field.name)) continue;
 
 			classFields.remove(field);
 		}

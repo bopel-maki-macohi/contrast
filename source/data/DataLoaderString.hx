@@ -8,7 +8,6 @@ class DataLoaderString extends DataLoader<String>
 	{
 		super.load(path);
 
-		if (Assets.exists(path))
-			data = Assets.getText(path);
+		if (Assets.exists(path)) data = Assets.getText(path);
 	}
 }

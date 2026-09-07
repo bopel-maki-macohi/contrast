@@ -251,10 +251,8 @@ class FlxGame extends Sprite
 		// Super high priority init stuff
 		_inputContainer = new Sprite();
 
-		if (gameWidth == 0)
-			gameWidth = FlxG.stage.stageWidth;
-		if (gameHeight == 0)
-			gameHeight = FlxG.stage.stageHeight;
+		if (gameWidth == 0) gameWidth = FlxG.stage.stageWidth;
+		if (gameHeight == 0) gameHeight = FlxG.stage.stageHeight;
 
 		// Basic display and update setup stuff
 		FlxG.init(this, gameWidth, gameHeight);
@@ -287,8 +285,7 @@ class FlxGame extends Sprite
 	 */
 	function create(_):Void
 	{
-		if (stage == null)
-			return;
+		if (stage == null) return;
 
 		removeEventListener(Event.ADDED_TO_STAGE, create);
 
@@ -339,8 +336,8 @@ class FlxGame extends Sprite
 		resetGame();
 		switchState();
 
-		if (FlxG.updateFramerate < FlxG.drawFramerate)
-			FlxG.log.warn("FlxG.updateFramerate: The update framerate shouldn't be smaller" + " than the draw framerate, since it can slow down your game.");
+		if (FlxG.updateFramerate < FlxG.drawFramerate) FlxG.log.warn("FlxG.updateFramerate: The update framerate shouldn't be smaller"
+			+ " than the draw framerate, since it can slow down your game.");
 
 		// Finally, set up an event for the actual game loop stuff.
 		stage.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -358,8 +355,7 @@ class FlxGame extends Sprite
 	function onFocus(_):Void
 	{
 		#if flash
-		if (!_lostFocus)
-			return; // Don't run this function twice (bug in standalone flash player)
+		if (!_lostFocus) return; // Don't run this function twice (bug in standalone flash player)
 		#end
 
 		#if mobile
@@ -371,12 +367,10 @@ class FlxGame extends Sprite
 		FlxG.signals.focusGained.dispatch();
 		_state.onFocus();
 
-		if (!FlxG.autoPause)
-			return;
+		if (!FlxG.autoPause) return;
 
 		#if FLX_FOCUS_LOST_SCREEN
-		if (_focusLostScreen != null)
-			_focusLostScreen.visible = false;
+		if (_focusLostScreen != null) _focusLostScreen.visible = false;
 		#end
 
 		#if FLX_DEBUG
@@ -393,20 +387,17 @@ class FlxGame extends Sprite
 	function onFocusLost(event:Event):Void
 	{
 		#if flash
-		if (_lostFocus)
-			return; // Don't run this function twice (bug in standalone flash player)
+		if (_lostFocus) return; // Don't run this function twice (bug in standalone flash player)
 		#end
 
 		_lostFocus = true;
 		FlxG.signals.focusLost.dispatch();
 		_state.onFocusLost();
 
-		if (!FlxG.autoPause)
-			return;
+		if (!FlxG.autoPause) return;
 
 		#if FLX_FOCUS_LOST_SCREEN
-		if (_focusLostScreen != null)
-			_focusLostScreen.visible = true;
+		if (_focusLostScreen != null) _focusLostScreen.visible = true;
 		#end
 
 		#if FLX_DEBUG
@@ -443,13 +434,11 @@ class FlxGame extends Sprite
 		#end
 
 		#if FLX_FOCUS_LOST_SCREEN
-		if (_focusLostScreen != null)
-			_focusLostScreen.draw();
+		if (_focusLostScreen != null) _focusLostScreen.draw();
 		#end
 
 		#if FLX_SOUND_TRAY
-		if (soundTray != null)
-			soundTray.screenCenter();
+		if (soundTray != null) soundTray.screenCenter();
 		#end
 	}
 
@@ -463,8 +452,7 @@ class FlxGame extends Sprite
 		_total = ticks;
 
 		#if FLX_SOUND_TRAY
-		if (soundTray != null && soundTray.active)
-			soundTray.update(_elapsedMS);
+		if (soundTray != null && soundTray.active) soundTray.update(_elapsedMS);
 		#end
 
 		if (!_lostFocus || !FlxG.autoPause)
@@ -535,7 +523,7 @@ class FlxGame extends Sprite
 		}
 		else
 		{
-			_nextState = ()->new FlxIntroSplash(_initialState);
+			_nextState = () -> new FlxIntroSplash(_initialState);
 			_skipSplash = true; // only play it once
 		}
 
@@ -565,8 +553,7 @@ class FlxGame extends Sprite
 		#end
 
 		// Destroy the old state (if there is an old state)
-		if (_state != null)
-			_state.destroy();
+		if (_state != null) _state.destroy();
 
 		// we need to clear bitmap cache only after previous state is destroyed, which will reset useCount for FlxGraphic objects
 		FlxG.bitmap.clearCache();
@@ -576,15 +563,13 @@ class FlxGame extends Sprite
 		_state._constructor = _nextState.getConstructor();
 		_nextState = null;
 
-		if (_gameJustStarted)
-			FlxG.signals.preGameStart.dispatch();
+		if (_gameJustStarted) FlxG.signals.preGameStart.dispatch();
 
 		FlxG.signals.preStateCreate.dispatch(_state);
 
 		_state.create();
 
-		if (_gameJustStarted)
-			gameStart();
+		if (_gameJustStarted) gameStart();
 
 		#if FLX_DEBUG
 		debugger.console.registerObject("state", _state);
@@ -592,7 +577,7 @@ class FlxGame extends Sprite
 
 		FlxG.signals.postStateSwitch.dispatch();
 	}
-	
+
 	function gameStart()
 	{
 		FlxG.signals.postGameStart.dispatch();
@@ -664,21 +649,18 @@ class FlxGame extends Sprite
 	 */
 	function update():Void
 	{
-		if (!_state.active || !_state.exists)
-			return;
+		if (!_state.active || !_state.exists) return;
 
-		if (_nextState != null)
-			switchState();
+		if (_nextState != null) switchState();
 
 		#if FLX_DEBUG
-		if (FlxG.debugger.visible)
-			ticks = getTicks();
+		if (FlxG.debugger.visible) ticks = getTicks();
 		#end
 
 		updateElapsed();
 
 		updateInput();
-		
+
 		FlxG.signals.preUpdate.dispatch();
 
 		#if FLX_SOUND_SYSTEM
@@ -697,11 +679,10 @@ class FlxGame extends Sprite
 
 		#if FLX_POINTER_INPUT
 		var len = FlxG.swipes.length;
-		while(len-- > 0)
+		while (len-- > 0)
 		{
 			final swipe = FlxG.swipes.pop();
-			if (swipe != null)
-				swipe.destroy();
+			if (swipe != null) swipe.destroy();
 		}
 		#end
 
@@ -719,8 +700,7 @@ class FlxGame extends Sprite
 			FlxG.elapsed = FlxG.timeScale * (_elapsedMS / 1000); // variable timestep
 
 			var max = FlxG.maxElapsed * FlxG.timeScale;
-			if (FlxG.elapsed > max)
-				FlxG.elapsed = max;
+			if (FlxG.elapsed > max) FlxG.elapsed = max;
 		}
 	}
 
@@ -789,18 +769,15 @@ class FlxGame extends Sprite
 	 */
 	function draw():Void
 	{
-		if (!_state.visible || !_state.exists)
-			return;
+		if (!_state.visible || !_state.exists) return;
 
 		#if FLX_DEBUG
-		if (FlxG.debugger.visible)
-			ticks = getTicks();
+		if (FlxG.debugger.visible) ticks = getTicks();
 		#end
 
 		FlxG.signals.preDraw.dispatch();
 
-		if (FlxG.renderTile)
-			FlxDrawBaseItem.drawCalls = 0;
+		if (FlxG.renderTile) FlxDrawBaseItem.drawCalls = 0;
 
 		FlxG.cameras.lock();
 

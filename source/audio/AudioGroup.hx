@@ -11,8 +11,7 @@ class AudioGroup extends Group<Audio>
 	{
 		this.volume = volume;
 
-		for (audio in list)
-			audio.volume = volume;
+		for (audio in list) audio.volume = volume;
 
 		return volume;
 	}
@@ -33,35 +32,29 @@ class AudioGroup extends Group<Audio>
 	{
 		for (audio in list)
 		{
-			if (audio.path == path)
-				audio.play(forceRestart, start, end);
+			if (audio.path == path) audio.play(forceRestart, start, end);
 		}
 	}
 
 	public function add(...params:Any)
 	{
-		if (params.length == 1)
-			addPotentialFile(params[0]);
+		if (params.length == 1) addPotentialFile(params[0]);
 	}
 
 	public function remove(...params:Any)
 	{
-		if (params.length == 1)
-			removePotentialFile(params[0]);
+		if (params.length == 1) removePotentialFile(params[0]);
 	}
 
 	public function addPotentialFile(file:Any)
 	{
 		var audio:Audio = null;
 
-		if (file is String)
-			audio = new Audio(file);
+		if (file is String) audio = new Audio(file);
 
-		if (file is Audio)
-			audio = file;
+		if (file is Audio) audio = file;
 
-		if (audio == null || audio?.data == null || list.indexOf(audio) != -1)
-			return false;
+		if (audio == null || audio?.data == null || list.indexOf(audio) != -1) return false;
 
 		var audioWithSamePath = false;
 
@@ -74,8 +67,7 @@ class AudioGroup extends Group<Audio>
 			}
 		}
 
-		if (audioWithSamePath)
-			return false;
+		if (audioWithSamePath) return false;
 
 		list.push(audio);
 		return true;
@@ -87,19 +79,16 @@ class AudioGroup extends Group<Audio>
 
 		if (file is String)
 		{
-			for (subaudio in list)
-				if (subaudio.path == file)
-				{
-					audio = subaudio;
-					break;
-				}
+			for (subaudio in list) if (subaudio.path == file)
+			{
+				audio = subaudio;
+				break;
+			}
 		}
 
-		if (file is Audio)
-			audio = file;
+		if (file is Audio) audio = file;
 
-		if (list.indexOf(audio) == -1)
-			return false;
+		if (list.indexOf(audio) == -1) return false;
 
 		return list.remove(audio);
 	}

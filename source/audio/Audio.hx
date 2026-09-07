@@ -19,8 +19,7 @@ class Audio extends DataLoader<FlxSound>
 
 	private function set_volume(volume:Float):Float
 	{
-		if (data == null)
-			return 0;
+		if (data == null) return 0;
 
 		return data.volume = volume;
 	}
@@ -41,8 +40,7 @@ class Audio extends DataLoader<FlxSound>
 
 	private function set_looped(looped:Bool):Bool
 	{
-		if (data == null)
-			return false;
+		if (data == null) return false;
 
 		return data.looped = looped;
 	}
@@ -51,8 +49,7 @@ class Audio extends DataLoader<FlxSound>
 	{
 		super(null);
 
-		if (path != null)
-			load(path);
+		if (path != null) load(path);
 	}
 
 	override function toString():String
@@ -86,8 +83,7 @@ class Audio extends DataLoader<FlxSound>
 	{
 		if (data != null)
 		{
-			if (onComplete == null)
-				onComplete = new FlxSignal();
+			if (onComplete == null) onComplete = new FlxSignal();
 
 			data.onComplete = onComplete.dispatch;
 
@@ -99,13 +95,11 @@ class Audio extends DataLoader<FlxSound>
 	{
 		load(path);
 
-		if (data != null)
-			play();
+		if (data != null) play();
 	}
 
 	public function stop()
 	{
-		if (data != null)
-			data.stop();
+		if (data != null) data.stop();
 	}
 }

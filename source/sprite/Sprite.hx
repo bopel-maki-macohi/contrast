@@ -13,7 +13,8 @@ class Sprite extends FlxSprite
 		return cast(super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key), Sprite);
 	}
 
-	override function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):Sprite {
+	override function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):Sprite
+	{
 		return cast(super.makeGraphic(width, height, color, unique, key), Sprite);
 	}
 
@@ -36,7 +37,7 @@ class Sprite extends FlxSprite
 		{
 			trace('NO BITMAP CACHE GRAPHIC WITH KEY: $key');
 			FlxG.log.warn('NO BITMAP CACHE GRAPHIC WITH KEY: $key');
-			
+
 			return this;
 		}
 

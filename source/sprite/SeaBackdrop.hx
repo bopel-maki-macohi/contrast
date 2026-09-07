@@ -30,11 +30,9 @@ class SeaBackdrop extends FlxObject
 		sea2.velocity.set(-20, 0);
 		sea2.y += sea2.height / 2;
 
-		if (sea1Velocity != null)
-			sea1.velocity.set(sea1Velocity.x, sea1Velocity.y);
+		if (sea1Velocity != null) sea1.velocity.set(sea1Velocity.x, sea1Velocity.y);
 
-		if (sea2Velocity != null)
-			sea2.velocity.set(sea2Velocity.x, sea2Velocity.y);
+		if (sea2Velocity != null) sea2.velocity.set(sea2Velocity.x, sea2Velocity.y);
 	}
 
 	override function update(elapsed:Float)
@@ -54,8 +52,7 @@ class SeaBackdrop extends FlxObject
 		{
 			obj.camera = camera;
 
-			if (obj != null && obj.visible && obj.exists)
-				obj.draw();
+			if (obj != null && obj.visible && obj.exists) obj.draw();
 		}
 	}
 }

@@ -38,27 +38,21 @@ class StateFirstChoice extends State
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.anyJustPressed([A, LEFT]))
-			changeSelection(-1);
-		if (FlxG.keys.anyJustPressed([D, RIGHT]))
-			changeSelection(1);
+		if (FlxG.keys.anyJustPressed([A, LEFT])) changeSelection(-1);
+		if (FlxG.keys.anyJustPressed([D, RIGHT])) changeSelection(1);
 	}
 
 	private function changeSelection(amount = 0)
 	{
 		selection += amount;
 
-		if (selection < 0)
-			selection = 1;
-		if (selection > 1)
-			selection = 0;
+		if (selection < 0) selection = 1;
+		if (selection > 1) selection = 0;
 
 		arrow.screenCenter();
 		arrow.shift(0, -2, true);
 
-		if (selection == 0)
-			arrow.shift(-2, 0, true);
-		else
-			arrow.shift(2, 0, true);
+		if (selection == 0) arrow.shift(-2, 0, true);
+		else arrow.shift(2, 0, true);
 	}
 }
