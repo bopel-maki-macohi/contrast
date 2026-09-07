@@ -16,8 +16,11 @@ class SeaBackdrop extends FlxObject
 	{
 		super();
 
-		colorBG = new Sprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, color);
-		colorBG.alpha = 0.25;
+		if (color != BLACK)
+		{
+			colorBG = new Sprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, color);
+			colorBG.alpha = 0.25;
+		}
 
 		sea1 = new FlxBackdrop('image:sea-desat.png');
 		sea1.blend = MULTIPLY;
@@ -39,9 +42,9 @@ class SeaBackdrop extends FlxObject
 	{
 		super.update(elapsed);
 
-		colorBG.update(elapsed);
-		sea1.update(elapsed);
-		sea2.update(elapsed);
+		if (colorBG != null) colorBG.update(elapsed);
+		if (sea1 != null) sea1.update(elapsed);
+		if (sea2 != null) sea2.update(elapsed);
 	}
 
 	override function draw()
@@ -50,9 +53,11 @@ class SeaBackdrop extends FlxObject
 
 		for (obj in [colorBG, sea1, sea2])
 		{
-			obj.camera = camera;
-
-			if (obj != null && obj.visible && obj.exists) obj.draw();
+			if (obj != null && obj.visible && obj.exists)
+			{
+				obj.camera = camera;
+				obj.draw();
+			}
 		}
 	}
 }

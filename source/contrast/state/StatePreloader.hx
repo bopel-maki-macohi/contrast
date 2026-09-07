@@ -49,7 +49,15 @@ class StatePreloader extends State
 		for (preloader in preloaders) totalTasks += preloader.assets;
 
 		var seaBG:SeaBackdrop;
-		add(seaBG = new SeaBackdrop(Color.GRAY, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+
+		#if !debug
+		seaBG.sea1.blend = NORMAL;
+		seaBG.sea2.blend = NORMAL;
+
+		seaBG.sea1.alpha = 0.05;
+		seaBG.sea2.alpha = 0.05;
+		#end
 
 		#if debug
 		add(tasksText = new FlxText(0, 0, FlxG.width, '', 16));
@@ -68,12 +76,12 @@ class StatePreloader extends State
 		#end
 
 		pressEnter = new Sprite().loadGraphic('image:ui/key-enter.png');
-		
+
 		#if debug
 		add(pressEnter);
+		pressEnter.setPosition(FlxG.width - pressEnter.width, FlxG.height - progressBar.height - pressEnter.height);
 		#end
 
-		pressEnter.setPosition(FlxG.width - pressEnter.width, FlxG.height - progressBar.height - pressEnter.height);
 		pressEnter.visible = false;
 
 		for (preloader in preloaders)
@@ -103,8 +111,7 @@ class StatePreloader extends State
 		tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 		#end
 
-		if (FlxG.keys.justPressed.ENTER 
-			&& pressEnter.visible) moveToStartState();
+		if (FlxG.keys.justPressed.ENTER && pressEnter.visible) moveToStartState();
 	}
 
 	private function onPreloaderTick()
