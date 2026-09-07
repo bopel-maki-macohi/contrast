@@ -1,3 +1,4 @@
+import flixel.util.FlxColor;
 import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -8,6 +9,10 @@ class Sprite extends FlxSprite
 			?key:String):Sprite
 	{
 		return cast(super.loadGraphic(graphic, animated, frameWidth, frameHeight, unique, key), Sprite);
+	}
+
+	override function makeGraphic(width:Int, height:Int, color:FlxColor = FlxColor.WHITE, unique:Bool = false, ?key:String):Sprite {
+		return cast(super.makeGraphic(width, height, color, unique, key), Sprite);
 	}
 
 	override function toString():String

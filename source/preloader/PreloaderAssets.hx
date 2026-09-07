@@ -8,7 +8,8 @@ import flixel.FlxG;
 
 class PreloaderAssets extends Preloader
 {
-	public var colorables:Array<String> = ['arrow', 'vessel'];
+	public var noncolorables:Array<String> = ['c-wheel', 'sea'];
+	public var colorables:Array<String> = ['arrow', 'vessel', 'sea-desat'];
 
 	public var colors(default, null):Map<String, Color> = [
 		'black' => BLACK,
@@ -31,7 +32,7 @@ class PreloaderAssets extends Preloader
 		@:privateAccess
 		this.libraries = [for (library => lib in Assets.libraries) library];
 
-		super(([for (color in colors) color].length * colorables.length) + libraries.length);
+		super(([for (color in colors) color].length * colorables.length) + libraries.length + noncolorables.length);
 	}
 
 	override function preload()
@@ -51,13 +52,25 @@ class PreloaderAssets extends Preloader
 			for (colorCODE => colorVALUE in colors)
 			{
 				final key = '${colorCODE}_${colorable}';
-				var vesselGraphic = FlxGraphic.fromAssetKey('image:white/$colorable.png', false, '', false);
+				var vesselGraphic = getGraphic('image:c/$colorable.png');
 				FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, colorVALUE);
 				storeGraphic(vesselGraphic.bitmap, true, key);
-				trace('Created Color ${colorable.substr(0, 1).toUpperCase()}${colorable.substr(1).toLowerCase()} : $colorCODE');
+				trace('Cached Colorable ${colorable.substr(0, 1).toUpperCase()}${colorable.substr(1).toLowerCase()} : $colorCODE');
 				done++;
 			}
 		}
+
+		for (noncolorable in noncolorables)
+		{
+			storeGraphic(getGraphic('image:nc/$noncolorable.png').bitmap, true, noncolorable);
+			trace('Cached ${noncolorable.substr(0, 1).toUpperCase()}${noncolorable.substr(1).toLowerCase()}');
+			done++;
+		}
+	}
+
+	private function getGraphic(path:String)
+	{
+		return FlxGraphic.fromAssetKey(path, false, '', false);
 	}
 
 	private function storeGraphic(bitmap:BitmapData, unique:Bool, key:String)

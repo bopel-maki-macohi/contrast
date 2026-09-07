@@ -122,6 +122,6 @@
 
 	<!-- <prebuild haxe="source.Prebuild" /> -->
 
-	<icon path="assets/image/colored/c-wheel.png" />
+	<icon path="assets/image/nc/c-wheel.png" />
 
 </project>

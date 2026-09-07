@@ -37,8 +37,13 @@ class Main extends FlxGame
 
 		super.create(_);
 
-		assetsPreloader.preload();
+		assetsPreloader.completeSignal.add(moveToStartState);
 
+		assetsPreloader.preload();
+	}
+	
+	private function moveToStartState()
+	{
 		FlxG.switchState(() -> new StateFirstChoice());
 	}
 }
