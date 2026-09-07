@@ -1,5 +1,7 @@
 package contrast.state;
 
+import flixel.FlxSprite;
+import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
@@ -7,7 +9,6 @@ import flixel.ui.FlxBar;
 import sys.thread.Thread;
 #end
 import flixel.math.FlxPoint;
-import flixel.text.FlxText;
 import flixel.FlxG;
 
 class StatePreloader extends State
@@ -19,10 +20,10 @@ class StatePreloader extends State
 	private var totalTasks(default, null):Int = 0;
 	private var done(default, null):Int = 0;
 
-	private var tasksText(default, null):FlxText;
+	private var tasksText(default, null):Text;
 
 	private var reminder(default, null):DataLoaderString = new DataLoaderString('debug:REMINDER.txt');
-	private var reminderText(default, null):FlxText;
+	private var reminderText(default, null):Text;
 
 	private var progressBar:FlxBar;
 
@@ -30,21 +31,19 @@ class StatePreloader extends State
 
 	private var seaBG:SeaBackdrop;
 
+	private var UI(get, never):Array<FlxSprite>;
+
+	private function get_UI():Array<FlxSprite> return [tasksText, reminderText, progressBar, pressEnter];
+
 	private var currentTasks(get, never):Array<String>;
 
-	private function get_currentTasks():Array<String>
-	{
-		return [
-			for (preloader in preloaders) if (preloader != null) '${preloader.label} : ${preloader.currentTask} ( ${preloader.done} / ${preloader.assets} )'
-		];
-	}
+	private function get_currentTasks():Array<String> return [
+		for (preloader in preloaders) if (preloader != null) '${preloader.label} : ${preloader.currentTask} ( ${preloader.done} / ${preloader.assets} )'
+	];
 
 	private var preloaders(get, never):Array<Preloader>;
 
-	private function get_preloaders():Array<Preloader>
-	{
-		return [librariesPreloader, assetsColPreloader, assetsRegPreloader];
-	}
+	private function get_preloaders():Array<Preloader> return [librariesPreloader, assetsColPreloader, assetsRegPreloader];
 
 	override function create()
 	{
@@ -52,28 +51,29 @@ class StatePreloader extends State
 
 		for (preloader in preloaders) totalTasks += preloader.assets;
 
-		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
-
-		#if !debug
 		var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');
 
 		DEVICE_COMPILING.looped = true;
 		DEVICE_COMPILING.volume = 0.125;
 		DEVICE_COMPILING.play();
 
+		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+
+		#if !debug
 		seaBG.sea1.blend = NORMAL;
 		seaBG.sea2.blend = NORMAL;
 
 		seaBG.sea1.alpha = 0.05;
 		seaBG.sea2.alpha = 0.05;
+		#else
+		seaBG.colorBG.alpha = 0.125;
 		#end
 
-		#if debug
-		add(tasksText = new FlxText(0, 0, FlxG.width, '', 16));
+		add(tasksText = new Text(0, 0, FlxG.width, '', 16));
 
 		if (reminder.data != null)
 		{
-			add(reminderText = new FlxText(0, 0, FlxG.width, reminder.data, 8));
+			add(reminderText = new Text(0, 0, FlxG.width, reminder.data, 8));
 			reminderText.alignment = RIGHT;
 			reminderText.x = FlxG.width - reminderText.width;
 		}
@@ -82,16 +82,14 @@ class StatePreloader extends State
 		progressBar.createFilledBar(Color.RED, Color.LIME);
 		progressBar.screenCenter();
 		progressBar.y = FlxG.height - progressBar.height;
-		#end
 
 		pressEnter = new Sprite().loadGraphic('image:ui/key-enter.png');
-
-		#if debug
-		add(pressEnter);
 		pressEnter.setPosition(FlxG.width - pressEnter.width, FlxG.height - progressBar.height - pressEnter.height);
-		#end
-
 		pressEnter.visible = false;
+
+		#if !debug
+		add(pressEnter);
+		#end
 
 		for (preloader in preloaders)
 		{
@@ -110,17 +108,20 @@ class StatePreloader extends State
 			});
 			#end
 		}
+
+		#if !debug
+		hideUIInstant();
+		#end
 	}
 
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		#if debug
-		tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
-		#end
+		if (tasksText.visible)
+			tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 
-		if (FlxG.keys.justPressed.ENTER && pressEnter.visible) moveToStartState();
+		if ((FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) && pressEnter.visible) moveToStartState();
 	}
 
 	private function onPreloaderTick()
@@ -134,12 +135,105 @@ class StatePreloader extends State
 			#if !debug
 			FlxTween.tween(seaBG.sea1, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
 			FlxTween.tween(seaBG.sea2, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
+			#else
+			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 			#end
+
+			FlxTimer.wait(1, potentialEasterEgg);
+		}
+	}
+
+	private function potentialEasterEgg()
+	{
+		return;
+
+		switch (Save.contrast)
+		{
+			// The start
+			case 0: hideUITransition();
+
+			// Abnormal
+			// Only liked by certain people
+			// Blue
+			case 67: hideUITransition();
+
+			// Do you know what it's like to be right inbetween 2 worlds?
+			// 2 Communities?
+			// 2 Personalities?
+			// White
+			case 68: hideUITransition();
+
+			// A Classic
+			// The one everyone loves
+			// Yellow
+			case 69: hideUITransition();
+
+			//
+			//
+			// PEOPLE
+			//
+			//
+
+			// Macadam (Earth Clone)
+			// Side: Yellow
+			case 5: hideUITransition();
+
+			// Macadam (Mask Clone)
+			// Side: Blue
+			// But isn't joy supposed to be Yellow
+			case 64: hideUITransition();
+
+			// Rustty 
+			// Side: Blue
+			// Booze
+			case 30: hideUITransition();
+
+			// Requavar
+			// Side: Yellow
+			case 107: hideUITransition();
 		}
 	}
 
 	private function moveToStartState()
 	{
 		FlxG.switchState(() -> new StateFirstChoice());
+	}
+
+	private function showUIInstant()
+	{
+		for (obj in UI)
+		{
+			if (obj == null || !members.contains(obj)) continue;
+			obj.visible = true;
+		}
+	}
+
+	private function hideUIInstant()
+	{
+		for (obj in UI)
+		{
+			if (obj == null || !members.contains(obj)) continue;
+			obj.visible = false;
+		}
+	}
+
+	private function showUITransition()
+	{
+		for (obj in UI)
+		{
+			if (obj == null || !members.contains(obj) || !obj.visible) continue;
+			FlxTween.cancelTweensOf(obj);
+			FlxTween.tween(obj, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+		}
+	}
+
+	private function hideUITransition()
+	{
+		for (obj in UI)
+		{
+			if (obj == null || !members.contains(obj) || !obj.visible) continue;
+			FlxTween.cancelTweensOf(obj);
+			FlxTween.tween(obj, {alpha: 0}, 1, {ease: FlxEase.quintOut});
+		}
 	}
 }

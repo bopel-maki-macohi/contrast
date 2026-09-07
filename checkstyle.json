@@ -15,12 +15,6 @@
         },
         {
             "props": {
-                "severity": "WARNING"
-            },
-            "type": "CommentedOutCode"
-        },
-        {
-            "props": {
                 "modifiers": [
                     "OVERRIDE",
                     "OVERLOAD",

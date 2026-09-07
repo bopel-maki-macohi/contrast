@@ -43,6 +43,6 @@ class Main extends FlxGame
 	{
 		super.update();
 
-		if (FlxG.mouse != null) FlxG.mouse.visible = mouseVisible;
+		if (FlxG.mouse != null) FlxG.mouse.enabled = FlxG.mouse.visible = mouseVisible;
 	}
 }
