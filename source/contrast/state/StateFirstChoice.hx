@@ -13,9 +13,20 @@ class StateFirstChoice extends State
 
 	private var selection:Int = 0;
 
+	private var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');
+	private var DEVICE_PROCESSING:Audio = new Audio('sound:DEVICE_PROCESSING.ogg');
+
 	override public function create()
 	{
 		super.create();
+
+		DEVICE_COMPILING.looped = true;
+		DEVICE_COMPILING.volume = 0.125;
+		DEVICE_COMPILING.play();
+
+		DEVICE_PROCESSING.looped = true;
+		DEVICE_PROCESSING.volume = 0.25;
+		DEVICE_PROCESSING.play();
 
 		add(seaBG = new SeaBackdrop(Color.SEA));
 

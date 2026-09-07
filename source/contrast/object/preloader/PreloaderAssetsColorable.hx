@@ -1,23 +1,23 @@
-package contrast.preloader;
+package contrast.object.preloader;
 
 import flixel.util.FlxBitmapDataUtil;
 import haxe.io.Path;
 
-class PreloaderAssetsVessel extends PreloaderAssets
+class PreloaderAssetsColorable extends PreloaderAssets
 {
-	public var vesselAssets:Array<String> = ['vessel', 'ui/key-enter', 'ui/arrow'];
+	public var images:Array<String> = ['vessel', 'macadam'];
 
 	override public function new()
 	{
-		super('Assets (Vessel)', Math.floor(vesselAssets.length * Color.table.length()));
+		super('Assets (Colorable)', Math.floor(images.length * Color.table.length()));
 	}
 
 	override function preload()
 	{
 		super.preload();
 
-		currentTask = 'Caching Vessel Assets';
-		for (asset in vesselAssets)
+		currentTask = 'Creating and Caching Colorable Assets';
+		for (asset in images)
 		{
 			for (colorCODE => colorVALUE in Color.table)
 			{

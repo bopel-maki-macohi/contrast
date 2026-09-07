@@ -9,7 +9,7 @@ import contrast.object.assets.data.*;
 import contrast.object.assets.sprite.*;
 import contrast.object.assets.text.*;
 import contrast.object.group.*;
-import contrast.preloader.*;
+import contrast.object.preloader.*;
 import contrast.state.*;
 import contrast.util.*;
 import contrast.util.tool.*;

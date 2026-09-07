@@ -1,4 +1,4 @@
-package contrast.preloader;
+package contrast.object.preloader;
 
 import flixel.util.FlxSignal;
 

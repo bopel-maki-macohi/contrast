@@ -6,6 +6,8 @@ import flixel.FlxGame;
 
 class Main extends FlxGame
 {
+	public static var mouseVisible:Bool = false;
+
 	override public function new()
 	{
 		super(0, 0, StatePreloader, 60, 60, #if SKIP_SPLASH true #else false #end, false);
@@ -35,5 +37,12 @@ class Main extends FlxGame
 		#end
 
 		super.create(_);
+	}
+
+	override function update()
+	{
+		super.update();
+
+		if (FlxG.mouse != null) FlxG.mouse.visible = mouseVisible;
 	}
 }

@@ -1,5 +1,7 @@
 package contrast.state;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import flixel.ui.FlxBar;
 #if sys
 import sys.thread.Thread;
@@ -11,8 +13,8 @@ import flixel.FlxG;
 class StatePreloader extends State
 {
 	private var librariesPreloader(default, null):PreloaderLibraries = new PreloaderLibraries();
-	private var assetsNVPreloader(default, null):PreloaderAssetsNonVessel = new PreloaderAssetsNonVessel();
-	private var assetsVPreloader(default, null):PreloaderAssetsVessel = new PreloaderAssetsVessel();
+	private var assetsColPreloader(default, null):PreloaderAssetsColorable = new PreloaderAssetsColorable();
+	private var assetsRegPreloader(default, null):PreloaderAssetsRegular = new PreloaderAssetsRegular();
 
 	private var totalTasks(default, null):Int = 0;
 	private var done(default, null):Int = 0;
@@ -25,6 +27,8 @@ class StatePreloader extends State
 	private var progressBar:FlxBar;
 
 	private var pressEnter(default, null):Sprite;
+
+	private var seaBG:SeaBackdrop;
 
 	private var currentTasks(get, never):Array<String>;
 
@@ -39,7 +43,7 @@ class StatePreloader extends State
 
 	private function get_preloaders():Array<Preloader>
 	{
-		return [librariesPreloader, assetsNVPreloader, assetsVPreloader];
+		return [librariesPreloader, assetsColPreloader, assetsRegPreloader];
 	}
 
 	override function create()
@@ -48,10 +52,15 @@ class StatePreloader extends State
 
 		for (preloader in preloaders) totalTasks += preloader.assets;
 
-		var seaBG:SeaBackdrop;
 		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
 
 		#if !debug
+		var DEVICE_COMPILING:Audio = new Audio('sound:DEVICE_COMPILING.ogg');
+
+		DEVICE_COMPILING.looped = true;
+		DEVICE_COMPILING.volume = 0.125;
+		DEVICE_COMPILING.play();
+
 		seaBG.sea1.blend = NORMAL;
 		seaBG.sea2.blend = NORMAL;
 
@@ -118,7 +127,15 @@ class StatePreloader extends State
 	{
 		done++;
 
-		if (done == totalTasks) pressEnter.visible = true;
+		if (done == totalTasks)
+		{
+			pressEnter.visible = true;
+
+			#if !debug
+			FlxTween.tween(seaBG.sea1, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
+			FlxTween.tween(seaBG.sea2, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
+			#end
+		}
 	}
 
 	private function moveToStartState()

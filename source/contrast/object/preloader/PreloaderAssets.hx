@@ -1,4 +1,4 @@
-package contrast.preloader;
+package contrast.object.preloader;
 
 import openfl.display.BitmapData;
 import flixel.graphics.FlxGraphic;
