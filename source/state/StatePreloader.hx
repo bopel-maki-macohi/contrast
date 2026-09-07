@@ -7,14 +7,16 @@ import sys.thread.Thread;
 import sprite.Sprite;
 import sprite.SeaBackdrop;
 import flixel.math.FlxPoint;
-import flixel.util.FlxTimer;
 import flixel.text.FlxText;
 import preloader.*;
 import flixel.FlxG;
 
 class StatePreloader extends State
 {
-	private var assetsPreloader(default, null):PreloaderAssets;
+	private var librariesPreloader(default, null):PreloaderLibraries = new PreloaderLibraries();
+	private var assetsNVPreloader(default, null):PreloaderAssetsNonVessel = new PreloaderAssetsNonVessel();
+	private var assetsVPreloader(default, null):PreloaderAssetsVessel = new PreloaderAssetsVessel();
+
 	private var done(default, null):Int = 0;
 
 	private var tasksText(default, null):FlxText;
@@ -37,14 +39,7 @@ class StatePreloader extends State
 
 	private function get_preloaders():Array<Preloader>
 	{
-		return [assetsPreloader];
-	}
-
-	override public function new()
-	{
-		super();
-
-		assetsPreloader = new PreloaderAssets();
+		return [librariesPreloader, assetsNVPreloader, assetsVPreloader];
 	}
 
 	override function create()

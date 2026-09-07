@@ -1,0 +1,32 @@
+package preloader;
+
+import lime.utils.Assets;
+
+class PreloaderLibraries extends Preloader
+{
+	public var libraries(default, null):Array<String> = [];
+
+	override public function new()
+	{
+		@:privateAccess
+		this.libraries = [for (library => lib in Assets.libraries) library];
+
+		super('Asset (Libraries)', libraries.length);
+	}
+
+	override function preload()
+	{
+		super.preload();
+
+		currentTask = 'Loading Libraries';
+
+		for (library in libraries)
+		{
+			trace('Loading Library : $library');
+			performTask(function()
+			{
+				Assets.loadLibrary(library);
+			});
+		}
+	}
+}

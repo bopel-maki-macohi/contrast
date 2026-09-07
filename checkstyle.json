@@ -2,6 +2,18 @@
     "defaultSeverity": "INFO",
     "checks": [
         {
+            "type": "UnusedImport",
+            "props": {
+                "severity": "WARNING"
+            }
+        },
+        {
+            "type": "UnusedLocalVar",
+            "props": {
+                "severity": "WARNING"
+            }
+        },
+        {
             "props": {
                 "severity": "WARNING"
             },

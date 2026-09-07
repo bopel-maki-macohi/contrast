@@ -1,11 +1,5 @@
 package preloader;
 
-#if sys
-import sys.thread.Thread;
-#end
-import flixel.FlxG;
-import flixel.FlxCamera;
-import flixel.ui.FlxBar;
 import flixel.util.FlxSignal;
 
 class Preloader extends Obj
@@ -25,7 +19,11 @@ class Preloader extends Obj
 	{
 		this.done = done;
 
-		if (done == assets && completeSignal != null) completeSignal.dispatch();
+		if (done == assets)
+		{
+			currentTask = 'Done!';
+			if (completeSignal != null) completeSignal.dispatch();
+		}
 
 		return this.done;
 	}
@@ -51,14 +49,7 @@ class Preloader extends Obj
 	{
 		if (process == null) return;
 
-		#if sys
-		// Thread.create(function()
-		// {
-		#end
 		process();
 		done++;
-		#if sys
-		// });
-		#end
 	}
 }
