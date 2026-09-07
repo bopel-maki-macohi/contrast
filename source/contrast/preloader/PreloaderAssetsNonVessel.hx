@@ -18,10 +18,6 @@ class PreloaderAssetsNonVessel extends PreloaderAssets
 		currentTask = 'Caching Other Assets';
 		for (asset in otherAssets)
 		{
-			#if !TASK_MULTIPLIER
-			trace('About to Cache Non Vessel Asset : $asset');
-			#end
-
 			performTask(function()
 			{
 				storeGraphic(getGraphic('image:$asset.png').bitmap, true, new Path(asset).file);

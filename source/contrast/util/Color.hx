@@ -1,4 +1,4 @@
-package contrast;
+package contrast.util;
 
 import flixel.util.FlxColor;
 
