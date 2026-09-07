@@ -4,7 +4,7 @@ TODO:
 - Blue Path Beginning
 - Yellow Path Beginning
 
-- Make a Macro to do the code style stuff
+- Make a Macro to do the code style stuff (if u can)
 - codestyle json
 - oneline stuff plzes (hxformat)
 
