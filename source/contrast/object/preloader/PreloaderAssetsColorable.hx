@@ -8,7 +8,7 @@ class PreloaderAssetsColorable extends PreloaderAssets
 	public var images:Map<String, Array<String>> = [
 		'vessel' => ['white', 'blue', 'yellow'],
 		'ui/box' => ['blue'],
-		'iconVessel' => ['blue'],
+		'iconVessel' => ['red'],
 		'macadam/macadam_idle' => [],
 		'macadam/macadam_masking' => [],
 		'macadam/macadam_laugh' => [],
