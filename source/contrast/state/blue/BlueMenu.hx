@@ -1,5 +1,6 @@
 package contrast.state.blue;
 
+import lime.app.Application;
 import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
@@ -34,6 +35,8 @@ class BlueMenu extends State
 
 	private var options(default, null) = ['JOIN', 'MODIFY', 'LEAVE'];
 	private var optionsContainer(default, null):FlxTypedSpriteContainer<Text>;
+
+	private var selection(default, null):Int = 0;
 
 	override function create()
 	{
@@ -97,6 +100,8 @@ class BlueMenu extends State
 			prisonScaleLerpValue = t;
 			user.alpha = t;
 		});
+
+		changeSelection(0);
 	}
 
 	override function update(elapsed:Float)
@@ -105,5 +110,34 @@ class BlueMenu extends State
 
 		prison.scaleTo(prisonSize = FlxMath.lerp(prisonSize, prisonSizeTarget, prisonScaleLerpValue));
 		prison.screenCenter();
+
+		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
+		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
+		if (FlxG.keys.anyJustPressed([ENTER])) select();
+	}
+
+	private function changeSelection(amount = 0)
+	{
+		if (!introComplete) amount = 0;
+
+		selection += amount;
+
+		if (selection < 0) selection = options.length - 1;
+		if (selection > options.length - 1) selection = 0;
+
+		for (text in optionsContainer) text.color = (selection == text.ID) ? Color.WHITE : Color.BLUE;
+	}
+
+	private function select()
+	{
+		if (!introComplete) return;
+
+		switch (options[selection].toLowerCase())
+		{
+			case 'join': // play
+			case 'modify': // setings
+			case 'leave': // quit
+				Application.current.window.close();
+		}
 	}
 }

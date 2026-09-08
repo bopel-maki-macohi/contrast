@@ -41,10 +41,8 @@ class Save
 
 		save();
 
-		Application.current.onExit.add(function(a)
-		{
-			flush();
-		});
+		Application.current.onExit.add((l) -> onExit);
+		Application.current.window.onClose.add(onExit);
 	}
 
 	public static function save()
@@ -52,13 +50,21 @@ class Save
 		data.version = VERSION;
 
 		FlxG.save.data.contrast = data;
+
+		trace(data);
 	}
 
 	public static function flush()
 	{
 		save();
 
+		trace('Flushing');
 		FlxG.save.flush();
+	}
+
+	private static function onExit()
+	{
+		flush();
 	}
 }
 
