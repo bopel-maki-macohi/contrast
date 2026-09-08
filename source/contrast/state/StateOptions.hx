@@ -56,7 +56,7 @@ class StateOptions extends State
 				if (!blue) return 'Clear Save?';
 				else return 'CLEAR CONTRAST MEMORIES';
 			},
-			onSelection: () -> openSubState(new StateClearSave(optionsFollow, isBlue)),
+			onSelection: () -> openSubState(new SubStateClearSave(optionsFollow, isBlue)),
 		},);
 	}
 

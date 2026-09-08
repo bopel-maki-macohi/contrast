@@ -6,7 +6,7 @@ import flixel.math.FlxPoint;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class StateClearSave extends SubState
+class SubStateClearSave extends SubState
 {
 	private var isBlue(default, null):Bool;
 

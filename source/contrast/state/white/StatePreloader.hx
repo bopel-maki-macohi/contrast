@@ -110,7 +110,7 @@ class StatePreloader extends State
 		if (tasksText.visible)
 			tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 
-		if (canContinue)
+		if (canContinue && subState == null)
 		{
 			if (Save.data.options?.stayInPreloader && !FlxG.keys.justReleased.ANY) return;
 			moveToNextState();
@@ -131,17 +131,20 @@ class StatePreloader extends State
 			});
 			else FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 
-			FlxTimer.wait((Macro.getDefined('EASTER_EGG_AINSTANT')) ? 1 : 10 + Save.data.contrast, potentialEasterEgg);
+			FlxTimer.wait(Macro.getDefined('EASTER_EGG_AINSTANT') ? 1 : 10 + Save.data.contrast, potentialEasterEgg);
 		}
 	}
 
 	private function potentialEasterEgg()
 	{
+		trace('Potential Easter Weg');
+
 		switch (Save.contrast)
 		{
 			case 0:
 				hideUITransition();
 				trace('The Start');
+				openSubState(new SubStateStart());
 
 			case 67:
 				hideUITransition();
