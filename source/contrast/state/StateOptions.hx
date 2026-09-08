@@ -56,7 +56,7 @@ class StateOptions extends State
 				if (!blue) return 'Clear Save?';
 				else return 'CLEAR CONTRAST MEMORIES';
 			},
-			onSelection: () -> openSubState(new StateClearSave(isBlue)),
+			onSelection: () -> openSubState(new StateClearSave(optionsFollow, isBlue)),
 		},);
 	}
 
@@ -108,16 +108,23 @@ class StateOptions extends State
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ESCAPE && subState == null) leave();
+		if (FlxG.keys.justReleased.ESCAPE && subState == null) leave();
 
-		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
-		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
+		if (FlxG.keys.anyJustReleased([W, UP])) changeSelection(-1);
+		if (FlxG.keys.anyJustReleased([S, DOWN])) changeSelection(1);
 
-		if (FlxG.keys.justPressed.ENTER && options.length > 0 && subState == null)
+		if (FlxG.keys.justReleased.ENTER && options.length > 0 && subState == null)
 		{
 			if (options[selection] != null && options[selection].onSelection != null) options[selection].onSelection();
 			changeSelection();
 		}
+	}
+
+	override function closeSubState()
+	{
+		super.closeSubState();
+
+		refresh();
 	}
 
 	private function leave()
@@ -139,6 +146,11 @@ class StateOptions extends State
 		if (selection < 0) selection = options.length - 1;
 		if (selection > options.length - 1) selection = 0;
 
+		refresh();
+	}
+
+	private function refresh()
+	{
 		var sT:Text = null;
 
 		for (text in optionsTextContainer)

@@ -102,7 +102,7 @@ class BlueMenu extends State
 			},
 			onUpdate: function(t)
 			{
-				if (FlxG.keys.justPressed.ENTER)
+				if (FlxG.keys.justReleased.ENTER)
 				{
 					DEVICE_SOUL_TRANSFER.time = t.duration * 1000;
 					t.percent = 99;
@@ -132,9 +132,9 @@ class BlueMenu extends State
 		prison.scaleTo(prisonSize = FlxMath.lerp(prisonSize, prisonSizeTarget, prisonScaleLerpValue));
 		prison.screenCenter();
 
-		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
-		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
-		if (FlxG.keys.anyJustPressed([ENTER])) select();
+		if (FlxG.keys.anyJustReleased([W, UP])) changeSelection(-1);
+		if (FlxG.keys.anyJustReleased([S, DOWN])) changeSelection(1);
+		if (FlxG.keys.anyJustReleased([ENTER])) select();
 	}
 
 	private function changeSelection(amount = 0)

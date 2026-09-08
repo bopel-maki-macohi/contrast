@@ -112,7 +112,7 @@ class StatePreloader extends State
 
 		if (canContinue)
 		{
-			if (Save.data.options?.stayInPreloader && !FlxG.keys.justPressed.ANY) return;
+			if (Save.data.options?.stayInPreloader && !FlxG.keys.justReleased.ANY) return;
 			moveToNextState();
 		}
 	}

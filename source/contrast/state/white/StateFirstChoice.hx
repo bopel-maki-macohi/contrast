@@ -60,9 +60,9 @@ class StateFirstChoice extends State
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.anyJustPressed([A, LEFT])) changeSelection(-1);
-		if (FlxG.keys.anyJustPressed([D, RIGHT])) changeSelection(1);
-		if (FlxG.keys.anyJustPressed([ENTER]))
+		if (FlxG.keys.anyJustReleased([A, LEFT])) changeSelection(-1);
+		if (FlxG.keys.anyJustReleased([D, RIGHT])) changeSelection(1);
+		if (FlxG.keys.anyJustReleased([ENTER]))
 		{
 			switch (selection)
 			{

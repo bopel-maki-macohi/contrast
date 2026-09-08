@@ -25,10 +25,13 @@ class Save
 
 	public static function create()
 	{
-		FlxG.save.bind('contrast', '.M');
+		if (!FlxG.save.isBound)
+		{
+			FlxG.save.bind('contrast', '.M');
 
-		if (!Macro.getDefined('SAVE_CLEAR')) if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
-
+			if (!Macro.getDefined('SAVE_CLEAR')) if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
+		}
+		
 		data ??= {
 			version: null,
 			contrast: null,
