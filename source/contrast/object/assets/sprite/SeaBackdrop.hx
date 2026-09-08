@@ -60,4 +60,10 @@ class SeaBackdrop extends FlxObject
 			}
 		}
 	}
+
+	public function seas(method:FlxBackdrop->Int->Void)
+	{
+		method(sea1, 0);
+		method(sea2, 1);
+	}
 }

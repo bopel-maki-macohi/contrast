@@ -62,11 +62,11 @@ class StatePreloader extends State
 		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
 
 		#if !debug
-		seaBG.sea1.blend = NORMAL;
-		seaBG.sea2.blend = NORMAL;
-
-		seaBG.sea1.alpha = 0.05;
-		seaBG.sea2.alpha = 0.05;
+		seaBG.seas(function(s, i)
+		{
+			s.blend = NORMAL;
+			s.alpha = 0.05;
+		});
 		#else
 		seaBG.colorBG.alpha = 0.125;
 		#end
@@ -135,8 +135,10 @@ class StatePreloader extends State
 			pressEnter.visible = true;
 
 			#if !debug
-			FlxTween.tween(seaBG.sea1, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
-			FlxTween.tween(seaBG.sea2, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
+			seaBG.seas(function(s, i)
+			{
+				FlxTween.tween(s, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
+			});
 			#else
 			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 			#end

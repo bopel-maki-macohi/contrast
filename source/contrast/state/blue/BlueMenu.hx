@@ -1,5 +1,6 @@
 package contrast.state.blue;
 
+import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
 import flixel.math.FlxMath;
@@ -13,6 +14,7 @@ class BlueMenu extends State
 	private function set_introComplete(introComplete:Bool):Bool
 	{
 		title.visible = introComplete;
+		optionsContainer.visible = introComplete;
 
 		return this.introComplete = introComplete;
 	}
@@ -30,6 +32,9 @@ class BlueMenu extends State
 
 	private var title(default, null):Text;
 
+	private var options(default, null) = ['JOIN', 'MODIFY', 'LEAVE'];
+	private var optionsContainer(default, null):FlxTypedSpriteContainer<Text>;
+
 	override function create()
 	{
 		super.create();
@@ -43,14 +48,31 @@ class BlueMenu extends State
 		add(user = new SpriteVessel('white'));
 		user.screenCenter();
 		user.state = SPIN;
-		
+
 		add(transferMask = new SeaBackdrop(Color.BLACK, FlxPoint.weak(0, -20), FlxPoint.weak(0, 20)));
+		transferMask.seas(function(s, i)
+		{
+			s.alpha = 1;
+		});
 
 		add(prison = new Sprite().loadBitmapCacheGraphic('blue_box').scaleTo(prisonSize));
 
 		add(title = new Text(0, 0, 0, 'CONTRAST v${Main.blueVersion}', 32));
 		title.screenCenter(X);
 		title.y = title.height * 2;
+
+		add(optionsContainer = new FlxTypedSpriteContainer<Text>());
+
+		for (i => option in options)
+		{
+			var optionText = new Text(0, 0, 0, option, 16);
+			optionText.ID = i;
+			optionText.screenCenter(X);
+			optionText.y = i * (optionText.size * 2);
+			optionsContainer.add(optionText);
+		}
+
+		optionsContainer.y = FlxG.height - optionsContainer.height * 2;
 
 		FlxTween.num(0, 1, 17.5, {
 			ease: FlxEase.quintIn,
@@ -62,7 +84,7 @@ class BlueMenu extends State
 			{
 				if (FlxG.keys.justPressed.ENTER)
 				{
-					DEVICE_SOUL_TRANSFER.time = (17.5 * 1000) / DEVICE_SOUL_TRANSFER.length;
+					DEVICE_SOUL_TRANSFER.time = t.duration * 1000;
 					t.percent = 99;
 				}
 			},

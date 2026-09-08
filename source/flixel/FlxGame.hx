@@ -2,8 +2,6 @@ package flixel;
 
 import flixel.graphics.tile.FlxDrawBaseItem;
 import flixel.system.FlxSplash;
-import flixel.util.FlxArrayUtil;
-import flixel.util.FlxDestroyUtil;
 import flixel.util.typeLimit.NextState;
 import openfl.Assets;
 import openfl.Lib;
@@ -12,9 +10,6 @@ import openfl.display.StageAlign;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
 import openfl.filters.BitmapFilter;
-#if desktop
-import openfl.events.FocusEvent;
-#end
 #if FLX_DEBUG
 import flixel.system.debug.FlxDebugger;
 #end
