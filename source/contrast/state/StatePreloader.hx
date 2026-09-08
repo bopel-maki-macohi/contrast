@@ -192,15 +192,14 @@ class StatePreloader extends State
 
 	private function moveToStartState()
 	{
-		if (Save.data.alliance == 0)
-		{
-			FlxG.switchState(() -> new BlueMenu());
-			return;
-		}
+		final NEXT_STATE:String = Macro.getDefineValue('NEXT_STATE')?.toLowerCase();
 
-		// if (Save.data.alliance == 1) {FlxG.switchState(() -> new YellowStart()); return;}
-
-		FlxG.switchState(() -> new StateFirstChoice());
+		if (NEXT_STATE == 'first_choice') FlxG.switchState(() -> new StateFirstChoice());
+		else if (NEXT_STATE == 'blue_menu' || Save.data.alliance == 0) FlxG.switchState(() -> new BlueMenu());
+		else if (NEXT_STATE == 'yellow_menu' || Save.data.alliance == 1) FlxG.switchState(() -> new BlueMenu());
+		else if (NEXT_STATE == 'blue_options_menu') FlxG.switchState(() -> new StateOptions(true));
+		else if (NEXT_STATE == 'yellow_options_menu') FlxG.switchState(() -> new StateOptions(false));
+		else FlxG.switchState(() -> new StateFirstChoice());
 	}
 
 	private function showUIInstant()

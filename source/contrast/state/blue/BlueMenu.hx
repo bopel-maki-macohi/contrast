@@ -134,9 +134,10 @@ class BlueMenu extends State
 
 		switch (options[selection].toLowerCase())
 		{
-			case 'join': // play
-			case 'modify': // setings
-			case 'leave': // quit
+			case 'join':
+			case 'modify':
+				FlxG.switchState(() -> new StateOptions());
+			case 'leave':
 				Application.current.window.close();
 		}
 	}
