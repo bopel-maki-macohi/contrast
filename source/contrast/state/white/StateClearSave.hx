@@ -1,4 +1,5 @@
-package contrast.state.white;
+package contrast.state.white; // TODO: MOVE THIS OUT OF WHITE
+//									   WHY IS OPTIONS NOT IN WHITE BUT THIS IS?
 
 import flixel.math.FlxPoint;
 import flixel.tweens.FlxEase;
