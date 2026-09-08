@@ -4,7 +4,7 @@ import flixel.util.FlxSignal;
 
 class Preloader extends Obj
 {
-	@:allow(Main)
+	@:allow(contrast.Main)
 	public static var taskMultiplier(default, null):Int = 1;
 
 	public var label(default, null):String = 'Empty';

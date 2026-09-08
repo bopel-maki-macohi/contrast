@@ -8,13 +8,15 @@ class Main extends FlxGame
 {
 	public static var mouseVisible:Bool = false;
 
+	public static final debug:Bool = Macro.getDefined('debug');
+
 	public static final whiteVersion = Macro.getDefineValue('whiteVersion');
 	public static final blueVersion = Macro.getDefineValue('blueVersion');
 	public static final yellowVersion = Macro.getDefineValue('yellowVersion');
 
 	override public function new()
 	{
-		super(0, 0, StatePreloader, 60, 60, #if SKIP_SPLASH true #else false #end, false);
+		super(0, 0, StatePreloader, 60, 60, Macro.getDefined('SPLASH_SKIP'));
 	}
 
 	override function create(_:Event)
@@ -36,9 +38,7 @@ class Main extends FlxGame
 
 		Save.create();
 
-		#if TASK_MULTIPLIER
-		preloader.Preloader.taskMultiplier = FlxG.random.int(1, 100);
-		#end
+		if (Macro.getDefined('TASK_MULTIPLIER')) Preloader.taskMultiplier = FlxG.random.int(1, 100);
 
 		Window.setIcon();
 

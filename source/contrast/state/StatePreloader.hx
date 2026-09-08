@@ -59,17 +59,14 @@ class StatePreloader extends State
 		DEVICE_COMPILING.volume = 0.125;
 		DEVICE_COMPILING.play();
 
-		add(seaBG = new SeaBackdrop(#if !debug Color.BLACK #else Color.GRAY #end, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+		add(seaBG = new SeaBackdrop((!Main.debug) ? Color.BLACK : Color.GRAY, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
 
-		#if !debug
-		seaBG.seas(function(s, i)
+		if (!Main.debug) seaBG.seas(function(s, i)
 		{
 			s.blend = NORMAL;
 			s.alpha = 0.05;
 		});
-		#else
-		seaBG.colorBG.alpha = 0.125;
-		#end
+		else seaBG.colorBG.alpha = 0.125;
 
 		add(tasksText = new Text(0, 0, FlxG.width, ''));
 
@@ -103,9 +100,7 @@ class StatePreloader extends State
 			#end
 		}
 
-		#if !debug
-		hideUIInstant();
-		#end
+		if (!Main.debug) hideUIInstant();
 	}
 
 	override function update(elapsed:Float)
@@ -130,14 +125,11 @@ class StatePreloader extends State
 		{
 			canContinue = true;
 
-			#if !debug
-			seaBG.seas(function(s, i)
+			if (!Main.debug) seaBG.seas(function(s, i)
 			{
 				FlxTween.tween(s, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
 			});
-			#else
-			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
-			#end
+			else FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 
 			FlxTimer.wait(10 + Save.data.contrast, potentialEasterEgg);
 		}

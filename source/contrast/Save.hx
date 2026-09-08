@@ -27,9 +27,7 @@ class Save
 	{
 		FlxG.save.bind('contrast', '.M');
 
-		#if !SAVE_CLEAR
-		if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
-		#end
+		if (!Macro.getDefined('SAVE_CLEAR')) if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
 
 		data ??= {
 			version: null,
@@ -49,7 +47,9 @@ class Save
 	{
 		data.version = VERSION;
 
+		final SAVE_CONTRAST = Macro.getDefineValue('SAVE_CONTRAST');
 		if (data.contrast == null) contrast;
+		if (SAVE_CONTRAST != null) data.contrast = Std.parseInt(SAVE_CONTRAST);
 
 		data.state ??= '';
 		data.options ??= {
