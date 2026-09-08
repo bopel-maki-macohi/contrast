@@ -70,7 +70,7 @@ class StatePreloader extends State
 
 		add(tasksText = new Text(0, 0, FlxG.width, ''));
 
-		if (reminder.data != null)
+		if (reminder.data != null && reminder.data.length > 0 && Macro.getDefined('debug'))
 		{
 			add(reminderText = new Text(0, 0, FlxG.width, reminder.data));
 			reminderText.alignment = RIGHT;
