@@ -49,6 +49,15 @@ class StateOptions extends State
 
 		isBlue = Save.data.alliance == 0;
 		if (forceBlue != null) isBlue = forceBlue;
+
+		options.push({
+			getLabel: (blue) ->
+			{
+				if (!blue) return 'Clear Save?';
+				else return 'CLEAR CONTRAST MEMORIES';
+			},
+			onSelection: () -> openSubState(new StateClearSave(isBlue)),
+		},);
 	}
 
 	override function create()
@@ -69,6 +78,8 @@ class StateOptions extends State
 
 			return;
 		}
+
+		persistentUpdate = true;
 
 		add(optionsFollow = new FlxObject());
 
@@ -97,12 +108,12 @@ class StateOptions extends State
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.ESCAPE) leave();
+		if (FlxG.keys.justPressed.ESCAPE && subState == null) leave();
 
 		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
 		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
 
-		if (FlxG.keys.justPressed.ENTER && options.length > 0)
+		if (FlxG.keys.justPressed.ENTER && options.length > 0 && subState == null)
 		{
 			if (options[selection] != null && options[selection].onSelection != null) options[selection].onSelection();
 			changeSelection();
@@ -121,6 +132,8 @@ class StateOptions extends State
 
 	private function changeSelection(amount = 0)
 	{
+		if (subState != null) return;
+
 		selection += amount;
 
 		if (selection < 0) selection = options.length - 1;

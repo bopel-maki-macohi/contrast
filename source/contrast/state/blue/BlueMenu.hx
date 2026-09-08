@@ -12,7 +12,7 @@ import flixel.tweens.FlxTween;
 
 class BlueMenu extends State
 {
-	private static var seenIntro:Bool = false;
+	private static var seenIntro(default, null):Bool = false;
 
 	private var prison(default, null):Sprite;
 	private var prisonSize(default, null):Float = 40.0;

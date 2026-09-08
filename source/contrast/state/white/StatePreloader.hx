@@ -1,4 +1,4 @@
-package contrast.state;
+package contrast.state.white;
 
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
@@ -131,34 +131,36 @@ class StatePreloader extends State
 			});
 			else FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 
-			FlxTimer.wait(10 + Save.data.contrast, potentialEasterEgg);
+			FlxTimer.wait((Macro.getDefined('EASTER_EGG_AINSTANT')) ? 1 : 10 + Save.data.contrast, potentialEasterEgg);
 		}
 	}
 
 	private function potentialEasterEgg()
 	{
-		return;
-
 		switch (Save.contrast)
 		{
-			// The start
-			case 0: hideUITransition();
+			case 0:
+				hideUITransition();
+				trace('The Start');
 
-			// Abnormal
-			// Only liked by certain people
-			// Blue
-			case 67: hideUITransition();
+			case 67:
+				hideUITransition();
+				trace('Abnormal');
+				trace('Only liked by certain people');
+				trace('Blue');
 
-			// Do you know what it's like to be right inbetween 2 worlds?
-			// 2 Communities?
-			// 2 Personalities?
-			// White
-			case 68: hideUITransition();
+			case 68:
+				hideUITransition();
+				trace('Do you know what it\'s like to be right inbetween 2 worlds?');
+				trace('2 Communities?');
+				trace('2 Personalities?');
+				trace('White');
 
-			// A Classic
-			// The one everyone loves
-			// Yellow
-			case 69: hideUITransition();
+			case 69:
+				hideUITransition();
+				trace('A Classic');
+				trace('The one everyone loves');
+				trace('Yellow');
 
 			//
 			//
@@ -166,39 +168,44 @@ class StatePreloader extends State
 			//
 			//
 
-			// Macadam (Earth Clone)
-			// Side: Yellow
-			case 5: hideUITransition();
+			case 5:
+				hideUITransition();
+				trace('Macadam (Earth Clone)');
+				trace('Side: Yellow');
 
-			// Macadam (Mask Clone)
-			// Side: Blue
-			// But isn't joy supposed to be Yellow
-			case 64: hideUITransition();
+			case 64:
+				hideUITransition();
+				trace('Macadam (Mask Clone)');
+				trace('Side: Blue');
+				trace('But isn\'t joy supposed to be Yellow?');
 
-			// Rustty
-			// Side: Blue
-			// Booze
-			case 30: hideUITransition();
+			case 30:
+				hideUITransition();
+				trace('Rustty');
+				trace('Side: Blue');
+				trace('Booze');
 
-			// Requavar
-			// Side: Yellow
-			case 107: hideUITransition();
+			case 107:
+				hideUITransition();
+				trace('Requavar');
+				trace('Side: Yellow');
 
-			// TracedInPurple
-			// Side: Blue
-			case 176: hideUIInstant();
+			case 176:
+				hideUIInstant();
+				trace('TracedInPurple');
+				trace('Side: Blue');
 		}
 	}
 
-	private function moveToNextState()
+	public static function moveToNextState()
 	{
-		final NEXT_STATE:String = Macro.getDefineValue('NEXT_STATE')?.toLowerCase();
+		final STATE_NEXT:String = Macro.getDefineValue('STATE_NEXT')?.toLowerCase();
 
-		if (NEXT_STATE == 'first_choice') FlxG.switchState(() -> new StateFirstChoice());
-		else if (NEXT_STATE == 'blue_options_menu') FlxG.switchState(() -> new StateOptions(true));
-		else if (NEXT_STATE == 'yellow_options_menu') FlxG.switchState(() -> new StateOptions(false));
-		else if (NEXT_STATE == 'blue_menu' || Save.data.alliance == 0) FlxG.switchState(() -> new BlueMenu());
-		else if (NEXT_STATE == 'yellow_menu' || Save.data.alliance == 1) FlxG.switchState(() -> new BlueMenu());
+		if (STATE_NEXT == 'first_choice') FlxG.switchState(() -> new StateFirstChoice());
+		else if (STATE_NEXT == 'blue_options_menu') FlxG.switchState(() -> new StateOptions(true));
+		else if (STATE_NEXT == 'yellow_options_menu') FlxG.switchState(() -> new StateOptions(false));
+		else if (STATE_NEXT == 'blue_menu' || Save.data.alliance == 0) FlxG.switchState(() -> new BlueMenu());
+		else if (STATE_NEXT == 'yellow_menu' || Save.data.alliance == 1) FlxG.switchState(() -> new BlueMenu());
 		else FlxG.switchState(() -> new StateFirstChoice());
 	}
 

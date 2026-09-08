@@ -1,4 +1,4 @@
-package contrast.state;
+package contrast.state.white;
 
 import flixel.addons.display.FlxBackdrop;
 import flixel.FlxG;
