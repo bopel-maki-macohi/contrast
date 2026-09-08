@@ -22,7 +22,7 @@ class Macro
 
 	public static macro function getDefines()
 	{
-		return macro $v{[for (define => value in Context.getDefines()) '$define=$value']};
+		return macro $v{[for (define => value in Context.getDefines()) define]};
 	}
 
 	public static macro function getDefinesAndValue()
