@@ -1,0 +1,110 @@
+Entering "BLUE SPAWN"...
+
+Checking Vessel...
+
+.
+..
+...
+
+Valid Vessel!
+
+Creating CONTRAST Copy...
+
+.
+
+Copying Base Shape...
+
+0
+0
+1
+1
+1
+1
+0
+0
+0
+0
+1
+1
+1
+1
+0
+0
+0
+0
+1
+1
+1
+1
+0
+0
+0
+1
+1
+1
+1
+1
+1
+0
+0
+1
+1
+1
+1
+1
+1
+0
+0
+1
+1
+1
+1
+1
+1
+0
+0
+0
+1
+1
+1
+1
+0
+0
+0
+0
+1
+0
+0
+1
+0
+0
+
+Color is White!
+Color Conversion unrequited...
+
+.
+
+Copying Metadata...
+
+.
+
+Name : Savior
+Creator : Adam
+CreationDate : 10-08-18C
+LastModified : 10-30-18C
+
+[[WARNING]] : Missons are disabled at BLUE via Flag Commandment 0xFF0, the "Mission" metadata has been removed
+
+Metadata copied!
+
+CONTRAST Copy Created!
+
+Removing STANDARD Copy...
+
+.
+..
+...
+
+STANDARD Copy removed!
+
+Entrance complete!

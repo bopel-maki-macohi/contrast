@@ -33,7 +33,7 @@ class SeaBackdrop extends FlxObject
 
 		sea1.velocity.set(20, 0);
 		if (sea1Velocity != null) sea1.velocity.set(sea1Velocity.x, sea1Velocity.y);
-		
+
 		sea2.velocity.set(-sea1.velocity.x, -sea1.velocity.y);
 		if (sea2Velocity != null) sea2.velocity.set(sea2Velocity.x, sea2Velocity.y);
 	}
@@ -55,7 +55,8 @@ class SeaBackdrop extends FlxObject
 		{
 			if (obj != null && obj.visible && obj.exists)
 			{
-				obj.camera = camera;
+				obj.cameras = cameras;
+				obj.scrollFactor = this.scrollFactor;
 				obj.draw();
 			}
 		}

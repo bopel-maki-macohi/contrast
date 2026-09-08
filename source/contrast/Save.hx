@@ -5,7 +5,7 @@ import flixel.FlxG;
 
 class Save
 {
-	public static final VERSION:Int = 5;
+	public static final VERSION:Int = 6;
 
 	public static var data:SaveData;
 
@@ -51,8 +51,10 @@ class Save
 		data.state ??= '';
 		data.options ??= {
 			stayInPreloader: null,
+			flashing: null,
 		};
 		data.options.stayInPreloader ??= true;
+		data.options.flashing ??= true;
 
 		FlxG.save.data.contrast = data;
 
@@ -87,4 +89,6 @@ typedef SaveData =
 typedef OptionsData =
 {
 	var stayInPreloader:Null<Bool>;
+
+	var flashing:Null<Bool>;
 }

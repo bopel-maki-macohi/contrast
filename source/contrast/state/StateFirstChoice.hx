@@ -40,7 +40,7 @@ class StateFirstChoice extends State
 
 		add(newsBackdrop = new FlxBackdrop(newsText.graphic));
 		newsBackdrop.blend = OVERLAY;
-		newsBackdrop.velocity.set(0, 800);
+		newsBackdrop.velocity.set(0, (Save.data.options.flashing) ? 800 : 100);
 		newsBackdrop.alpha = 0.125;
 
 		add(blue = new SpriteVessel('blue'));

@@ -1,5 +1,7 @@
 package contrast.state.blue;
 
+import flixel.util.FlxColor;
+import flixel.addons.display.FlxBackdrop;
 import lime.app.Application;
 import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 import flixel.math.FlxPoint;
@@ -30,12 +32,18 @@ class BlueMenu extends State
 
 	private var selection(default, null):Int = 0;
 
+	private var terminal(default, null):DataLoaderString = new DataLoaderString('data:terminal/blue.txt');
+	private var terminalText(default, null):Text;
+	private var terminalBackdrop(default, null):FlxBackdrop;
+
 	private var introComplete(default, set) = false;
 
 	private function set_introComplete(introComplete:Bool):Bool
 	{
 		title.visible = introComplete;
 		optionsContainer.visible = introComplete;
+
+		terminalBackdrop.visible = !introComplete;
 
 		return this.introComplete = introComplete;
 	}
@@ -50,6 +58,13 @@ class BlueMenu extends State
 		add(user = new SpriteVessel('white'));
 		user.screenCenter();
 		user.state = SPIN;
+
+		terminalText = new Text(0, 0, user.width, terminal.data);
+		terminalText.alignment = CENTER;
+
+		add(terminalBackdrop = new FlxBackdrop(terminalText.graphic));
+		terminalBackdrop.velocity.set(0, (Save.data.options.flashing) ? 800 : 100);
+		terminalBackdrop.screenCenter();
 
 		add(transferMask = new SeaBackdrop(Color.BLACK, FlxPoint.weak(0, -20), FlxPoint.weak(0, 20)));
 		transferMask.seas(function(s, i)
@@ -84,9 +99,6 @@ class BlueMenu extends State
 			onComplete: function(t)
 			{
 				seenIntro = introComplete = true;
-
-				terminal.close();
-				terminal = null;
 			},
 			onUpdate: function(t)
 			{
@@ -107,6 +119,7 @@ class BlueMenu extends State
 		{
 			prisonScaleLerpValue = t;
 			user.alpha = t;
+			terminalBackdrop.alpha = 1 - t;
 		});
 
 		changeSelection(0);

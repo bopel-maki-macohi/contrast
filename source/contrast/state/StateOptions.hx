@@ -26,7 +26,15 @@ class StateOptions extends State
 				else return 'PROCEED AFTER COMPLETE LOADING : ' + '${!Save.data.options.stayInPreloader}'.toUpperCase();
 			},
 			onSelection: () -> Save.data.options.stayInPreloader = !Save.data.options.stayInPreloader,
-		}
+		},
+		{
+			getLabel: (blue) ->
+			{
+				if (!blue) return 'Disable Extreme Flashing? : ${(!Save.data.options.flashing) ? 'Yes' : 'No'}';
+				else return 'EPILEPSY SUPPORT : ${(!Save.data.options.flashing) ? 'ENABLED' : 'DISABLED'}';
+			},
+			onSelection: () -> Save.data.options.flashing = !Save.data.options.flashing,
+		},
 	];
 	private var optionsTextContainer(default, null):FlxTypedSpriteContainer<Text>;
 
@@ -47,7 +55,10 @@ class StateOptions extends State
 	{
 		super.create();
 
+		FlxG.cameras.reset(optionsCam = new FlxCamera());
+
 		add(seaBG = new SeaBackdrop((isBlue) ? Color.BLUE : Color.YELLOW, FlxPoint.weak((isBlue) ? 100 : 0, (!isBlue) ? 2 : 0)));
+		seaBG.scrollFactor.set();
 
 		if (options == null || options.length < 1)
 		{
@@ -59,7 +70,6 @@ class StateOptions extends State
 			return;
 		}
 
-		FlxG.cameras.reset(optionsCam = new FlxCamera());
 		add(optionsFollow = new FlxObject());
 
 		optionsCam.follow(optionsFollow, LOCKON, 0.04);
@@ -70,13 +80,17 @@ class StateOptions extends State
 		{
 			var optionText = new Text(0, 0, 0, option.getLabel(isBlue), 16);
 			optionText.ID = i;
-			optionText.y = i * (2 * optionText.size);
+
+			optionText.screenCenter(Y);
+			if (!isBlue) optionText.screenCenter(X);
+
+			optionText.y += i * (2 * optionText.size);
 			optionsTextContainer.add(optionText);
 		}
 
-		optionsTextContainer.screenCenter();
-
 		changeSelection(0);
+
+		optionsCam.focusOn(optionsFollow.getPosition());
 	}
 
 	override function update(elapsed:Float)
@@ -84,6 +98,10 @@ class StateOptions extends State
 		super.update(elapsed);
 
 		if (FlxG.keys.justPressed.ESCAPE) leave();
+
+		if (FlxG.keys.anyJustPressed([W, UP])) changeSelection(-1);
+		if (FlxG.keys.anyJustPressed([S, DOWN])) changeSelection(1);
+
 		if (FlxG.keys.justPressed.ENTER && options.length > 0)
 		{
 			if (options[selection] != null && options[selection].onSelection != null) options[selection].onSelection();
@@ -110,9 +128,9 @@ class StateOptions extends State
 		{
 			text.text = options[text.ID].getLabel(isBlue);
 			text.color = (selection == text.ID) ? Color.WHITE : (isBlue ? Color.BLUE : Color.YELLOW);
+
+			if (!isBlue) text.screenCenter(X);
 		}
-		optionsTextContainer.screenCenter();
-		optionsFollow.setPosition(optionsTextContainer.members[selection].getGraphicMidpoint().x,
-			optionsTextContainer.members[selection].getGraphicMidpoint().y);
+		optionsFollow.setPosition(optionsTextContainer.members[selection].x, optionsTextContainer.members[selection].getGraphicMidpoint().y);
 	}
 }
