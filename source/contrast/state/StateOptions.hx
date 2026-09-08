@@ -31,7 +31,7 @@ class StateOptions extends State
 			getLabel: (blue) ->
 			{
 				if (!blue) return 'Disable Extreme Flashing? : ${(!Save.data.options.flashing) ? 'Yes' : 'No'}';
-				else return 'EPILEPSY SUPPORT : ${(!Save.data.options.flashing) ? 'ENABLED' : 'DISABLED'}';
+				else return 'EPILEPSY SUPPORT : ${(Save.data.options.flashing) ? 'ENABLED' : 'DISABLED'}';
 			},
 			onSelection: () -> Save.data.options.flashing = !Save.data.options.flashing,
 		},
