@@ -25,16 +25,16 @@ class SeaBackdrop extends FlxObject
 		sea1 = new FlxBackdrop('image:sea-desat.png');
 		sea1.blend = MULTIPLY;
 		sea1.alpha = 0.5;
-		sea1.velocity.set(20, 0);
 
 		sea2 = new FlxBackdrop('image:sea-desat.png');
 		sea2.blend = MULTIPLY;
 		sea2.alpha = 0.5;
-		sea2.velocity.set(-20, 0);
 		sea2.y += sea2.height / 2;
 
+		sea1.velocity.set(20, 0);
 		if (sea1Velocity != null) sea1.velocity.set(sea1Velocity.x, sea1Velocity.y);
-
+		
+		sea2.velocity.set(-sea1.velocity.x, -sea1.velocity.y);
 		if (sea2Velocity != null) sea2.velocity.set(sea2Velocity.x, sea2Velocity.y);
 	}
 
