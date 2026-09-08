@@ -81,8 +81,8 @@ class StateOptions extends State
 			var optionText = new Text(0, 0, 0, option.getLabel(isBlue), 16);
 			optionText.ID = i;
 
+			optionText.alignment = CENTER;
 			optionText.screenCenter(Y);
-			if (!isBlue) optionText.screenCenter(X);
 
 			optionText.y += i * (2 * optionText.size);
 			optionsTextContainer.add(optionText);
@@ -111,6 +111,8 @@ class StateOptions extends State
 
 	private function leave()
 	{
+		visible = false;
+
 		FlxG.cameras.reset();
 
 		if (isBlue) FlxG.switchState(() -> new BlueMenu());
@@ -124,13 +126,16 @@ class StateOptions extends State
 		if (selection < 0) selection = options.length - 1;
 		if (selection > options.length - 1) selection = 0;
 
+		var sT:Text = null;
+
 		for (text in optionsTextContainer)
 		{
-			text.text = options[text.ID].getLabel(isBlue);
+			text.text = ((selection == text.ID) ? '> ' : '') + options[text.ID].getLabel(isBlue);
 			text.color = (selection == text.ID) ? Color.WHITE : (isBlue ? Color.BLUE : Color.YELLOW);
 
-			if (!isBlue) text.screenCenter(X);
+			if (selection == text.ID) sT = text;
 		}
-		optionsFollow.setPosition(optionsTextContainer.members[selection].x, optionsTextContainer.members[selection].getGraphicMidpoint().y);
+
+		if (sT != null) optionsFollow.setPosition(sT.x + (FlxG.width / 4), sT.getGraphicMidpoint().y);
 	}
 }
