@@ -1,5 +1,6 @@
 package contrast.state.blue;
 
+import lime.ui.Window;
 import lime.app.Application;
 import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 import flixel.math.FlxPoint;
@@ -29,6 +30,8 @@ class BlueMenu extends State
 	private var optionsContainer(default, null):FlxTypedSpriteContainer<Text>;
 
 	private var selection(default, null):Int = 0;
+
+	private var terminal(default, null):Window;
 
 	private var introComplete(default, set) = false;
 
@@ -84,6 +87,9 @@ class BlueMenu extends State
 			onComplete: function(t)
 			{
 				seenIntro = introComplete = true;
+				
+				terminal.close();
+				terminal = null;
 			},
 			onUpdate: function(t)
 			{
@@ -97,6 +103,10 @@ class BlueMenu extends State
 			{
 				DEVICE_SOUL_TRANSFER = new Audio('sound:DEVICE_SOUL_TRANSFER.ogg');
 				DEVICE_SOUL_TRANSFER.play();
+
+				terminal = contrast.util.Window.createWindow('THRESHOLD');
+				terminal.width = 1;
+				terminal.height= 1;
 
 				introComplete = false;
 			},

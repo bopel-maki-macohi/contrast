@@ -41,6 +41,8 @@ class Main extends FlxGame
 		#end
 		
 		Window.setIcon();
+		
+
 
 		super.create(_);
 	}
