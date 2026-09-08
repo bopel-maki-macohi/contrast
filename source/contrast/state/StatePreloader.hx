@@ -25,15 +25,15 @@ class StatePreloader extends State
 	private var reminder(default, null):DataLoaderString = new DataLoaderString('debug:REMINDER.txt');
 	private var reminderText(default, null):Text;
 
-	private var progressBar:FlxBar;
+	private var progressBar(default, null):FlxBar;
 
-	private var pressEnter(default, null):Sprite;
+	private var seaBG(default, null):SeaBackdrop;
 
-	private var seaBG:SeaBackdrop;
+	private var canContinue(default, null):Bool = false;
 
 	private var UI(get, never):Array<FlxSprite>;
 
-	private function get_UI():Array<FlxSprite> return [tasksText, reminderText, progressBar, pressEnter];
+	private function get_UI():Array<FlxSprite> return [tasksText, reminderText, progressBar];
 
 	private var currentTasks(get, never):Array<String>;
 
@@ -85,14 +85,6 @@ class StatePreloader extends State
 		progressBar.screenCenter();
 		progressBar.y = FlxG.height - progressBar.height;
 
-		pressEnter = new Sprite().loadGraphic('image:ui/key-enter.png');
-		pressEnter.setPosition(FlxG.width - pressEnter.width, FlxG.height - progressBar.height - pressEnter.height);
-		pressEnter.visible = false;
-
-		#if !debug
-		add(pressEnter);
-		#end
-
 		for (preloader in preloaders)
 		{
 			preloader.tickSignal.add(onPreloaderTick);
@@ -123,7 +115,7 @@ class StatePreloader extends State
 		if (tasksText.visible)
 			tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 
-		if ((FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) && pressEnter.visible) moveToStartState();
+		if ((FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) && canContinue) moveToStartState();
 	}
 
 	private function onPreloaderTick()
@@ -132,7 +124,7 @@ class StatePreloader extends State
 
 		if (done == totalTasks)
 		{
-			pressEnter.visible = true;
+			canContinue = true;
 
 			#if !debug
 			seaBG.seas(function(s, i)
