@@ -41,42 +41,4 @@ class Window
 		else if (value is FlxSprite) setBitmapData(value.graphic.bitmap);
 		else setIcon('image:blankicon.png');
 	}
-
-	public static function createWindow(title = 'DEVICE'):lime.ui.Window
-	{
-		var attributes:WindowAttributes = {
-			allowHighDPI: true,
-			alwaysOnTop: false,
-			borderless: false,
-			// display: 0,
-			element: null,
-			frameRate: 60,
-			#if !web
-			fullscreen: false,
-			#end
-			height: 720,
-			hidden: #if munit true #else false #end,
-			maximized: false,
-			minimized: false,
-			parameters: {},
-			resizable: true,
-			title: title,
-			width: 1280,
-			x: null,
-			y: null,
-		};
-
-		attributes.context = {
-			antialiasing: 0,
-			background: 0,
-			colorDepth: 32,
-			depth: true,
-			hardware: true,
-			stencil: true,
-			type: null,
-			vsync: false
-		};
-
-		return Application.current.createWindow(attributes);
-	}
 }
