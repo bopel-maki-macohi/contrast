@@ -45,10 +45,6 @@ class StateOptions extends State
 
 			noOptionsText.screenCenter();
 
-			#if !debug
-			leave();
-			#end
-
 			return;
 		}
 	}

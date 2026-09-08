@@ -10,15 +10,7 @@ import flixel.tweens.FlxTween;
 
 class BlueMenu extends State
 {
-	private var introComplete(default, set) = false;
-
-	private function set_introComplete(introComplete:Bool):Bool
-	{
-		title.visible = introComplete;
-		optionsContainer.visible = introComplete;
-
-		return this.introComplete = introComplete;
-	}
+	private static var seenIntro:Bool = false;
 
 	private var prison(default, null):Sprite;
 	private var prisonSize(default, null):Float = 40.0;
@@ -38,15 +30,22 @@ class BlueMenu extends State
 
 	private var selection(default, null):Int = 0;
 
+	private var introComplete(default, set) = false;
+
+	private function set_introComplete(introComplete:Bool):Bool
+	{
+		title.visible = introComplete;
+		optionsContainer.visible = introComplete;
+
+		return this.introComplete = introComplete;
+	}
+
 	override function create()
 	{
 		super.create();
 
 		Window.title = 'DEVICE_BLUE';
 		Window.setIcon('red_iconVessel'); // fuck you .ico (thats what im blaming)
-
-		DEVICE_SOUL_TRANSFER = new Audio('sound:DEVICE_SOUL_TRANSFER.ogg');
-		DEVICE_SOUL_TRANSFER.play();
 
 		add(user = new SpriteVessel('white'));
 		user.screenCenter();
@@ -77,11 +76,14 @@ class BlueMenu extends State
 
 		optionsContainer.y = FlxG.height - optionsContainer.height * 2;
 
-		FlxTween.num(0, 1, 17.5, {
+		introComplete = seenIntro;
+
+		if (introComplete) prisonSize = prisonSizeTarget;
+		else FlxTween.num(0, 1, 17.5, {
 			ease: FlxEase.quintIn,
 			onComplete: function(t)
 			{
-				introComplete = true;
+				seenIntro = introComplete = true;
 			},
 			onUpdate: function(t)
 			{
@@ -93,6 +95,9 @@ class BlueMenu extends State
 			},
 			onStart: function(t)
 			{
+				DEVICE_SOUL_TRANSFER = new Audio('sound:DEVICE_SOUL_TRANSFER.ogg');
+				DEVICE_SOUL_TRANSFER.play();
+
 				introComplete = false;
 			},
 		}, function(t)
@@ -135,10 +140,8 @@ class BlueMenu extends State
 		switch (options[selection].toLowerCase())
 		{
 			case 'join':
-			case 'modify':
-				FlxG.switchState(() -> new StateOptions());
-			case 'leave':
-				Application.current.window.close();
+			case 'modify': FlxG.switchState(() -> new StateOptions());
+			case 'leave': Application.current.window.close();
 		}
 	}
 }

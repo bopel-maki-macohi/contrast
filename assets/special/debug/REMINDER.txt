@@ -2,7 +2,6 @@ TODO:
 - Debug Menu (lil why not thingy)
 
 - Yellow Menu
-- Yellow Options Menu
 
 - Screenshot plugin (why the hell not)
 
