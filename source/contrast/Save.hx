@@ -5,7 +5,7 @@ import flixel.FlxG;
 
 class Save
 {
-	public static final VERSION:Int = 4;
+	public static final VERSION:Int = 5;
 
 	public static var data:SaveData;
 
@@ -33,11 +33,8 @@ class Save
 			contrast: null,
 			alliance: null,
 			state: null,
+			options: null,
 		};
-
-		if (data.contrast == null) contrast;
-
-		FlxG.save.data.state ??= '';
 
 		save();
 
@@ -48,6 +45,14 @@ class Save
 	public static function save()
 	{
 		data.version = VERSION;
+
+		if (data.contrast == null) contrast;
+
+		data.state ??= '';
+		data.options ??= {
+			stayInPreloader: null,
+		};
+		data.options.stayInPreloader ??= true;
 
 		FlxG.save.data.contrast = data;
 
@@ -75,4 +80,11 @@ typedef SaveData =
 
 	var alliance:Null<Int>;
 	var state:String;
+
+	var options:OptionsData;
+}
+
+typedef OptionsData =
+{
+	var stayInPreloader:Null<Bool>;
 }

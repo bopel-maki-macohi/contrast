@@ -19,6 +19,8 @@ class PreloaderAssets extends Preloader
 	private function storeGraphic(bitmap:BitmapData, unique:Bool, key:String)
 	{
 		FlxG.bitmap.add(bitmap, unique, key);
-		FlxG.bitmap.get(key).persist = true;
+
+		if (FlxG.bitmap.get(key) == null) trace('$key cannot be set to persistant');
+		else FlxG.bitmap.get(key).persist = true;
 	}
 }

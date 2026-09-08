@@ -115,7 +115,11 @@ class StatePreloader extends State
 		if (tasksText.visible)
 			tasksText.text = 'Progress : ${done} / ${totalTasks}\n\nTask Multiplier: ${Preloader.taskMultiplier}\nPreloaders:\n\n${currentTasks.join('\n')}';
 
-		if ((FlxG.keys.justPressed.ANY || FlxG.mouse.justPressed) && canContinue) moveToStartState();
+		if (canContinue)
+		{
+			if (Save.data.options?.stayInPreloader && !FlxG.keys.justPressed.ANY) return;
+			moveToNextState();
+		}
 	}
 
 	private function onPreloaderTick()
@@ -190,7 +194,7 @@ class StatePreloader extends State
 		}
 	}
 
-	private function moveToStartState()
+	private function moveToNextState()
 	{
 		final NEXT_STATE:String = Macro.getDefineValue('NEXT_STATE')?.toLowerCase();
 
