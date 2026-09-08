@@ -139,7 +139,7 @@ class StatePreloader extends State
 			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 			#end
 
-			FlxTimer.wait(1, potentialEasterEgg);
+			FlxTimer.wait(10 + Save.data.contrast, potentialEasterEgg);
 		}
 	}
 
@@ -191,6 +191,10 @@ class StatePreloader extends State
 			// Requavar
 			// Side: Yellow
 			case 107: hideUITransition();
+
+			// TracedInPurple
+			// Side: Blue
+			case 176: hideUIInstant();
 		}
 	}
 

@@ -9,6 +9,9 @@ class Save
 
 	public static var data:SaveData;
 
+	/**
+	 * Use this to have `contrast` change afterwards
+	 */
 	public static var contrast(get, never):Null<Int>;
 
 	private static function get_contrast():Null<Int>
