@@ -5,20 +5,27 @@ import haxe.io.Path;
 
 class PreloaderAssetsColorable extends PreloaderAssets
 {
-	public var images:Array<String> = [
-		'vessel',
-		'ui/box',
-		'iconVessel',
-		'macadam/macadam_idle',
-		'macadam/macadam_masking',
-		'macadam/macadam_laugh'
+	public var images:Map<String, Array<String>> = [
+		'vessel' => ['white', 'blue', 'yellow'],
+		'ui/box' => ['blue'],
+		'iconVessel' => ['blue'],
+		'macadam/macadam_idle' => [],
+		'macadam/macadam_masking' => [],
+		'macadam/macadam_laugh' => [],
 	];
 
-	public var special:Array<String> = ['iconVessel',];
+	private var assetCount(get, null):Int;
+
+	private function get_assetCount():Int
+	{
+		var count = 0;
+		for (requiredColorsList in images.values()) count += requiredColorsList.length;
+		return count;
+	}
 
 	override public function new()
 	{
-		super('Assets (Colorable)', Math.floor((images.length) * Color.tableRGB.length()));
+		super('Assets (Colorable)', assetCount);
 	}
 
 	override function preload()
@@ -26,17 +33,19 @@ class PreloaderAssetsColorable extends PreloaderAssets
 		super.preload();
 
 		currentTask = 'Creating and Caching Color Variation Assets';
-		for (asset in images)
+		for (asset => colorList in images)
 		{
-			for (colorCODE => colorVALUE in Color.tableRGB)
+			final noDir = new Path(asset).file;
+
+			for (color in colorList)
 			{
-				final noDir = new Path(asset).file;
+				if (!Color.tableRGB.exists(color)) return;
 
 				performTask(function()
 				{
 					var vesselGraphic = getGraphic('image:$asset.png');
-					FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, colorVALUE);
-					storeGraphic(vesselGraphic.bitmap, true, '${colorCODE}_${noDir}');
+					FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, Color.tableRGB.get(color));
+					storeGraphic(vesselGraphic.bitmap, true, '${color}_${noDir}');
 				});
 			}
 		}
