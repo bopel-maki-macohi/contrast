@@ -22,8 +22,8 @@ class StateOptions extends State
 		{
 			getLabel: (blue) ->
 			{
-				if (!blue) return 'Automatically leave Preloader when possible? : ${(Save.data.options.stayInPreloader) ? 'Yes' : 'No'}';
-				else return 'PROCEED AFTER COMPLETE LOADING : ' + '${Save.data.options.stayInPreloader}'.toUpperCase();
+				if (!blue) return 'Automatically leave Preloader when possible? : ${(!Save.data.options.stayInPreloader) ? 'Yes' : 'No'}';
+				else return 'PROCEED AFTER COMPLETE LOADING : ' + '${!Save.data.options.stayInPreloader}'.toUpperCase();
 			},
 			onSelection: () -> Save.data.options.stayInPreloader = !Save.data.options.stayInPreloader,
 		}
