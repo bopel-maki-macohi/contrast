@@ -64,6 +64,8 @@ class StateMovingUser extends State
 			{
 				location[0]--;
 				user.x = FlxG.width + user.width;
+
+				onSectorChange(location[0], location[1]);
 			}
 		}
 
@@ -74,6 +76,8 @@ class StateMovingUser extends State
 			{
 				location[0]++;
 				user.x = -user.width;
+
+				onSectorChange(location[0], location[1]);
 			}
 		}
 		if (user.y < 0)
@@ -83,6 +87,8 @@ class StateMovingUser extends State
 			{
 				location[1]--;
 				user.y = FlxG.height + user.height;
+
+				onSectorChange(location[0], location[1]);
 			}
 		}
 
@@ -93,7 +99,11 @@ class StateMovingUser extends State
 			{
 				location[1]++;
 				user.y = -user.height;
+
+				onSectorChange(location[0], location[1]);
 			}
 		}
 	}
+
+	private function onSectorChange(x:Int, y:Int) {}
 }
