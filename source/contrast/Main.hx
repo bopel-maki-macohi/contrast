@@ -42,6 +42,10 @@ class Main extends FlxGame
 
 		Window.setIcon();
 
+		final min = 0.001;
+		FlxG.sound.applySoundCurve = (volume) -> return Math.exp(Math.log(min) * (1 - Math.max(0, Math.min(1, volume))));
+		FlxG.sound.reverseSoundCurve = (volume) -> return return 1 - (Math.log(Math.max(min, Math.min(1, x))) / Math.log(min));
+
 		super.create(_);
 	}
 

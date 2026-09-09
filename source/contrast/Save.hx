@@ -32,6 +32,9 @@ class Save
 		{
 			FlxG.save.bind('contrast', '.M');
 
+			@:privateAccess
+			FlxG.sound.loadSavedPrefs();
+
 			if (!Macro.getDefined('SAVE_CLEAR')) if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
 
 			bound = true;
