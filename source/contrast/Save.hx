@@ -25,7 +25,7 @@ class Save
 
 	public static function create()
 	{
-		if (!FlxG.save.isBound)
+		if (FlxG.save.isBound)
 		{
 			FlxG.save.bind('contrast', '.M');
 
