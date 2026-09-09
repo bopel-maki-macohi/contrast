@@ -8,9 +8,6 @@ class BlueStart extends StateMovingUser
 	{
 		super.create();
 
-        user.scaleTo(2);
-        user.screenCenter();
-
 		add(point1 = new SpriteTargetPoint('white', user));
 		point1.screenCenter();
 		point1.onSelection.add(function()
