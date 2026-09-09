@@ -61,4 +61,6 @@
 	<haxedef name="blueVersion" value="${blueVersion}"/>
 	<haxedef name="yellowVersion" value="${yellowVersion}"/>
 
+	<haxedef name="--dce" value="full" unless="debug"/>
+
 </project>
