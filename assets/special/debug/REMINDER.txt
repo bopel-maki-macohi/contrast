@@ -1,8 +1,6 @@
 TODO:
 - Debug Menu (lil why not thingy)
 
-- Yellow Menu
-
 - Screenshot plugin (why the hell not)
 
 - EASTER EGGS
