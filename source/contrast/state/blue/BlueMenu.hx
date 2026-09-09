@@ -1,5 +1,6 @@
 package contrast.state.blue;
 
+import flixel.util.FlxTimer;
 import flixel.addons.display.FlxBackdrop;
 import lime.app.Application;
 import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
@@ -39,10 +40,8 @@ class BlueMenu extends State
 
 	private function set_introComplete(introComplete:Bool):Bool
 	{
-		title.visible = introComplete;
-		optionsContainer.visible = introComplete;
-
-		terminalBackdrop.visible = !introComplete;
+		title.visible = optionsContainer.visible = introComplete && seenIntro;
+		terminalBackdrop.visible = !introComplete && !seenIntro;
 
 		return this.introComplete = introComplete;
 	}
@@ -97,7 +96,8 @@ class BlueMenu extends State
 			ease: FlxEase.quintIn,
 			onComplete: function(t)
 			{
-				seenIntro = introComplete = true;
+				seenIntro = true;
+				introComplete = true;
 			},
 			onUpdate: function(t)
 			{
@@ -131,6 +131,12 @@ class BlueMenu extends State
 		prison.scaleTo(prisonSize = FlxMath.lerp(prisonSize, prisonSizeTarget, prisonScaleLerpValue));
 		prison.screenCenter();
 
+		if (seenIntro)
+		{
+			user.scaleTo(prisonSize);
+			user.screenCenter();
+		}
+
 		if (FlxG.keys.anyJustReleased([W, UP])) changeSelection(-1);
 		if (FlxG.keys.anyJustReleased([S, DOWN])) changeSelection(1);
 		if (FlxG.keys.anyJustReleased([ENTER])) select();
@@ -155,6 +161,16 @@ class BlueMenu extends State
 		switch (options[selection].toLowerCase())
 		{
 			case 'join':
+				introComplete = false;
+				user.state = SHOCKED;
+
+				DEVICE_SOUL_TRANSFER.play(true);
+				FlxTween.tween(user, {alpha: 0}, 4, {ease: FlxEase.sineOut});
+				FlxTimer.wait(1, () ->
+				{
+					FlxG.switchState(() -> new BlueStart());
+				});
+
 			case 'modify': FlxG.switchState(() -> new StateOptions());
 			case 'leave': Application.current.window.close();
 		}

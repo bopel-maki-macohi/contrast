@@ -5,6 +5,8 @@ enum abstract VesselState(String) from String to String
 	var IDLE = 'IDLE';
 
 	var SPIN = 'SPIN';
+
+	var SHOCKED = 'SHOCKED';
 }
 
 class SpriteVessel extends Sprite
@@ -28,6 +30,7 @@ class SpriteVessel extends Sprite
 
 		animation.add(IDLE, [0]);
 		animation.add(SPIN, [0, 1], 4);
+		animation.add(SHOCKED, [2], 4);
 
 		state = IDLE;
 
