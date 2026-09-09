@@ -123,6 +123,10 @@ class StatePreloader extends State
 
 			if (FlxG.keys.justReleased.PRINTSCREEN) return;
 
+			if (FlxG.keys.anyJustReleased(FlxG.sound.volumeUpKeys)) return;
+			if (FlxG.keys.anyJustReleased(FlxG.sound.volumeDownKeys)) return;
+			if (FlxG.keys.anyJustReleased(FlxG.sound.muteKeys)) return;
+
 			moveToNextState();
 		}
 	}
