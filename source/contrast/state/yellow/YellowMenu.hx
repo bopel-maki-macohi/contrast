@@ -60,12 +60,14 @@ class YellowMenu extends State
 		colorList.remove('blue');
 		colorList.remove('white');
 		colorList.remove('black');
+		// colorList.remove('yellow'); // cause of blendmodes
 
 		for (i in 1...11)
 		{
 			var vessel = new SpriteVessel(colorList.random());
 			vessel.ID = i;
 			vessel.state = SPIN;
+			vessel.blend = ADD;
 			vessel.animation.frameIndex = FlxG.random.int(0, vessel.frames.frames.length - 1);
 			vesselGroup.add(vessel);
 
