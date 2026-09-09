@@ -142,7 +142,7 @@ class StatePreloader extends State
 
 			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 
-			final easterEggTime = Macro.getDefined('EASTER_EGG_AINSTANT') ? 1 : 10 + Save.data.contrast;
+			final easterEggTime = Macro.getDefined('EASTER_EGG_AINSTANT') ? 1 : (10 + (Save.data.contrast / 4));
 			trace('Easter Egg Wait Time: ${easterEggTime}s');
 			FlxTimer.wait(easterEggTime, potentialEasterEgg);
 		}
