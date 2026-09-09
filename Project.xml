@@ -6,13 +6,13 @@
 	<!-- _________________________ Application Settings _________________________ -->
 
 	<!-- Standard's / Game Version -->
-	<set name="whiteVersion"	value="0.20" />
+	<set name="whiteVersion"	value="0.30" />
 
 	<!-- DEVICE_BLUE's Version -->
-	<set name="blueVersion"		value="1.20b" />
+	<set name="blueVersion"		value="1.30b" />
 
 	<!-- DEVICE_YELLOW's Version -->
-	<set name="yellowVersion"	value="0.110y" />
+	<set name="yellowVersion"	value="0.120y" />
 
 	<app title="" file="contrast" main="contrast.Main" version="${whiteVersion}" company="M" />
 	<app preloader="flixel.system.FlxPreloader" />
