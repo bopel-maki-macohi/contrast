@@ -19,10 +19,10 @@ class SpriteVessel extends Sprite
 
 	private function set_state(state:VesselState):VesselState
 	{
+		if (this.state == state) return state;
+
 		this.state = state;
-
 		animation.play(state);
-
 		return state;
 	}
 

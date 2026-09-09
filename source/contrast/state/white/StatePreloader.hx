@@ -244,6 +244,7 @@ class StatePreloader extends State
 		final STATE_NEXT:String = Macro.getDefineValue('STATE_NEXT')?.toLowerCase();
 
 		if (STATE_NEXT == 'first_choice') FlxG.switchState(() -> new StateFirstChoice());
+		else if (STATE_NEXT == 'blue_start') FlxG.switchState(() -> new BlueStart());
 		else if (STATE_NEXT == 'blue_options_menu') FlxG.switchState(() -> new StateOptions(true));
 		else if (STATE_NEXT == 'yellow_options_menu') FlxG.switchState(() -> new StateOptions(false));
 		else if (STATE_NEXT == 'blue_menu' || Save.data.alliance == 0) FlxG.switchState(() -> new BlueMenu());
