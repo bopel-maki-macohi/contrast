@@ -4,7 +4,7 @@ import haxe.io.Path;
 
 class PreloaderAssetsRegular extends PreloaderAssets
 {
-	public var images:Array<String> = ['sea-desat', 'ui/arrow'];
+	public var images:Array<String> = ['ui/arrow'];
 
 	override public function new(assetCount = 0)
 	{

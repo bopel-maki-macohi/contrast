@@ -22,11 +22,11 @@ class SeaBackdrop extends FlxObject
 			colorBG.alpha = 0.25;
 		}
 
-		sea1 = new FlxBackdrop('image:$seaGraphic.png');
+		sea1 = new FlxBackdrop('image:backdrop/$seaGraphic.png');
 		sea1.blend = MULTIPLY;
 		sea1.alpha = 0.5;
 
-		sea2 = new FlxBackdrop('image:$seaGraphic.png');
+		sea2 = new FlxBackdrop('image:backdrop/$seaGraphic.png');
 		sea2.blend = MULTIPLY;
 		sea2.alpha = 0.5;
 		sea2.y += sea2.height / 2;

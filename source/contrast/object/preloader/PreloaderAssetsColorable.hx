@@ -1,6 +1,5 @@
 package contrast.object.preloader;
 
-import flixel.util.FlxColor;
 import flixel.util.FlxBitmapDataUtil;
 import haxe.io.Path;
 
@@ -9,6 +8,7 @@ class PreloaderAssetsColorable extends PreloaderAssets
 	public var images:Map<String, Array<String>> = [
 		'vessel' => Color.tableRGB.identifiers(),
 		'ui/box' => ['blue'],
+		'ui/targetpoint' => ['white'],
 		'iconVessel' => ['red', 'cyan'],
 		'macadam/macadam_idle' => [],
 		'macadam/macadam_masking' => [],
