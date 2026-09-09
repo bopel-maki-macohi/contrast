@@ -168,11 +168,16 @@ class BlueMenu extends State
 				FlxTween.tween(user, {alpha: 0}, 4, {ease: FlxEase.sineOut});
 				FlxTimer.wait(1, () ->
 				{
-					FlxG.switchState(() -> new BlueStart());
+					moveToBlueTargetState();
 				});
 
 			case 'modify': FlxG.switchState(() -> new StateOptions());
 			case 'leave': Application.current.window.close();
 		}
+	}
+
+	public static function moveToBlueTargetState()
+	{
+		FlxG.switchState(() -> new BlueStart());
 	}
 }
