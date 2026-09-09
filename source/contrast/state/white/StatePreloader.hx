@@ -1,5 +1,6 @@
 package contrast.state.white;
 
+import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.util.FlxTimer;
 import flixel.tweens.FlxEase;
@@ -59,14 +60,20 @@ class StatePreloader extends State
 		DEVICE_COMPILING.volume = 0.125;
 		DEVICE_COMPILING.play();
 
-		add(seaBG = new SeaBackdrop((!Main.debug) ? Color.BLACK : Color.GRAY, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+		add(seaBG = new SeaBackdrop(Color.WHITE, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
 
-		if (!Main.debug) seaBG.seas(function(s, i)
+		seaBG.colorBG.alpha = 0.125;
+
+		if (!Main.debug)
 		{
-			s.blend = NORMAL;
-			s.alpha = 0.05;
-		});
-		else seaBG.colorBG.alpha = 0.125;
+			seaBG.colorBG.visible = false;
+			seaBG.seas(function(s, i)
+			{
+				s.blend = NORMAL;
+				s.alpha = 0.05;
+			});
+		}
+		else seaBG.colorBG.color = Color.GRAY;
 
 		add(tasksText = new Text(0, 0, FlxG.width, ''));
 
@@ -113,6 +120,9 @@ class StatePreloader extends State
 		if (canContinue && subState == null)
 		{
 			if (Save.data.options?.stayInPreloader && !FlxG.keys.justReleased.ANY) return;
+
+			if (FlxG.keys.justReleased.PRINTSCREEN) return;
+
 			moveToNextState();
 		}
 	}
@@ -129,7 +139,8 @@ class StatePreloader extends State
 			{
 				FlxTween.tween(s, {alpha: 0.1}, 2, {ease: FlxEase.quintOut});
 			});
-			else FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
+
+			FlxTween.tween(seaBG.colorBG, {alpha: 0.25}, 2, {ease: FlxEase.quintOut});
 
 			FlxTimer.wait(Macro.getDefined('EASTER_EGG_AINSTANT') ? 1 : 10 + Save.data.contrast, potentialEasterEgg);
 		}
@@ -137,33 +148,55 @@ class StatePreloader extends State
 
 	private function potentialEasterEgg()
 	{
-		trace('Potential Easter Weg');
+		trace('Potential Easter Weg : ${Save.data.contrast}');
+
+		final tweenDuration = 12.0;
+
+		function tweenColorBG(newColor:FlxColor)
+		{
+			seaBG.colorBG.visible = true;
+
+			var currentColorBGColor = seaBG.colorBG.color;
+			currentColorBGColor.alphaFloat = seaBG.colorBG.alpha;
+
+			var targetColor:FlxColor = newColor;
+			targetColor.alphaFloat = currentColorBGColor.alphaFloat;
+
+			FlxTween.color(seaBG.colorBG, tweenDuration, currentColorBGColor, targetColor, {ease: FlxEase.sineInOut});
+		}
+
+		function addTheText(t:String)
+		{
+			var text:Text;
+			add(text = new Text(0, 0, 0, t, 32));
+
+			text.alignment = CENTER;
+			text.screenCenter();
+			text.alpha = 0;
+
+			FlxTween.tween(text, {alpha: 1}, tweenDuration, {ease: FlxEase.sineInOut});
+		}
 
 		switch (Save.contrast)
 		{
 			case 0:
 				hideUITransition();
-				trace('The Start');
 				openSubState(new SubStateStart());
 
 			case 67:
 				hideUITransition();
-				trace('Abnormal');
-				trace('Only liked by certain people');
-				trace('Blue');
+				tweenColorBG(Color.BLUE);
+				addTheText('Abnormal\nOnly liked by certain people.');
 
 			case 68:
 				hideUITransition();
-				trace('Do you know what it\'s like to be right inbetween 2 worlds?');
-				trace('2 Communities?');
-				trace('2 Personalities?');
-				trace('White');
+				tweenColorBG(Color.WHITE);
+				addTheText('Do you know what it\'s like to be right inbetween 2 worlds?\n2 Communities?\n2 Personalities?');
 
 			case 69:
 				hideUITransition();
-				trace('A Classic');
-				trace('The one everyone loves');
-				trace('Yellow');
+				tweenColorBG(Color.YELLOW);
+				addTheText('A Classic\nThe one that everyone loves');
 
 			//
 			//
