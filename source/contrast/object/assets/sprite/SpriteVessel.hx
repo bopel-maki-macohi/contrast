@@ -3,10 +3,14 @@ package contrast.object.assets.sprite;
 enum abstract VesselState(String) from String to String
 {
 	var IDLE = 'IDLE';
+	var IDLE_SIDE = 'IDLE_SIDE';
 
 	var SPIN = 'SPIN';
 
 	var SHOCKED = 'SHOCKED';
+
+	var WALK = 'WALK';
+	var WALK_SIDE = 'WALK_SIDE';
 }
 
 class SpriteVessel extends Sprite
@@ -29,8 +33,11 @@ class SpriteVessel extends Sprite
 		loadBitmapCacheGraphic('${colorCode}_vessel', true, 8, 8);
 
 		animation.add(IDLE, [0]);
+		animation.add(IDLE_SIDE, [1]);
 		animation.add(SPIN, [0, 1], 4);
 		animation.add(SHOCKED, [2], 4);
+		animation.add(WALK, [3, 0, 4, 0], 8);
+		animation.add(WALK_SIDE, [5, 1, 5, 1], 8);
 
 		state = IDLE;
 

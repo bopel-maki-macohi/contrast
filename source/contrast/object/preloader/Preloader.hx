@@ -1,5 +1,6 @@
 package contrast.object.preloader;
 
+import flixel.FlxG;
 import flixel.util.FlxSignal;
 
 class Preloader extends Obj
@@ -57,7 +58,15 @@ class Preloader extends Obj
 	{
 		if (process == null) return;
 
-		process();
-		done++;
+		try
+		{
+			process();
+			done++;
+		}
+		catch (e)
+		{
+			trace('$label : $e');
+			FlxG.log.warn('$label : $e');
+		}
 	}
 }

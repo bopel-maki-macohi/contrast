@@ -1,3 +1,3 @@
 package contrast.state.blue;
 
-class BlueStart extends State {}
+class BlueStart extends StateMovingUser {}
