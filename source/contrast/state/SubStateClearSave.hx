@@ -81,6 +81,7 @@ class SubStateClearSave extends SubState
 				{
 					Save.data = null;
 					Save.create();
+					Save.data.alliance = isBlue ? 0 : 1;
 				}
 
 				close();

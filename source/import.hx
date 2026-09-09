@@ -16,7 +16,8 @@ import contrast.state.white.*;
 import contrast.state.yellow.*;
 import contrast.util.*;
 import contrast.util.tool.*;
-#end
 
+using contrast.util.tool.ArrayTool;
+#end
 using contrast.util.tool.GeneralTool;
 using contrast.util.tool.MapTool;

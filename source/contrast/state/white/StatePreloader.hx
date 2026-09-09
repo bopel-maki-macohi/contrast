@@ -60,7 +60,7 @@ class StatePreloader extends State
 		DEVICE_COMPILING.volume = 0.125;
 		DEVICE_COMPILING.play();
 
-		add(seaBG = new SeaBackdrop(Color.WHITE, FlxPoint.weak(-10, 0), FlxPoint.weak(10, 0)));
+		add(seaBG = new SeaBackdrop(Color.WHITE, FlxPoint.weak(-10, 0)));
 
 		seaBG.colorBG.alpha = 0.125;
 
@@ -243,7 +243,7 @@ class StatePreloader extends State
 		else if (STATE_NEXT == 'blue_options_menu') FlxG.switchState(() -> new StateOptions(true));
 		else if (STATE_NEXT == 'yellow_options_menu') FlxG.switchState(() -> new StateOptions(false));
 		else if (STATE_NEXT == 'blue_menu' || Save.data.alliance == 0) FlxG.switchState(() -> new BlueMenu());
-		else if (STATE_NEXT == 'yellow_menu' || Save.data.alliance == 1) FlxG.switchState(() -> new BlueMenu());
+		else if (STATE_NEXT == 'yellow_menu' || Save.data.alliance == 1) FlxG.switchState(() -> new YellowMenu());
 		else FlxG.switchState(() -> new StateFirstChoice());
 	}
 

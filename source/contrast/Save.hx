@@ -7,7 +7,10 @@ class Save
 {
 	public static final VERSION:Int = 6;
 
-	public static var data:SaveData;
+	@:allow(contrast.state.SubStateClearSave)
+	public static var data(default, null):SaveData;
+
+	public static var bound(default, null):Bool = false;
 
 	/**
 	 * Use this to have `contrast` change afterwards
@@ -25,13 +28,15 @@ class Save
 
 	public static function create()
 	{
-		if (FlxG.save.isBound)
+		if (!bound)
 		{
 			FlxG.save.bind('contrast', '.M');
 
 			if (!Macro.getDefined('SAVE_CLEAR')) if (FlxG.save.data.contrast != null) data = FlxG.save.data.contrast;
+
+			bound = true;
 		}
-		
+
 		data ??= {
 			version: null,
 			contrast: null,

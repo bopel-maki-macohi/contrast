@@ -64,8 +64,6 @@ class StateOptions extends State
 	{
 		super.create();
 
-		FlxG.cameras.reset(optionsCam = new FlxCamera());
-
 		add(seaBG = new SeaBackdrop((isBlue) ? Color.BLUE : Color.YELLOW, FlxPoint.weak((isBlue) ? 100 : 0, (!isBlue) ? 2 : 0)));
 		seaBG.scrollFactor.set();
 
@@ -81,6 +79,7 @@ class StateOptions extends State
 
 		persistentUpdate = true;
 
+		FlxG.cameras.reset(optionsCam = new FlxCamera());
 		add(optionsFollow = new FlxObject());
 
 		optionsCam.follow(optionsFollow, LOCKON, 0.04);
@@ -129,12 +128,12 @@ class StateOptions extends State
 
 	private function leave()
 	{
-		visible = false;
+		optionsTextContainer.visible = false;
 
 		FlxG.cameras.reset();
 
 		if (isBlue) FlxG.switchState(() -> new BlueMenu());
-		else FlxG.switchState(() -> new BlueMenu());
+		else FlxG.switchState(() -> new YellowMenu());
 	}
 
 	private function changeSelection(amount = 0)

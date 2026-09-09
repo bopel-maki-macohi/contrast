@@ -1,14 +1,15 @@
 package contrast.object.preloader;
 
+import flixel.util.FlxColor;
 import flixel.util.FlxBitmapDataUtil;
 import haxe.io.Path;
 
 class PreloaderAssetsColorable extends PreloaderAssets
 {
 	public var images:Map<String, Array<String>> = [
-		'vessel' => ['white', 'blue', 'yellow'],
+		'vessel' => Color.tableRGB.identifiers(),
 		'ui/box' => ['blue'],
-		'iconVessel' => ['red'],
+		'iconVessel' => ['red', 'cyan'],
 		'macadam/macadam_idle' => [],
 		'macadam/macadam_masking' => [],
 		'macadam/macadam_laugh' => [],
@@ -39,7 +40,7 @@ class PreloaderAssetsColorable extends PreloaderAssets
 
 			for (color in colorList)
 			{
-				if (!Color.tableRGB.exists(color)) return;
+				if (!Color.tableRGB.exists(color)) continue;
 
 				performTask(function()
 				{
@@ -49,5 +50,12 @@ class PreloaderAssetsColorable extends PreloaderAssets
 				});
 			}
 		}
+		currentTask = 'Creating and Caching Special Color Variation Assets';
+		performTask(function()
+		{
+			var vesselGraphic = getGraphic('image:iconVessel.png');
+			FlxBitmapDataUtil.replaceColor(vesselGraphic.bitmap, Color.WHITE, 0xFF00FFFF);
+			storeGraphic(vesselGraphic.bitmap, true, 'cyan_iconVessel');
+		});
 	}
 }

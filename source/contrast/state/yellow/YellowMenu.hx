@@ -1,22 +1,16 @@
-package contrast.state.blue;
+package contrast.state.yellow;
 
 import flixel.addons.display.FlxBackdrop;
 import lime.app.Application;
 import flixel.group.FlxSpriteContainer.FlxTypedSpriteContainer;
 import flixel.math.FlxPoint;
 import flixel.FlxG;
-import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 
-class BlueMenu extends State
+class YellowMenu extends State
 {
 	private static var seenIntro(default, null):Bool = false;
-
-	private var prison(default, null):Sprite;
-	private var prisonSize(default, null):Float = 40.0;
-	private var prisonSizeTarget(default, null):Float = 2.0;
-	private var prisonScaleLerpValue(default, null):Float = 0.0;
 
 	private var DEVICE_SOUL_TRANSFER(default, null):Audio;
 
@@ -24,14 +18,16 @@ class BlueMenu extends State
 
 	private var user(default, null):SpriteVessel;
 
+	private var vesselGroup(default, null):FlxTypedSpriteContainer<SpriteVessel>;
+
 	private var title(default, null):Text;
 
-	private var options(default, null) = ['JOIN', 'MODIFY', 'LEAVE'];
+	private var options(default, null) = ['Join', 'Options', 'Exit'];
 	private var optionsContainer(default, null):FlxTypedSpriteContainer<Text>;
 
 	private var selection(default, null):Int = 0;
 
-	private var terminal(default, null):DataLoaderString = new DataLoaderString('data:terminal/blue.txt');
+	private var terminal(default, null):DataLoaderString = new DataLoaderString('data:terminal/yellow.txt');
 	private var terminalText(default, null):Text;
 	private var terminalBackdrop(default, null):FlxBackdrop;
 
@@ -51,12 +47,39 @@ class BlueMenu extends State
 	{
 		super.create();
 
-		Window.title = 'DEVICE_BLUE';
-		Window.setIcon('red_iconVessel'); // fuck you .ico (thats what im blaming)
+		Window.title = 'DEVICE_YELLOW';
+		Window.setIcon('cyan_iconVessel'); // fuck you .ico (thats what im blaming)
 
 		add(user = new SpriteVessel('white'));
 		user.screenCenter();
 		user.state = SPIN;
+
+		vesselGroup = new FlxTypedSpriteContainer<SpriteVessel>();
+
+		var colorList = Color.tableRGB.identifiers();
+		colorList.remove('blue');
+		colorList.remove('white');
+		colorList.remove('black');
+
+		for (i in 1...11)
+		{
+			var vessel = new SpriteVessel(colorList.random());
+			vessel.ID = i;
+			vessel.state = SPIN;
+			vessel.animation.frameIndex = FlxG.random.int(0, vessel.frames.frames.length - 1);
+			vesselGroup.add(vessel);
+
+			vessel.alpha = 0.5;
+
+			vessel.screenCenter();
+			vessel.x = (vessel.width * 4) + i * vessel.width;
+
+			if (i > 5)
+			{
+				vessel.x += FlxG.width / 2;
+				vessel.flipX = true;
+			}
+		}
 
 		terminalText = new Text(0, 0, user.width, terminal.data);
 		terminalText.alignment = CENTER;
@@ -65,15 +88,17 @@ class BlueMenu extends State
 		terminalBackdrop.velocity.set(0, (Save.data.options.flashing) ? 800 : 100);
 		terminalBackdrop.screenCenter();
 
-		add(transferMask = new SeaBackdrop(Color.BLACK, FlxPoint.weak(0, -20)));
+		add(transferMask = new SeaBackdrop(Color.BLACK, FlxPoint.weak(-20, 0), null, 'sea-fulldesat'));
 		transferMask.seas(function(s, i)
 		{
-			s.alpha = 1;
+			s.blend = ADD;
+			s.alpha = 0.125;
+			s.color = Color.YELLOW;
 		});
 
-		add(prison = new Sprite().loadBitmapCacheGraphic('blue_box').scaleTo(prisonSize));
+		add(vesselGroup);
 
-		add(title = new Text(0, 0, 0, 'CONTRAST v${Main.blueVersion}', 32));
+		add(title = new Text(0, 0, 0, 'CONTRAST v${Main.yellowVersion}', 32));
 		title.screenCenter(X);
 		title.y = title.height * 2;
 
@@ -88,13 +113,12 @@ class BlueMenu extends State
 			optionsContainer.add(optionText);
 		}
 
-		optionsContainer.y = FlxG.height - optionsContainer.height * 2;
+		optionsContainer.y = FlxG.height - optionsContainer.height * 3;
 
 		introComplete = seenIntro;
 
-		if (introComplete) prisonSize = prisonSizeTarget;
-		else FlxTween.num(0, 1, 17.5, {
-			ease: FlxEase.quintIn,
+		if (!introComplete) FlxTween.num(0, 1, 17.5, {
+			ease: FlxEase.sineInOut,
 			onComplete: function(t)
 			{
 				seenIntro = introComplete = true;
@@ -116,7 +140,6 @@ class BlueMenu extends State
 			},
 		}, function(t)
 		{
-			prisonScaleLerpValue = t;
 			user.alpha = t;
 			terminalBackdrop.alpha = 1 - t;
 		});
@@ -127,9 +150,6 @@ class BlueMenu extends State
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-
-		prison.scaleTo(prisonSize = FlxMath.lerp(prisonSize, prisonSizeTarget, prisonScaleLerpValue));
-		prison.screenCenter();
 
 		if (FlxG.keys.anyJustReleased([W, UP])) changeSelection(-1);
 		if (FlxG.keys.anyJustReleased([S, DOWN])) changeSelection(1);
@@ -145,7 +165,7 @@ class BlueMenu extends State
 		if (selection < 0) selection = options.length - 1;
 		if (selection > options.length - 1) selection = 0;
 
-		for (text in optionsContainer) text.color = (selection == text.ID) ? Color.WHITE : Color.BLUE;
+		for (text in optionsContainer) text.color = (selection == text.ID) ? Color.WHITE : Color.YELLOW;
 	}
 
 	private function select()
@@ -155,8 +175,8 @@ class BlueMenu extends State
 		switch (options[selection].toLowerCase())
 		{
 			case 'join':
-			case 'modify': FlxG.switchState(() -> new StateOptions());
-			case 'leave': Application.current.window.close();
+			case 'options': FlxG.switchState(() -> new StateOptions());
+			case 'exit': Application.current.window.close();
 		}
 	}
 }
